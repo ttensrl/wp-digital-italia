@@ -27,9 +27,9 @@ $admin_transparent_url = get_theme_mod('site_contact_administration_transparent'
                     <div class="col-sm-12">
                         <div class="it-brand-wrapper">
                             <a href="#">
-                                <?php if ( $white_logo ) : ?>
+                                <?php if ($white_logo) : ?>
                                     <div class="it-brand-text">
-                                        <img src="<?php echo esc_url( $white_logo ); ?>" alt="TODO" height="120">
+                                        <img src="<?php echo esc_url($white_logo); ?>" alt="TODO" height="120">
                                     </div>
                                 <?php endif; ?>
                             </a>
@@ -39,39 +39,16 @@ $admin_transparent_url = get_theme_mod('site_contact_administration_transparent'
             </section>
             <section>
                 <div class="row">
-                    <?php if(has_nav_menu('footer-one') && !empty(get_menu_by_location('footer-one'))): ?>
-                    <div class="col-lg-3 col-md-3 col-sm-6 pb-2">
-                        <h4 class="h6 text-uppercase">
-                            <?php echo wp_get_nav_menu_name('footer-one') ?? ''; ?>
-                        </h4>
-                        <div class="link-list-wrapper">
-                            <?php
-                            wp_nav_menu(
-                                [
-                                    'theme_location' => 'footer-one',
-                                    'container' => false,
-                                    'menu_class' => 'list-item',
-                                    'fallback_cb' => '__return_false',
-                                    'items_wrap' => '<ul id="%1$s" class="footer-list link-list clearfix %2$s">%3$s</ul>',
-                                    'depth' => 1,
-                                    'walker' => new bootstrap_5_wp_simple_menu_walker()
-                                ]
-                            );
-                            ?>
-                        </div>
-                    </div>
-                    <?php endif; ?>
-                    <?php if(has_nav_menu('footer-two') && !empty(get_menu_by_location('footer-two'))): ?>
-                    <div class="col-lg-3 col-md-3 col-sm-6 pb-2">
-                        <h4 class="h6 text-uppercase">
-                            <?php echo wp_get_nav_menu_name('footer-two') ?? ''; ?>
-                        </h4>
-                        <div class="link-list-wrapper">
-                            <ul class="footer-list link-list clearfix">
+                    <?php if (has_nav_menu('footer-one') && !empty(get_menu_by_location('footer-one'))): ?>
+                        <div class="col-lg-3 col-md-3 col-sm-6 pb-2">
+                            <h4 class="h6 text-uppercase">
+                                <?php echo wp_get_nav_menu_name('footer-one') ?? ''; ?>
+                            </h4>
+                            <div class="link-list-wrapper">
                                 <?php
                                 wp_nav_menu(
                                     [
-                                        'theme_location' => 'footer-two',
+                                        'theme_location' => 'footer-one',
                                         'container' => false,
                                         'menu_class' => 'list-item',
                                         'fallback_cb' => '__return_false',
@@ -81,57 +58,80 @@ $admin_transparent_url = get_theme_mod('site_contact_administration_transparent'
                                     ]
                                 );
                                 ?>
-                            </ul>
+                            </div>
                         </div>
-                    </div>
                     <?php endif; ?>
-                    <?php if(has_nav_menu('footer-three') && !empty(get_menu_by_location('footer-three'))): ?>
-                    <div class="col-lg-3 col-md-3 col-sm-6 pb-2">
-                        <h4 class="h6 text-uppercase">
-                            <?php echo wp_get_nav_menu_name('footer-three') ?? ''; ?>
-                        </h4>
-                        <div class="link-list-wrapper">
-                            <ul class="footer-list link-list clearfix">
-                                <?php
-                                wp_nav_menu(
-                                    [
-                                        'theme_location' => 'footer-three',
-                                        'container' => false,
-                                        'menu_class' => 'list-item',
-                                        'fallback_cb' => '__return_false',
-                                        'items_wrap' => '<ul id="%1$s" class="footer-list link-list clearfix %2$s">%3$s</ul>',
-                                        'depth' => 1,
-                                        'walker' => new bootstrap_5_wp_simple_menu_walker()
-                                    ]
-                                );
-                                ?>
-                            </ul>
+                    <?php if (has_nav_menu('footer-two') && !empty(get_menu_by_location('footer-two'))): ?>
+                        <div class="col-lg-3 col-md-3 col-sm-6 pb-2">
+                            <h4 class="h6 text-uppercase">
+                                <?php echo wp_get_nav_menu_name('footer-two') ?? ''; ?>
+                            </h4>
+                            <div class="link-list-wrapper">
+                                <ul class="footer-list link-list clearfix">
+                                    <?php
+                                    wp_nav_menu(
+                                        [
+                                            'theme_location' => 'footer-two',
+                                            'container' => false,
+                                            'menu_class' => 'list-item',
+                                            'fallback_cb' => '__return_false',
+                                            'items_wrap' => '<ul id="%1$s" class="footer-list link-list clearfix %2$s">%3$s</ul>',
+                                            'depth' => 1,
+                                            'walker' => new bootstrap_5_wp_simple_menu_walker()
+                                        ]
+                                    );
+                                    ?>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
                     <?php endif; ?>
-                    <?php if(has_nav_menu('footer-four') && !empty(get_menu_by_location('footer-four'))): ?>
-                    <div class="col-lg-3 col-md-3 col-sm-6">
-                        <h4 class="h6 text-uppercase">
-                            <?php echo wp_get_nav_menu_name('footer-four') ?? ''; ?>
-                        </h4>
-                        <div class="link-list-wrapper">
-                            <ul class="footer-list link-list clearfix">
-                                <?php
-                                wp_nav_menu(
-                                    [
-                                        'theme_location' => 'footer-four',
-                                        'container' => false,
-                                        'menu_class' => 'list-item',
-                                        'fallback_cb' => '__return_false',
-                                        'items_wrap' => '<ul id="%1$s" class="footer-list link-list clearfix %2$s">%3$s</ul>',
-                                        'depth' => 1,
-                                        'walker' => new bootstrap_5_wp_simple_menu_walker()
-                                    ]
-                                );
-                                ?>
-                            </ul>
+                    <?php if (has_nav_menu('footer-three') && !empty(get_menu_by_location('footer-three'))): ?>
+                        <div class="col-lg-3 col-md-3 col-sm-6 pb-2">
+                            <h4 class="h6 text-uppercase">
+                                <?php echo wp_get_nav_menu_name('footer-three') ?? ''; ?>
+                            </h4>
+                            <div class="link-list-wrapper">
+                                <ul class="footer-list link-list clearfix">
+                                    <?php
+                                    wp_nav_menu(
+                                        [
+                                            'theme_location' => 'footer-three',
+                                            'container' => false,
+                                            'menu_class' => 'list-item',
+                                            'fallback_cb' => '__return_false',
+                                            'items_wrap' => '<ul id="%1$s" class="footer-list link-list clearfix %2$s">%3$s</ul>',
+                                            'depth' => 1,
+                                            'walker' => new bootstrap_5_wp_simple_menu_walker()
+                                        ]
+                                    );
+                                    ?>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
+                    <?php endif; ?>
+                    <?php if (has_nav_menu('footer-four') && !empty(get_menu_by_location('footer-four'))): ?>
+                        <div class="col-lg-3 col-md-3 col-sm-6">
+                            <h4 class="h6 text-uppercase">
+                                <?php echo wp_get_nav_menu_name('footer-four') ?? ''; ?>
+                            </h4>
+                            <div class="link-list-wrapper">
+                                <ul class="footer-list link-list clearfix">
+                                    <?php
+                                    wp_nav_menu(
+                                        [
+                                            'theme_location' => 'footer-four',
+                                            'container' => false,
+                                            'menu_class' => 'list-item',
+                                            'fallback_cb' => '__return_false',
+                                            'items_wrap' => '<ul id="%1$s" class="footer-list link-list clearfix %2$s">%3$s</ul>',
+                                            'depth' => 1,
+                                            'walker' => new bootstrap_5_wp_simple_menu_walker()
+                                        ]
+                                    );
+                                    ?>
+                                </ul>
+                            </div>
+                        </div>
                     <?php endif; ?>
                 </div>
             </section>
@@ -141,24 +141,29 @@ $admin_transparent_url = get_theme_mod('site_contact_administration_transparent'
                         <h4>
                             <a href="#" title="Vai alla pagina: Amministrazione">Amministrazione trasparente</a>
                         </h4>
-                        <p>I dati personali pubblicati sono riutilizzabili solo alle condizioni previste dalla direttiva comunitaria 2003/98/CE e dal d.lgs. 36/2006</p>
+                        <p>I dati personali pubblicati sono riutilizzabili solo alle condizioni previste dalla direttiva
+                            comunitaria 2003/98/CE e dal d.lgs. 36/2006</p>
                     </div>
                     <div class="col-lg-4 col-md-4 pb-2">
                         <p>
-                            <strong><?php echo esc_html($city); ?></strong><br />
+                            <strong><?php echo esc_html($city); ?></strong><br/>
                             <?php echo esc_html($address); ?> - <?php echo esc_html($phone); ?>
                         </p>
                         <div class="link-list-wrapper">
                             <ul class="footer-list link-list clearfix">
                                 <?php if (!empty($urp_url)) : ?>
                                     <li>
-                                        <a class="list-item" href="<?php echo esc_url($urp_url); ?>" title="Vai alla pagina: URP - Ufficio Relazioni con il Pubblico">URP - Ufficio Relazioni con il Pubblico</a>
+                                        <a class="list-item" href="<?php echo esc_url($urp_url); ?>"
+                                           title="Vai alla pagina: URP - Ufficio Relazioni con il Pubblico">URP -
+                                            Ufficio Relazioni con il Pubblico</a>
                                     </li>
                                 <?php endif; ?>
 
                                 <?php if (!empty($admin_transparent_url)) : ?>
                                     <li>
-                                        <a class="list-item" href="<?php echo esc_url($admin_transparent_url); ?>" title="Vai alla pagina: Amministrazione Trasparente">Amministrazione Trasparente</a>
+                                        <a class="list-item" href="<?php echo esc_url($admin_transparent_url); ?>"
+                                           title="Vai alla pagina: Amministrazione Trasparente">Amministrazione
+                                            Trasparente</a>
                                     </li>
                                 <?php endif; ?>
                             </ul>
@@ -197,28 +202,49 @@ $admin_transparent_url = get_theme_mod('site_contact_administration_transparent'
             </section>
         </div>
     </div>
-    <?php if(has_nav_menu('footer-bottom') && !empty(get_menu_by_location('footer-bottom'))): ?>
     <div class="it-footer-small-prints clearfix">
         <div class="container">
             <h3 class="visually-hidden"><?php echo wp_get_nav_menu_name('footer-bottom') ?? ''; ?></h3>
-            <ul class="it-footer-small-prints-list list-inline mb-0 d-flex flex-column flex-md-row">
-                <?php
-                wp_nav_menu(
-                    [
-                        'theme_location' => 'footer-bottom',
-                        'container' => false,
-                        'menu_class' => 'list-inline-item',
-                        'fallback_cb' => '__return_false',
-                        'items_wrap' => '<ul id="%1$s" class="footer-list link-list clearfix %2$s">%3$s</ul>',
-                        'depth' => 1,
-                        'walker' => new bootstrap_5_wp_inline_menu_walker()
-                    ]
-                );
-                ?>
-            </ul>
+            <!-- Wrapper per il menu e il credit -->
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap">
+                <ul class="it-footer-small-prints-list list-inline mb-0">
+                    <?php
+                    wp_nav_menu(
+                        [
+                            'theme_location' => 'footer-bottom',
+                            'container' => false,
+                            'menu_class' => 'list-inline-item',
+                            'fallback_cb' => '__return_false',
+                            'items_wrap' => '<ul id="%1$s" class="footer-list link-list clearfix %2$s">%3$s</ul>',
+                            'depth' => 1,
+                            'walker' => new bootstrap_5_wp_inline_menu_walker()
+                        ]
+                    );
+                    ?>
+                </ul>
+                <!-- Credit -->
+                <div class="credit text-white">
+                    <a class="p-2 text-white" href="https://github.com/ttensrl/wp-digital-italia" target="_blank">
+                        <?php echo __(
+                            'Realizzato con il Tema',
+                            'digital-italia'
+                        ); ?>
+                        <span class="strong"><?php echo __(
+                                'Digital Italia',
+                                'digital-italia'
+                            ); ?></span>
+                        <svg class="icon icon-sm icon-white align-top">
+                            <use xlink:href="<?php echo get_template_directory_uri() . '/bootstrap-italia/svg/sprites.svg#it-github'; ?>"></use>
+                        </svg>
+                        <span class="visually-hidden">GitHub</span>
+                    </a>
+                </div>
+                <!-- /Credit -->
+
+            </div>
         </div>
     </div>
-    <?php endif; ?>
+
 </footer>
 
 <a href="#" aria-hidden="true" tabindex="-1" data-attribute="back-to-top" class="back-to-top">
