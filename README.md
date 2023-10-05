@@ -19,7 +19,7 @@ Il tema WordPress "Digital Italia" è basato sul framework Bootstrap Italia e è
 2. Carica il tema nella cartella `wp-content/themes/` della tua installazione di WordPress.
 3. Attiva il tema dalla sezione "Aspetto" nel tuo pannello di controllo WordPress.
 
-# Personalizzazione del Tema "Digital Italia"
+# Personalizzazione del Tema "Digital Italia" s
 
 Puoi personalizzare il tema "Digital Italia" attraverso il pannello di personalizzazione di WordPress. Questo ti consente di apportare modifiche al logo, ai colori principali e ad altri aspetti del design per adattarli al tuo progetto.
 
