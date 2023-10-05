@@ -137,8 +137,8 @@ function digital_italia_widgets_init() {
 			'name'          => esc_html__( 'Sidebar', 'digital-italia' ),
 			'id'            => 'sidebar-1',
 			'description'   => esc_html__( 'Add widgets here.', 'digital-italia' ),
-			'before_widget' => '<section id="%1$s" class="widget %2$s">',
-			'after_widget'  => '</section>',
+			'before_widget' => '<section id="%1$s" class="widget %2$s sidebar-wrapper it-line-right-side border-0"><div class="sidebar-linklist-wrapper"><div class="link-list-wrapper">',
+			'after_widget'  => '</div></div></section>',
 			'before_title'  => '<h2 class="widget-title">',
 			'after_title'   => '</h2>',
 		)
@@ -206,7 +206,7 @@ endif;
 add_action( 'wp_enqueue_scripts', function() {
     global $wpdb;
     wp_enqueue_style('bootstrap-style', get_template_directory_uri() . '/bootstrap-italia/css/bootstrap-italia.min.css');
-    wp_enqueue_style('bootstrap-style', get_template_directory_uri() . '/bootstrap-italia/css/bootstrap-italia-comuni.min.css');
+    //wp_enqueue_style('booking-style', get_template_directory_uri() . '/wp-booking.css');
     // BUNDLE
     wp_register_script( 'boostrap-bundle', get_template_directory_uri() . '/bootstrap-italia/js/bootstrap-italia.bundle.min.js', [], _S_VERSION, true );
     $bundle_options = [
