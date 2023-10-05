@@ -1,70 +1,112 @@
-[![Build Status](https://travis-ci.org/Automattic/_s.svg?branch=master)](https://travis-ci.org/Automattic/_s)
+# Digital Italia WordPress Theme
 
-_s
-===
+## Descrizione
 
-Hi. I'm a starter theme called `_s`, or `underscores`, if you like. I'm a theme meant for hacking so don't use me as a Parent Theme. Instead try turning me into the next, most awesome, WordPress theme out there. That's what I'm here for.
+Il tema WordPress "Digital Italia" è basato sul framework Bootstrap Italia e è progettato per creare un sito web conforme agli standard del design italiano per il web. Questo tema offre una solida base per la creazione di siti web governativi, istituzionali o corporate con un'attenzione particolare alla conformità alle linee guida dell'AgID.
 
-My ultra-minimal CSS might make me look like theme tartare but that means less stuff to get in your way when you're designing your awesome theme. Here are some of the other more interesting things you'll find here:
+## Funzionalità Principali
 
-* A modern workflow with a pre-made command-line interface to turn your project into a more pleasant experience.
-* A just right amount of lean, well-commented, modern, HTML5 templates.
-* A custom header implementation in `inc/custom-header.php`. Just add the code snippet found in the comments of `inc/custom-header.php` to your `header.php` template.
-* Custom template tags in `inc/template-tags.php` that keep your templates clean and neat and prevent code duplication.
-* Some small tweaks in `inc/template-functions.php` that can improve your theming experience.
-* A script at `js/navigation.js` that makes your menu a toggled dropdown on small screens (like your phone), ready for CSS artistry. It's enqueued in `functions.php`.
-* 2 sample layouts in `sass/layouts/` made using CSS Grid for a sidebar on either side of your content. Just uncomment the layout of your choice in `sass/style.scss`.
-Note: `.no-sidebar` styles are automatically loaded.
-* Smartly organized starter CSS in `style.css` that will help you to quickly get your design off the ground.
-* Full support for `WooCommerce plugin` integration with hooks in `inc/woocommerce.php`, styling override woocommerce.css with product gallery features (zoom, swipe, lightbox) enabled.
-* Licensed under GPLv2 or later. :) Use it to make something cool.
+- Integrazione completa con Bootstrap Italia per un design moderno e responsivo.
+- Compatibilità con le linee guida dell'AgID per l'accessibilità e l'usabilità.
+- Layout flessibile e personalizzabile per adattarsi alle esigenze del tuo progetto.
+- Pannelli di personalizzazione per il controllo del logo, del colore e di altri aspetti del design.
+- Supporto per widget personalizzati per l'aggiunta di contenuti aggiuntivi.
+- Ottimizzato per la velocità e la sicurezza.
 
-Installation
----------------
+## Installazione
 
-### Requirements
+1. Scarica il tema "Digital Italia" dal repository GitHub.
+2. Carica il tema nella cartella `wp-content/themes/` della tua installazione di WordPress.
+3. Attiva il tema dalla sezione "Aspetto" nel tuo pannello di controllo WordPress.
 
-`_s` requires the following dependencies:
+# Personalizzazione del Tema "Digital Italia"
 
-- [Node.js](https://nodejs.org/)
-- [Composer](https://getcomposer.org/)
+Puoi personalizzare il tema "Digital Italia" attraverso il pannello di personalizzazione di WordPress. Questo ti consente di apportare modifiche al logo, ai colori principali e ad altri aspetti del design per adattarli al tuo progetto.
 
-### Quick Start
+## Creazione di un Child Theme
 
-Clone or download this repository, change its name to something else (like, say, `megatherium-is-awesome`), and then you'll need to do a six-step find and replace on the name in all the templates.
+Per personalizzare ulteriormente il tema "Digital Italia" e garantire che le tue modifiche sopravvivano agli aggiornamenti del tema principale, puoi creare un child theme. Ecco come farlo:
 
-1. Search for `'_s'` (inside single quotations) to capture the text domain and replace with: `'megatherium-is-awesome'`.
-2. Search for `_s_` to capture all the functions names and replace with: `megatherium_is_awesome_`.
-3. Search for `Text Domain: _s` in `style.css` and replace with: `Text Domain: megatherium-is-awesome`.
-4. Search for <code>&nbsp;_s</code> (with a space before it) to capture DocBlocks and replace with: <code>&nbsp;Megatherium_is_Awesome</code>.
-5. Search for `_s-` to capture prefixed handles and replace with: `megatherium-is-awesome-`.
-6. Search for `_S_` (in uppercase) to capture constants and replace with: `MEGATHERIUM_IS_AWESOME_`.
+1. **Crea una Cartella per il Child Theme**: Nella directory dei temi del tuo sito WordPress (di solito `wp-content/themes/`), crea una nuova cartella per il tuo child theme. Ad esempio, puoi chiamarla "digital-italia-child".
 
-Then, update the stylesheet header in `style.css`, the links in `footer.php` with your own information and rename `_s.pot` from `languages` folder to use the theme's slug. Next, update or delete this readme.
+2. **Crea un File style.css**: All'interno della cartella del tuo child theme, crea un file chiamato `style.css`. In questo file, specifica le informazioni del tuo child theme. Ecco un esempio:
 
-### Setup
+    ```css
+    /*
+    Theme Name: Digital Italia Child
+    Template: digital-italia
+    Version: 1.0.0
+    */
 
-To start using all the tools that come with `_s`  you need to install the necessary Node.js and Composer dependencies :
+    /* Aggiungi le tue personalizzazioni CSS qui */
+    ```
 
-```sh
-$ composer install
-$ npm install
-```
+   Assicurati di sostituire "Digital Italia Child" con il nome desiderato per il tuo child theme e "digital-italia" con il nome del tema genitore che desideri ereditare.
 
-### Available CLI commands
+3. **Attiva il Tuo Child Theme**: Vai al pannello di amministrazione di WordPress e attiva il tuo child theme dalla sezione "Aspetto" > "Temi".
 
-`_s` comes packed with CLI commands tailored for WordPress theme development :
+4. **Aggiungi Personalizzazioni**: Ora puoi aggiungere le tue personalizzazioni CSS o altri file al tuo child theme. Qualsiasi file con lo stesso nome e percorso del tema genitore verrà sovrascritto dal tuo child theme.
 
-- `composer lint:wpcs` : checks all PHP files against [PHP Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/php/).
-- `composer lint:php` : checks all PHP files for syntax errors.
-- `composer make-pot` : generates a .pot file in the `languages/` directory.
-- `npm run compile:css` : compiles SASS files to css.
-- `npm run compile:rtl` : generates an RTL stylesheet.
-- `npm run watch` : watches all SASS files and recompiles them to css when they change.
-- `npm run lint:scss` : checks all SASS files against [CSS Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/css/).
-- `npm run lint:js` : checks all JavaScript files against [JavaScript Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/javascript/).
-- `npm run bundle` : generates a .zip archive for distribution, excluding development and system files.
+## Personalizzazione dell'oggetto JavaScript `cookiesDispatcher`
 
-Now you're ready to go! The next step is easy to say, but harder to do: make an awesome WordPress theme. :)
+Il tema "Digital Italia" include un oggetto JavaScript chiamato `cookiesDispatcher`, che gestisce le preferenze dei cookie scelte dall'utente. Se desideri personalizzare questo oggetto, segui questi passaggi:
 
-Good luck!
+1. **Deregistra lo Script Predefinito**:
+
+   Nel tuo child theme, puoi deregistrare lo script predefinito `cookies-dispatcher` utilizzando la funzione `wp_deregister_script()`. Assicurati di farlo all'interno del file `functions.php` del tuo child theme. Ecco un esempio:
+
+    ```php
+    function deregister_default_cookies_dispatcher() {
+        wp_deregister_script('cookies-dispatcher');
+    }
+    add_action('wp_enqueue_scripts', 'deregister_default_cookies_dispatcher', 100);
+    ```
+
+2. **Registra il Tuo Script Personalizzato**:
+
+   Dopo aver deregistrato lo script predefinito, puoi registrare il tuo script personalizzato all'interno del file `functions.php` del tuo child theme utilizzando `wp_enqueue_script()`. Ecco un esempio:
+
+    ```php
+    function register_custom_cookies_dispatcher() {
+        wp_enqueue_script('custom-cookies-dispatcher', get_stylesheet_directory_uri() . '/js/custom-cookies-dispatcher.js', array('jquery'), '1.0.0', true);
+    }
+    add_action('wp_enqueue_scripts', 'register_custom_cookies_dispatcher');
+    ```
+
+   Assicurati di sostituire `'custom-cookies-dispatcher'` con un nome univoco per il tuo script personalizzato e specifica il percorso corretto al tuo file JavaScript all'interno del child theme.
+
+3. **Personalizza l'oggetto `cookiesDispatcher`**:
+
+   Ora puoi personalizzare l'oggetto `cookiesDispatcher` nel tuo file JavaScript personalizzato (`custom-cookies-dispatcher.js`). Implementa le funzioni `activate` e `fallback` per gestire le callback delle scelte dell'utente per ciascun cookie specifico. Ecco un esempio:
+
+    ```javascript
+    const cookiesDispatcher = {
+        cookies_settings_consent_analytics: {
+            activate: function () {
+                // Codice per l'attivazione dei cookie di analytics
+            },
+            fallback: function () {
+                // Codice per il fallback dei cookie di analytics
+            }
+        },
+        // Altri cookie settings...
+    }
+    ```
+
+   Personalizza le funzioni `activate` e `fallback` in base alle esigenze del tuo progetto e delle tue preferenze relative ai cookie.
+
+Con questi passaggi, hai creato un child theme per personalizzare il tema "Digital Italia" e hai personalizzato l'oggetto JavaScript `cookiesDispatcher` per gestire le preferenze dei cookie nel tuo sito WordPress.
+
+## Contributi
+
+Se desideri contribuire allo sviluppo del tema "Digital Italia", sei il benvenuto! Puoi inviare suggerimenti, segnalare problemi o proporre modifiche tramite il repository GitHub del tema.
+
+## Licenza
+
+Il tema "Digital Italia" è distribuito con licenza open source sotto i termini della licenza MIT. Puoi utilizzarlo, modificarlo e distribuirlo gratuitamente.
+
+## Contatti
+
+Per ulteriori informazioni o assistenza, contatta il nostro team all'indirizzo email [luca.terribili@tten.it](mailto:luca.terribili@tten.it).
+
+Grazie per aver scelto il tema "Digital Italia" per il tuo sito web WordPress!

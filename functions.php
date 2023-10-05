@@ -137,8 +137,8 @@ function digital_italia_widgets_init() {
 			'name'          => esc_html__( 'Sidebar', 'digital-italia' ),
 			'id'            => 'sidebar-1',
 			'description'   => esc_html__( 'Add widgets here.', 'digital-italia' ),
-			'before_widget' => '<section id="%1$s" class="widget %2$s">',
-			'after_widget'  => '</section>',
+			'before_widget' => '<section id="%1$s" class="widget %2$s sidebar-wrapper it-line-right-side border-0"><div class="sidebar-linklist-wrapper"><div class="link-list-wrapper">',
+			'after_widget'  => '</div></div></section>',
 			'before_title'  => '<h2 class="widget-title">',
 			'after_title'   => '</h2>',
 		)
@@ -204,8 +204,9 @@ if ( ! function_exists( 'get_menu_by_location' ) ):
 endif;
 
 add_action( 'wp_enqueue_scripts', function() {
+    global $wpdb;
     wp_enqueue_style('bootstrap-style', get_template_directory_uri() . '/bootstrap-italia/css/bootstrap-italia.min.css');
-    wp_enqueue_style('bootstrap-style', get_template_directory_uri() . '/bootstrap-italia/css/bootstrap-italia-comuni.min.css');
+    //wp_enqueue_style('booking-style', get_template_directory_uri() . '/wp-booking.css');
     // BUNDLE
     wp_register_script( 'boostrap-bundle', get_template_directory_uri() . '/bootstrap-italia/js/bootstrap-italia.bundle.min.js', [], _S_VERSION, true );
     $bundle_options = [
@@ -223,11 +224,11 @@ add_action( 'wp_enqueue_scripts', function() {
      * OPZIONI COOKIES
      */
     $cookies_vars = [];
-    $cookies_options = ['enable_analytics_setting', 'enable_marketing_cookies_setting', 'enable_social_cookies_setting', 'enable_youtube_cookies_setting'];
-    foreach ($cookies_options as $cookies_option) {
-        $option = get_theme_mod($cookies_option, false);
-        if($option) {
-            $cookies_vars[] = $cookies_option;
+    $prefix = 'cookies_settings_consent_';
+    $options = get_theme_mods();
+    foreach ($options as $option_name => $option_value) {
+        if (str_starts_with($option_name, $prefix)) {
+            $cookies_vars[] = $option_name;
         }
     }
     wp_localize_script( 'cookies-settings', 'cookiesVars', $cookies_vars );
@@ -239,6 +240,10 @@ add_action( 'wp_enqueue_scripts', function() {
     ];
     wp_localize_script( 'cookies-settings', 'cookiesSettings', $cookies_settings);
     wp_enqueue_script('cookies-settings');
+    /**
+     * DISPATCHER
+     */
+    wp_enqueue_script( 'cookies-dispatcher', get_template_directory_uri() . '/js/cookies-dispatcher.js', ['cookies-settings'], _S_VERSION, true);
 });
 
 add_action( 'customize_register', function( $wp_customize ) {
@@ -383,42 +388,41 @@ add_action( 'customize_register', function( $wp_customize ) {
     ));
 
     // Aggiungi i controlli per le checkboxes
-    $wp_customize->add_setting( 'enable_analytics_setting', array(
+    $wp_customize->add_setting( 'cookies_settings_consent_analytics', array(
         'default' => false,
     ) );
-    $wp_customize->add_control( 'enable_analytics_setting', array(
+    $wp_customize->add_control( 'cookies_settings_consent_analytics', array(
         'label'   => 'Abilita cookies di Analytics',
         'section' => 'cookies_settings_section',
         'type'    => 'checkbox',
     ) );
 
-    $wp_customize->add_setting( 'enable_marketing_cookies_setting', array(
+    $wp_customize->add_setting( 'cookies_settings_consent_marketing', array(
         'default' => false,
     ) );
-    $wp_customize->add_control( 'enable_marketing_cookies_setting', array(
+    $wp_customize->add_control( 'cookies_settings_consent_marketing', array(
         'label'   => 'Abilita cookies di Marketing',
         'section' => 'cookies_settings_section',
         'type'    => 'checkbox',
     ) );
 
-    $wp_customize->add_setting( 'enable_social_cookies_setting', array(
+    $wp_customize->add_setting( 'cookies_settings_consent_social', array(
         'default' => false,
     ) );
-    $wp_customize->add_control( 'enable_social_cookies_setting', array(
+    $wp_customize->add_control( 'cookies_settings_consent_social', array(
         'label'   => 'Abilita cookies Social',
         'section' => 'cookies_settings_section',
         'type'    => 'checkbox',
     ) );
 
-    $wp_customize->add_setting( 'enable_youtube_cookies_setting', array(
+    $wp_customize->add_setting( 'cookies_settings_consent_youtube', array(
         'default' => false,
     ) );
 
-    $wp_customize->add_control( 'enable_youtube_cookies_setting', array(
+    $wp_customize->add_control( 'cookies_settings_consent_youtube', array(
         'label'   => 'Abilita cookies di YouTube',
         'section' => 'cookies_settings_section',
         'type'    => 'checkbox',
     ) );
-
 });
 

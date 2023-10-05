@@ -14,7 +14,7 @@
 
 get_header();
 ?>
-    <main id="primary" class="container-fluid">
+    <main id="primary" class="container-fluid py-5">
                 <?php
                 while (have_posts()) :
                     the_post();
