@@ -9,7 +9,7 @@
 
 ?>
 
-<section class="no-results not-found">
+<section <?php post_class('no-results not-found px-3'); ?>>
 	<header class="page-header">
 		<h1 class="page-title"><?php esc_html_e( 'Nothing Found', 'digital-italia' ); ?></h1>
 	</header><!-- .page-header -->

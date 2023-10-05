@@ -14,9 +14,9 @@
 
 get_header();
 ?>
-    <main id="primary" class="container-fluid">
+    <main id="primary" class="container-fluid py-5">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-lg">
 
                 <?php
                 while (have_posts()) :
@@ -33,7 +33,7 @@ get_header();
                 ?>
             </div>
             <!-- SIDEBAR -->
-            <div class="col-md-4">
+            <div class="col-lg-4 col-xxl-auto">
                 <?php get_sidebar(); ?>
             </div>
         </div>
