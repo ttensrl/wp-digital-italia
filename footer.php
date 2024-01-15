@@ -166,35 +166,41 @@ $admin_transparent_url = get_theme_mod('site_contact_administration_transparent'
                                 </ul>
                             </div>
                         </div>
-                        <div class="col-md-auto ms-md-auto pb-2">
-                            <h4>
-                                <a href="#" title="Vai alla pagina: Seguici su">Seguici su</a>
-                            </h4>
-                            <ul class="list-inline text-start social">
-                                <?php
-                                // Verifica se i campi dei social sono popolati
-                                $facebook_url = get_theme_mod('site_socials_fb');
-                                $instagram_url = get_theme_mod('site_socials_instagram');
-                                $twitter_url = get_theme_mod('site_socials_twitter');
+                        <?php
+                        // Verifica se almeno un campo dei social è popolato
+                        $facebook_url = get_theme_mod('site_socials_fb');
+                        $instagram_url = get_theme_mod('site_socials_instagram');
+                        $twitter_url = get_theme_mod('site_socials_twitter');
 
-                                // Facebook
-                                if (!empty($facebook_url)) {
-                                    echo '<li class="list-inline-item"><a class="p-2 text-white" href="' . esc_url($facebook_url) . '" target="_blank"><svg class="icon icon-sm icon-white align-top"><use xlink:href="' . esc_url(get_template_directory_uri()) . '/bootstrap-italia/svg/sprites.svg#it-facebook"></use></svg><span class="visually-hidden">Facebook</span></a></li>';
-                                }
+                        if (!empty($facebook_url) && !empty($instagram_url) && !empty($twitter_url)) {
+                            ?>
+                            <div class="col-md-auto ms-md-auto pb-2">
+                                <h4>
+                                    <a href="#" title="Vai alla pagina: Seguici su">Seguici su</a>
+                                </h4>
+                                <ul class="list-inline text-start social">
+                                    <?php
+                                    // Facebook
+                                    if (!empty($facebook_url)) {
+                                        echo '<li class="list-inline-item"><a class="p-2 text-white" href="' . esc_url($facebook_url) . '" target="_blank"><svg class="icon icon-sm icon-white align-top"><use xlink:href="' . esc_url(get_template_directory_uri()) . '/bootstrap-italia/svg/sprites.svg#it-facebook"></use></svg><span class="visually-hidden">Facebook</span></a></li>';
+                                    }
 
-                                // Instagram
-                                if (!empty($instagram_url)) {
-                                    echo '<li class="list-inline-item"><a class="p-2 text-white" href="' . esc_url($instagram_url) . '" target="_blank"><svg class="icon icon-sm icon-white align-top"><use xlink:href="' . esc_url(get_template_directory_uri()) . '/bootstrap-italia/svg/sprites.svg#it-instagram"></use></svg><span class="visually-hidden">Instagram</span></a></li>';
-                                }
+                                    // Instagram
+                                    if (!empty($instagram_url)) {
+                                        echo '<li class="list-inline-item"><a class="p-2 text-white" href="' . esc_url($instagram_url) . '" target="_blank"><svg class="icon icon-sm icon-white align-top"><use xlink:href="' . esc_url(get_template_directory_uri()) . '/bootstrap-italia/svg/sprites.svg#it-instagram"></use></svg><span class="visually-hidden">Instagram</span></a></li>';
+                                    }
 
-                                // Twitter
-                                if (!empty($twitter_url)) {
-                                    echo '<li class="list-inline-item"><a class="p-2 text-white" href="' . esc_url($twitter_url) . '" target="_blank"><svg class="icon icon-sm icon-white align-top"><use xlink:href="' . esc_url(get_template_directory_uri()) . '/bootstrap-italia/svg/sprites.svg#it-twitter"></use></svg><span class="visually-hidden">Twitter</span></a></li>';
-                                }
-                                ?>
-                            </ul>
+                                    // Twitter
+                                    if (!empty($twitter_url)) {
+                                        echo '<li class="list-inline-item"><a class="p-2 text-white" href="' . esc_url($twitter_url) . '" target="_blank"><svg class="icon icon-sm icon-white align-top"><use xlink:href="' . esc_url(get_template_directory_uri()) . '/bootstrap-italia/svg/sprites.svg#it-twitter"></use></svg><span class="visually-hidden">Twitter</span></a></li>';
+                                    }
+                                    ?>
+                                </ul>
+                            </div>
+                            <?php
+                        }
+                        ?>
 
-                        </div>
                     </div>
                 </section>
             </div>

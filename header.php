@@ -91,7 +91,7 @@ $belong_administration_logo = get_theme_mod( 'belong_administration_logo' );
                                     $twitter_url = get_theme_mod('site_socials_twitter');
                                     $instagram_url = get_theme_mod('site_socials_instagram');
 
-                                    if (!empty($facebook_url) || !empty($twitter_url) || !empty($instagram_url)) {
+                                    if (!empty($facebook_url) && !empty($twitter_url) && !empty($instagram_url)) {
                                         ?>
                                         <div class="it-socials d-none d-md-flex">
                                             <span>Seguici su:</span>
