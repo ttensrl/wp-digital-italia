@@ -85,32 +85,39 @@ $belong_administration_logo = get_theme_mod( 'belong_administration_logo' );
                                     </a>
                                 </div>
                                 <div class="it-right-zone">
-                                    <div class="it-socials d-none d-md-flex">
-                                        <span>Seguici su:</span>
-                                        <ul>
-                                            <?php
-                                            // Verifica se i campi dei social sono popolati
-                                            $facebook_url = get_theme_mod('site_socials_fb');
-                                            $twitter_url = get_theme_mod('site_socials_twitter');
-                                            $instagram_url = get_theme_mod('site_socials_instagram');
+                                    <?php
+                                    // Verifica se almeno un campo dei social è popolato
+                                    $facebook_url = get_theme_mod('site_socials_fb');
+                                    $twitter_url = get_theme_mod('site_socials_twitter');
+                                    $instagram_url = get_theme_mod('site_socials_instagram');
 
-                                            // Facebook
-                                            if (!empty($facebook_url)) {
-                                                echo '<li class="ms-3"><a href="' . esc_url($facebook_url) . '" aria-label="Facebook" target="_blank"><svg class="icon ms-0"><use href="' . esc_url(get_template_directory_uri()) . '/bootstrap-italia/svg/sprites.svg#it-facebook"></use></svg></a></li>';
-                                            }
+                                    if (!empty($facebook_url) || !empty($twitter_url) || !empty($instagram_url)) {
+                                        ?>
+                                        <div class="it-socials d-none d-md-flex">
+                                            <span>Seguici su:</span>
+                                            <ul>
+                                                <?php
+                                                // Facebook
+                                                if (!empty($facebook_url)) {
+                                                    echo '<li class="ms-3"><a href="' . esc_url($facebook_url) . '" aria-label="Facebook" target="_blank"><svg class="icon ms-0"><use href="' . esc_url(get_template_directory_uri()) . '/bootstrap-italia/svg/sprites.svg#it-facebook"></use></svg></a></li>';
+                                                }
 
-                                            // Twitter
-                                            if (!empty($twitter_url)) {
-                                                echo '<li class="ms-3"><a href="' . esc_url($twitter_url) . '" aria-label="Twitter" target="_blank"><svg class="icon ms-0"><use href="' . esc_url(get_template_directory_uri()) . '/bootstrap-italia/svg/sprites.svg#it-twitter"></use></svg></a></li>';
-                                            }
+                                                // Twitter
+                                                if (!empty($twitter_url)) {
+                                                    echo '<li class="ms-3"><a href="' . esc_url($twitter_url) . '" aria-label="Twitter" target="_blank"><svg class="icon ms-0"><use href="' . esc_url(get_template_directory_uri()) . '/bootstrap-italia/svg/sprites.svg#it-twitter"></use></svg></a></li>';
+                                                }
 
-                                            // Instagram
-                                            if (!empty($instagram_url)) {
-                                                echo '<li class="ms-3"><a href="' . esc_url($instagram_url) . '" aria-label="Instagram" target="_blank"><svg class="icon ms-0"><use href="' . esc_url(get_template_directory_uri()) . '/bootstrap-italia/svg/sprites.svg#it-instagram"></use></svg></a></li>';
-                                            }
-                                            ?>
-                                        </ul>
-                                    </div>
+                                                // Instagram
+                                                if (!empty($instagram_url)) {
+                                                    echo '<li class="ms-3"><a href="' . esc_url($instagram_url) . '" aria-label="Instagram" target="_blank"><svg class="icon ms-0"><use href="' . esc_url(get_template_directory_uri()) . '/bootstrap-italia/svg/sprites.svg#it-instagram"></use></svg></a></li>';
+                                                }
+                                                ?>
+                                            </ul>
+                                        </div>
+                                        <?php
+                                    }
+                                    ?>
+
 
                                     <div class="it-search-wrapper no-print">
                                         <span class="d-none d-md-block">Cerca</span>
