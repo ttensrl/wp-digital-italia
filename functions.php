@@ -2,6 +2,7 @@
 require_once(get_stylesheet_directory() . '/classes/bootstrap_5_wp_main_menu_walker.php');
 require_once(get_stylesheet_directory() . '/classes/bootstrap_5_wp_simple_menu_walker.php');
 require_once(get_stylesheet_directory() . '/classes/bootstrap_5_wp_inline_menu_walker.php');
+require_once(get_stylesheet_directory() . '/inc/block-functions.php');
 
 /**
  * digital-italia functions and definitions
@@ -50,6 +51,8 @@ function digital_italia_setup() {
 		* @link https://developer.wordpress.org/themes/functionality/featured-images-post-thumbnails/
 		*/
 	add_theme_support( 'post-thumbnails' );
+
+    add_image_size('loop-thumb', 640, 420, true);
 
 	// This theme uses wp_nav_menu() in one location.
 	register_nav_menus(
@@ -149,7 +152,8 @@ add_action( 'widgets_init', 'digital_italia_widgets_init' );
 /**
  * Enqueue scripts and styles.
  */
-function digital_italia_scripts() {
+function digital_italia_scripts(): void
+{
 	wp_enqueue_style( 'digital-italia-style', get_stylesheet_uri(), array(), _S_VERSION );
 	wp_style_add_data( 'digital-italia-style', 'rtl', 'replace' );
 
@@ -425,4 +429,15 @@ add_action( 'customize_register', function( $wp_customize ) {
         'type'    => 'checkbox',
     ) );
 });
+
+add_filter( 'image_size_names_choose', function ($sizes){
+    return array_merge( $sizes, array(
+        'loop-thumb' => __( 'Loop Thumb' ),
+    ) );
+});
+
+
+
+// Hook to override the block render callback
+add_action( 'init', 'digital_italia_render_blocks');
 

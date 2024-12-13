@@ -6,14 +6,15 @@
  *
  * @package digital-italia
  */
-
+$hide_title = $args['hide_title'] ?? false;
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class('px-3'); ?>>
     <header class="entry-header text-center">
         <?php
-        // Aggiunta della classe 'text-primary' per applicare il colore primario di Bootstrap al titolo
-        the_title('<h1 class="entry-title text-primary">', '</h1>');
+        if (!$hide_title) {
+            the_title('<h1 class="entry-title text-primary">', '</h1>');
+        }
         ?>
     </header><!-- .entry-header -->
 
