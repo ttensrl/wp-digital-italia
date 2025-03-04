@@ -41,7 +41,7 @@ Per personalizzare ulteriormente il tema "Digital Italia" e garantire che le tue
     /* Aggiungi le tue personalizzazioni CSS qui */
     ```
 
-   Assicurati di sostituire "Digital Italia Child" con il nome desiderato per il tuo child theme e "digital-italia" con il nome del tema genitore che desideri ereditare.
+   Assicurati di sostituire "Digital Italia Child" con il nome desiderato per il tuo child theme e "wp-digital-italia" con il nome del tema genitore che desideri ereditare.
 
 3. **Attiva il Tuo Child Theme**: Vai al pannello di amministrazione di WordPress e attiva il tuo child theme dalla sezione "Aspetto" > "Temi".
 
