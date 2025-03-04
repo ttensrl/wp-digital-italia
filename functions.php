@@ -1,8 +1,8 @@
 <?php
-require_once(get_stylesheet_directory() . '/classes/bootstrap_5_wp_main_menu_walker.php');
-require_once(get_stylesheet_directory() . '/classes/bootstrap_5_wp_simple_menu_walker.php');
-require_once(get_stylesheet_directory() . '/classes/bootstrap_5_wp_inline_menu_walker.php');
-require_once(get_stylesheet_directory() . '/inc/block-functions.php');
+require_once(get_template_directory() . '/classes/bootstrap_5_wp_main_menu_walker.php');
+require_once(get_template_directory() . '/classes/bootstrap_5_wp_simple_menu_walker.php');
+require_once(get_template_directory() . '/classes/bootstrap_5_wp_inline_menu_walker.php');
+require_once(get_template_directory() . '/inc/block-functions.php');
 
 /**
  * digital-italia functions and definitions
