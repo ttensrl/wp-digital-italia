@@ -3,6 +3,8 @@ require_once(get_template_directory() . '/classes/bootstrap_5_wp_main_menu_walke
 require_once(get_template_directory() . '/classes/bootstrap_5_wp_simple_menu_walker.php');
 require_once(get_template_directory() . '/classes/bootstrap_5_wp_inline_menu_walker.php');
 require_once(get_template_directory() . '/inc/block-functions.php');
+require_once(get_template_directory() . '/inc/cmb2.php');
+require_once(get_template_directory() . '/inc/utils.php');
 
 /**
  * digital-italia functions and definitions
@@ -201,7 +203,7 @@ if ( ! function_exists( 'get_menu_by_location' ) ):
         $theme_locations = get_nav_menu_locations();
         $menu_obj = get_term( $theme_locations[ $theme_location ], 'nav_menu' );
         if ( $menu_obj ) {
-            return wp_get_nav_menu_items($menu_obj->term_id, $args);
+            return wp_get_nav_menu_items($menu_obj->term_id, array());
         }
         return [];
     }
@@ -248,6 +250,13 @@ add_action( 'wp_enqueue_scripts', function() {
      * DISPATCHER
      */
     wp_enqueue_script( 'cookies-dispatcher', get_template_directory_uri() . '/js/cookies-dispatcher.js', ['cookies-settings'], _S_VERSION, true);
+
+    // Enqueue script per il pulsante prenota servizio
+    wp_register_script( 'servizio-booking', get_template_directory_uri() . '/js/booking.js', ['jquery', 'boostrap-bundle'], _S_VERSION, true );
+    wp_enqueue_script( 'servizio-booking' );
+
+    // Enqueue booking CSS (stile minimale per calendario e slot)
+    wp_enqueue_style( 'booking-style', get_template_directory_uri() . '/assets/css/booking.css', array(), _S_VERSION );
 });
 
 add_action( 'customize_register', function( $wp_customize ) {
@@ -440,4 +449,172 @@ add_filter( 'image_size_names_choose', function ($sizes){
 
 // Hook to override the block render callback
 add_action( 'init', 'digital_italia_render_blocks');
+
+/**
+ * Define booking system constants BEFORE loading classes
+ */
+if (!defined('SWB_PLUGIN_URL')) {
+    define('SWB_PLUGIN_URL', get_template_directory_uri() . '/inc/includes/');
+}
+
+/**
+ * Include custom post types
+ */
+require_once(get_template_directory() . '/inc/admin/tipologie/tipologia_servizio.php');
+require_once(get_template_directory() . '/inc/admin/tipologie/tipologia_appuntamento.php');
+
+
+/**
+ * Include booking system
+ */
+require_once(get_template_directory() . '/inc/includes/class-swb-slot-manager.php');
+require_once(get_template_directory() . '/inc/includes/class-swb-closures-manager.php');
+require_once(get_template_directory() . '/inc/includes/class-swb-modals.php');
+require_once(get_template_directory() . '/inc/includes/class-swb-calendar-view.php');
+require_once(get_template_directory() . '/inc/includes/class-swb-admin.php');
+require_once(get_template_directory() . '/inc/includes/class-swb-api.php');
+
+/**
+ * Initialize booking system
+ */
+function digital_italia_booking_init() {
+    $slot_manager = new SWB_Slot_Manager();
+    $slot_manager->init();
+
+    $admin = new SWB_Admin();
+    $admin->init();
+
+    $api = new SWB_API();
+    $api->init();
+}
+add_action('after_setup_theme', 'digital_italia_booking_init', 20);
+
+/**
+ * Include verifica menu (per debug)
+ */
+if (is_admin()) {
+    require_once(get_template_directory() . '/verifica-menu-appuntamenti.php');
+}
+
+/**
+ * Create booking slots table on theme activation
+ */
+function digital_italia_create_booking_table() {
+    global $wpdb;
+    $charset_collate = $wpdb->get_charset_collate();
+
+    // Table for slots
+    $table_name = $wpdb->prefix . 'booking_slots';
+
+    $sql = "CREATE TABLE IF NOT EXISTS $table_name (
+        id bigint(20) NOT NULL AUTO_INCREMENT,
+        service_id bigint(20) NOT NULL,
+        uo_id bigint(20) NOT NULL,
+        slot_date date NOT NULL,
+        slot_start_time time NOT NULL,
+        slot_end_time time NOT NULL,
+        max_bookings int(11) DEFAULT 1,
+        current_bookings int(11) DEFAULT 0,
+        is_active tinyint(1) DEFAULT 1,
+        created_at datetime DEFAULT CURRENT_TIMESTAMP,
+        PRIMARY KEY  (id),
+        KEY service_id (service_id),
+        KEY uo_id (uo_id),
+        KEY slot_date (slot_date),
+        KEY is_active (is_active)
+    ) $charset_collate;";
+
+    require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+    dbDelta($sql);
+
+    // Table for reservations
+    $reservations_table = $wpdb->prefix . 'booking_reservations';
+
+    $sql2 = "CREATE TABLE IF NOT EXISTS $reservations_table (
+        id bigint(20) NOT NULL AUTO_INCREMENT,
+        slot_id bigint(20) NOT NULL,
+        user_email varchar(255) NOT NULL,
+        user_name varchar(255) NOT NULL,
+        user_phone varchar(50),
+        booking_date datetime DEFAULT CURRENT_TIMESTAMP,
+        status enum('pending','confirmed','cancelled') DEFAULT 'pending',
+        notes text,
+        PRIMARY KEY  (id),
+        KEY slot_id (slot_id),
+        KEY user_email (user_email),
+        KEY status (status)
+    ) $charset_collate;";
+
+    dbDelta($sql2);
+}
+add_action('after_switch_theme', 'digital_italia_create_booking_table');
+
+// Fallback per funzioni DCI (definite nel tema child) - evitare errori se il child non è attivo
+if (!function_exists('dci_filter_uo_with_services')) {
+    /**
+     * Filtra le unità organizzative mostrando solo quelle che offrono almeno un servizio
+     *
+     * @param array $unita_organizzative Array di post objects delle unità organizzative
+     * @return array Array filtrato di unità organizzative che offrono servizi
+     */
+    function dci_filter_uo_with_services($unita_organizzative) {
+        if (empty($unita_organizzative) || !is_array($unita_organizzative)) {
+            return array();
+        }
+
+        $filtered = array();
+
+        foreach ($unita_organizzative as $uo) {
+            if (!is_object($uo) || !isset($uo->ID)) {
+                continue;
+            }
+
+            // Recupera i servizi offerti dalla UO
+            $servizi_offerti_raw = get_post_meta($uo->ID, '_dci_unita_organizzativa_elenco_servizi_offerti', true);
+            $servizi_offerti = is_string($servizi_offerti_raw)
+                ? maybe_unserialize($servizi_offerti_raw)
+                : $servizi_offerti_raw;
+
+            // Se ha almeno un servizio, la includiamo
+            if (!empty($servizi_offerti) && is_array($servizi_offerti) && count($servizi_offerti) > 0) {
+                $filtered[] = $uo;
+                if (function_exists('error_log')) {
+                    error_log('DCI: UO "' . $uo->post_title . '" (ID: ' . $uo->ID . ') offre ' . count($servizi_offerti) . ' servizi');
+                }
+            } else {
+                if (function_exists('error_log')) {
+                    error_log('DCI: UO "' . $uo->post_title . '" (ID: ' . $uo->ID . ') ESCLUSA - nessun servizio offerto');
+                }
+            }
+        }
+
+        if (function_exists('error_log')) {
+            error_log('DCI: Filtrate ' . count($filtered) . ' UO su ' . count($unita_organizzative) . ' totali');
+        }
+
+        return $filtered;
+    }
+}
+
+if (!function_exists('dci_uo_offers_service')) {
+    /**
+     * Verifica se una UO offre un servizio specifico
+     *
+     * @param int $uo_id ID dell'unità organizzativa
+     * @param int $service_id ID del servizio
+     * @return bool True se la UO offre il servizio
+     */
+    function dci_uo_offers_service($uo_id, $service_id) {
+        $servizi_offerti_raw = get_post_meta($uo_id, '_dci_unita_organizzativa_elenco_servizi_offerti', true);
+        $servizi_offerti = is_string($servizi_offerti_raw)
+            ? maybe_unserialize($servizi_offerti_raw)
+            : $servizi_offerti_raw;
+
+        if (empty($servizi_offerti) || !is_array($servizi_offerti)) {
+            return false;
+        }
+
+        return in_array($service_id, array_map('intval', $servizi_offerti));
+    }
+}
 

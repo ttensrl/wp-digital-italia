@@ -1,0 +1,142 @@
+/* booking.css
+   Regole minime per riprodurre lo stile degli "slots" e del calendario
+   basate sul tema precedente, prediligendo classi Bootstrap Italia e
+   mantenendo alta accessibilità.
+*/
+
+/* Container griglia giorni */
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
+}
+
+/* Stilizzo i button generati (btn / btn-outline-primary) */
+.calendar-grid button.btn {
+  display: block;
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid #e6e6e6;
+  padding: 0.6rem 0.4rem;
+  text-align: center;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: box-shadow 0.15s ease, transform 0.08s ease;
+  color: inherit;
+}
+
+/* Fallback per elementi con classi "day" nel caso vengano utilizzati */
+.calendar-grid .day {
+  background: transparent;
+}
+
+.calendar-grid button.btn[aria-disabled="true"],
+.calendar-grid button.btn.disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.calendar-grid button.btn:focus,
+.calendar-grid button.btn:hover {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transform: translateY(-2px);
+  outline: none;
+}
+
+/* stato selezionato usa palette Bootstrap (primary) */
+.calendar-grid button.btn.btn-primary,
+.calendar-grid button.btn[aria-pressed="true"],
+.calendar-grid button.btn.selected {
+  background-color: #0d6efd; /* bootstrap primary */
+  color: #fff;
+  border-color: #0d6efd;
+}
+
+/* Slots grid (adattata dal vecchio tema) */
+.slots-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 12px;
+}
+
+@media (max-width: 576px) {
+  .slots-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 8px;
+  }
+}
+
+/* Pulsante slot orario (stile vecchio tema) */
+.slot-time-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60px;
+  padding: 12px;
+  border: 2px solid #d9dadb;
+  border-radius: 4px;
+  background: #fff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.slot-time-btn:hover {
+  border-color: #0066cc;
+  background: #f0f6fc;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0, 102, 204, 0.15);
+}
+
+.slot-time-btn:focus {
+  outline: 2px solid #0066cc;
+  outline-offset: 2px;
+  border-color: #0066cc;
+}
+
+.slot-time-btn.selected {
+  border-color: #008758;
+  background: #008758;
+  color: #fff;
+}
+
+.slot-time-btn.selected:hover {
+  background: #006b45;
+  border-color: #006b45;
+}
+
+.slot-time-btn .slot-time {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.slot-time-btn .slot-duration {
+  font-size: 0.75rem;
+  margin-top: 4px;
+  opacity: 0.7;
+}
+
+.slot-time-btn.selected .slot-duration {
+  opacity: 1;
+}
+
+/* Indicatore visivo per check */
+.slot-time-btn[aria-checked="true"]::before {
+  content: '✓';
+  position: absolute;
+  top: 4px;
+  right: 8px;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+/* Visually hidden class già presente altrove ma ridichiarata per sicurezza */
+.visually-hidden {
+  position: absolute !important;
+  height: 1px; width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap;
+}

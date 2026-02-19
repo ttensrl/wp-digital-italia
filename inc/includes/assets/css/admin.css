@@ -1,0 +1,776 @@
+/**
+ * Simple WP Booking - Admin Styles
+ *
+ * @package SimpleWPBooking
+ * @version 1.0.0
+ */
+
+/* ==========================================================================
+   Calendario - Layout Principale
+   ========================================================================== */
+
+.swb-calendar-wrap {
+    max-width: 100%;
+}
+
+.swb-calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+    background: #ccc;
+    border: 2px solid #ccc;
+    margin-top: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.swb-calendar-header {
+    background: #0073aa;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+/* ==========================================================================
+   Calendario - Giorni
+   ========================================================================== */
+
+.swb-calendar-day {
+    background: white;
+    min-height: 180px;
+    max-height: 300px;
+    padding: 10px;
+    position: relative;
+    overflow-y: auto;
+    overflow-x: hidden !important;
+    display: flex;
+    flex-direction: column;
+}
+
+.swb-calendar-day::-webkit-scrollbar {
+    width: 8px;
+}
+
+.swb-calendar-day::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.swb-calendar-day::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+.swb-calendar-day::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.swb-calendar-day.weekend {
+    background: #f8f9fa;
+}
+
+.swb-calendar-day.other-month {
+    background: #fafafa;
+    opacity: 0.5;
+}
+
+.swb-calendar-day-number {
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #333;
+    position: sticky;
+    top: 0;
+    background: inherit;
+    z-index: 10;
+    padding: 4px 0;
+    flex-shrink: 0;
+    font-size: 16px;
+}
+
+.swb-calendar-day.today .swb-calendar-day-number {
+    background: #0073aa;
+    color: white;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Giorno chiuso nel calendario principale: tutto rosso */
+.swb-calendar-day.closed {
+    background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%); /* fallback */
+    background: #dc3545; /* colore principale rosso */
+    color: #fff;
+}
+
+/* Numero giorno in evidenza su sfondo scuro per miglior contrasto */
+.swb-calendar-day.closed .swb-calendar-day-number {
+    background: #a01a1f;
+    color: #fff;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Slot all'interno di un giorno chiuso: tono scuro e testo bianco, disabilitati */
+.swb-calendar-day.closed .swb-slot {
+    background: #b71c1c;
+    border-color: #7f1414;
+    color: #fff;
+    box-shadow: none;
+    cursor: not-allowed;
+    opacity: 0.95;
+}
+
+.swb-calendar-day.closed .swb-slot:hover {
+    transform: none;
+    background: #b71c1c;
+    color: #fff;
+}
+
+/* Disabilitiamo le azioni sugli slot all'interno del giorno chiuso (eventuali click handlers) */
+.swb-calendar-day.closed .swb-slot,
+.swb-calendar-day.closed .swb-slot * {
+    pointer-events: none;
+}
+
+/* Contatore slot in basso reso coerente */
+.swb-calendar-day.closed .swb-slot-count {
+    background: #a01a1f;
+    color: #fff;
+    border-top-color: #7f1414;
+}
+
+/* Nascondi il pulsante aggiungi se presente (defence-in-depth) */
+.swb-calendar-day.closed .swb-add-slot-btn {
+    display: none;
+}
+
+/* Mantieni il pulsante elimina disponibile (se vuoi disabilitarlo cambia qui) */
+/* .swb-calendar-day.closed .swb-delete-day-btn { display: none; } */
+
+/* ==========================================================================
+   Calendario - Contenitori Slot
+   ========================================================================== */
+
+.swb-slots-container {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-bottom: 35px;
+}
+
+.swb-slot-count {
+    position: sticky;
+    bottom: 0;
+    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+    color: #0d47a1;
+    text-align: center;
+    padding: 10px 8px;
+    font-size: 13px;
+    font-weight: bold;
+    border-top: 3px solid #2196f3;
+    margin-top: 10px;
+    border-radius: 4px;
+    box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
+    letter-spacing: 0.3px;
+}
+
+.swb-slot-count strong {
+    color: #1565c0;
+    font-size: 14px;
+}
+
+/* ==========================================================================
+   Calendario - Slot
+   ========================================================================== */
+
+.swb-slot {
+    background: #d4edda;
+    border: 2px solid #28a745;
+    border-radius: 4px;
+    padding: 8px 10px;
+    margin: 4px 0;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    word-break: break-word;
+    flex-shrink: 0;
+    line-height: 1.4;
+    position: relative;
+    min-height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.swb-slot:hover {
+    background: #28a745;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(40,167,69,0.3);
+}
+
+.swb-slot::after {
+    content: "✏️";
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    font-size: 12px;
+    transition: opacity 0.2s;
+}
+
+.swb-slot[data-has-bookings="1"]::after {
+    content: "👁️";
+    font-size: 14px;
+}
+
+.swb-slot:hover::after {
+    opacity: 1;
+}
+
+/* Slot con prenotazioni parziali */
+.swb-slot.booked {
+    background: #fff3cd;
+    border-color: #ffc107;
+}
+
+.swb-slot.booked:hover {
+    background: #ffc107;
+    color: white;
+    box-shadow: 0 4px 8px rgba(255,193,7,0.3);
+}
+
+/* Slot completamente prenotati */
+.swb-slot.full {
+    background: #f8d7da;
+    border-color: #dc3545;
+}
+
+.swb-slot.full:hover {
+    background: #dc3545;
+    color: white;
+    box-shadow: 0 4px 8px rgba(220,53,69,0.3);
+}
+
+/* ==========================================================================
+   Calendario - Pulsanti Azione
+   ========================================================================== */
+
+.swb-calendar-actions {
+    margin: 20px 0;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 6px;
+    border: 1px solid #dee2e6;
+}
+
+.swb-calendar-actions button {
+    margin-right: 10px;
+    font-size: 14px;
+    padding: 10px 20px;
+}
+
+/* Pulsante Aggiungi Slot */
+.swb-add-slot-btn {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    background: #0073aa;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.swb-add-slot-btn .dashicons {
+    width: 24px;
+    height: 24px;
+    font-size: 24px;
+    line-height: 1;
+    margin: 0;
+}
+
+.swb-add-slot-btn .dashicons::before {
+    width: 24px;
+    height: 24px;
+}
+
+.swb-add-slot-btn:hover {
+    background: #005177;
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0,115,170,0.3);
+}
+
+/* Pulsante Elimina Giorno */
+.swb-delete-day-btn {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    background: #d63638;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.swb-delete-day-btn .dashicons {
+    width: 24px;
+    height: 24px;
+    font-size: 24px;
+    line-height: 1;
+    margin: 0;
+}
+
+.swb-delete-day-btn .dashicons::before {
+    width: 24px;
+    height: 24px;
+}
+
+.swb-delete-day-btn:hover {
+    background: #a01a1f;
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(214,54,56,0.3);
+}
+
+/* ==========================================================================
+   Pulsanti Calendario Giorni di Chiusura - riallineamento stile/posizione
+   ========================================================================== */
+
+/* Applichiamo regole specifiche solo al calendario dei "Giorni di Chiusura" per non alterare il layout principale */
+#swbClosedDaysCalendar .swb-calendar-day {
+    /* Riserviamo spazio in basso per i pulsanti circolari */
+    padding-bottom: 48px;
+}
+
+/* Bottone generico per toggle chiusura (riusa lo stile dei pulsanti principali) */
+#swbClosedDaysCalendar .swb-close-toggle {
+    position: absolute;
+    bottom: 8px;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* Bottone Aggiungi Chiusura: posizione destra e stile blu (come add slot) */
+#swbClosedDaysCalendar .swb-close-toggle.swb-add-day {
+    right: 8px;
+    background: #0073aa;
+}
+
+#swbClosedDaysCalendar .swb-close-toggle.swb-add-day:hover {
+    background: #005177;
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0,115,170,0.3);
+}
+
+/* Bottone Rimuovi Chiusura: posizione sinistra e stile rosso (come delete day) */
+#swbClosedDaysCalendar .swb-close-toggle.swb-remove-day {
+    left: 8px;
+    background: #d63638;
+}
+
+#swbClosedDaysCalendar .swb-close-toggle.swb-remove-day:hover {
+    background: #a01a1f;
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(214,54,56,0.3);
+}
+
+#swbClosedDaysCalendar .swb-close-toggle .dashicons {
+    width: 18px;
+    height: 18px;
+    font-size: 18px;
+    line-height: 1;
+}
+
+/* Badge e reason per i giorni chiusi */
+#swbClosedDaysCalendar .swb-closed-badge {
+    display: inline-block;
+    margin-top: 6px;
+    padding: 6px 8px;
+    background: #d63638;
+    color: white;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 13px;
+}
+
+#swbClosedDaysCalendar .swb-closed-reason {
+    margin-top: 6px;
+    font-size: 13px;
+    color: #3d3d3d;
+    line-height: 1.2;
+}
+
+/* ==========================================================================
+   Modale - Overlay e Container
+   ========================================================================== */
+
+.swb-modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 100000;
+    align-items: center;
+    justify-content: center;
+}
+
+.swb-modal-overlay.active {
+    display: flex;
+}
+
+.swb-modal {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    max-width: 500px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: swbModalSlideIn 0.3s ease-out;
+}
+
+@keyframes swbModalSlideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* ==========================================================================
+   Modale - Header
+   ========================================================================== */
+
+.swb-modal-header {
+    background: linear-gradient(135deg, #0073aa 0%, #005177 100%);
+    color: white;
+    padding: 24px 28px;
+    border-radius: 8px 8px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.swb-modal-header h2 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 600;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.swb-modal-header h2::before {
+    content: "";
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    filter: brightness(0) invert(1);
+}
+
+.swb-modal-header.generate h2::before {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM7 10h2v7H7zm4-3h2v10h-2zm4 6h2v4h-2z"/></svg>');
+}
+
+.swb-modal-header.add-slot h2::before {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>');
+}
+
+.swb-modal-header.edit-slot h2::before {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>');
+}
+
+.swb-modal-close {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0;
+    width: 36px;
+    height: 36px;
+    line-height: 1;
+    border-radius: 6px;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 300;
+}
+
+.swb-modal-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+}
+
+.swb-modal-close:active {
+    transform: scale(0.95);
+}
+
+/* ==========================================================================
+   Modale - Body e Form
+   ========================================================================== */
+
+.swb-modal-body {
+    padding: 30px;
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.swb-form-group {
+    margin-bottom: 24px;
+}
+
+.swb-form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #1d2327;
+    font-size: 14px;
+}
+
+.swb-form-group input[type="date"],
+.swb-form-group input[type="time"],
+.swb-form-group input[type="number"],
+.swb-form-group input[type="text"] {
+    width: 100%;
+    padding: 12px 14px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    font-size: 15px;
+    transition: all 0.2s;
+    font-family: inherit;
+}
+
+.swb-form-group input:focus {
+    outline: none;
+    border-color: #0073aa;
+    box-shadow: 0 0 0 3px rgba(0, 115, 170, 0.1);
+}
+
+.swb-form-group-inline {
+    display: flex;
+    gap: 20px;
+}
+
+.swb-form-group-inline > div {
+    flex: 1;
+}
+
+.swb-form-help {
+    font-size: 13px;
+    color: #646970;
+    margin-top: 6px;
+    font-style: italic;
+}
+
+.swb-checkbox-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    background: #f8f9fa;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.swb-checkbox-wrapper:hover {
+    background: #e9ecef;
+    border-color: #0073aa;
+}
+
+.swb-checkbox-wrapper input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: #0073aa;
+}
+
+.swb-break-fields {
+    margin-top: 16px;
+    padding: 18px;
+    background: #fffbf0;
+    border: 2px solid #ffc107;
+    border-radius: 6px;
+    display: none;
+}
+
+.swb-break-fields.active {
+    display: block;
+}
+
+/* ==========================================================================
+   Modale - Footer e Pulsanti
+   ========================================================================== */
+
+.swb-modal-footer {
+    padding: 20px 30px;
+    background: #f8f9fa;
+    border-radius: 0 0 8px 8px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    border-top: 2px solid #e0e0e0;
+}
+
+.swb-btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.swb-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.swb-btn:active {
+    transform: translateY(0);
+}
+
+.swb-btn-primary {
+    background: linear-gradient(135deg, #0073aa 0%, #005177 100%);
+    color: white;
+}
+
+.swb-btn-primary:hover {
+    background: linear-gradient(135deg, #005177 0%, #003d5c 100%);
+}
+
+.swb-btn-secondary {
+    background: #f0f0f1;
+    color: #2c3338;
+    border: 2px solid #dcdcde;
+}
+
+.swb-btn-secondary:hover {
+    background: #dcdcde;
+    border-color: #c3c4c7;
+}
+
+/* ==========================================================================
+   Navigazione Mese
+   ========================================================================== */
+
+.swb-month-navigation {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.swb-month-navigation .button {
+    text-decoration: none;
+    padding: 12px 20px;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.swb-month-navigation .button:hover {
+    background: #0073aa;
+    color: white;
+    border-color: #0073aa;
+}
+
+/* ==========================================================================
+   Calendario Info
+   ========================================================================== */
+
+.swb-calendar-info {
+    background: #fff;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.swb-calendar-info h2 {
+    margin-top: 0;
+}
+
+/* Orari Personalizzati per Giorno */
+.swb-custom-hours-fields {
+    margin-top: 16px;
+    padding: 18px;
+    background: #f0f9ff;
+    border: 2px solid #0ea5e9;
+    border-radius: 6px;
+    display: none;
+}
+
+.swb-custom-hours-fields.active {
+    display: block;
+}
+
+.swb-day-hours {
+    margin-bottom: 12px;
+    padding: 12px;
+    background: white;
+    border-radius: 4px;
+    border: 1px solid #e0e0e0;
+}
+
+.swb-day-hours strong {
+    display: block;
+    color: #0073aa;
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+
+.swb-day-hours input[type="time"] {
+    font-size: 14px;
+}
+
