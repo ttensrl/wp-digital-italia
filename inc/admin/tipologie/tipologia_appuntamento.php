@@ -7,19 +7,19 @@ add_action( 'init', 'dci_register_post_type_appuntamento', 100 );
 function dci_register_post_type_appuntamento() {
 
     $labels = array(
-        'name'                  => _x( 'Appuntamenti', 'Post Type General Name', 'digital-italia' ),
-        'singular_name'         => _x( 'Appuntamento', 'Post Type Singular Name', 'digital-italia' ),
-        'add_new'               => _x( 'Aggiungi un Appuntamento', 'Post Type Singular Name', 'digital-italia' ),
-        'add_new_item'               => _x( 'Aggiungi un Appuntamento', 'Post Type Singular Name', 'digital-italia' ),
-        'featured_image' => __( 'Logo Identificativo dell\'Appuntamento', 'digital-italia' ),
-        'edit_item'      => _x( 'Dettagli richiesta Appuntamento', 'Post Type Singular Name', 'digital-italia' ),
-        'view_item'      => _x( 'Visualizza l\'Appuntamento', 'Post Type Singular Name', 'digital-italia' ),
+        'name'                  => _x( 'Appuntamenti', 'Post Type General Name', 'wp-digital-italia' ),
+        'singular_name'         => _x( 'Appuntamento', 'Post Type Singular Name', 'wp-digital-italia' ),
+        'add_new'               => _x( 'Aggiungi un Appuntamento', 'Post Type Singular Name', 'wp-digital-italia' ),
+        'add_new_item'               => _x( 'Aggiungi un Appuntamento', 'Post Type Singular Name', 'wp-digital-italia' ),
+        'featured_image' => __( 'Logo Identificativo dell\'Appuntamento', 'wp-digital-italia' ),
+        'edit_item'      => _x( 'Dettagli richiesta Appuntamento', 'Post Type Singular Name', 'wp-digital-italia' ),
+        'view_item'      => _x( 'Visualizza l\'Appuntamento', 'Post Type Singular Name', 'wp-digital-italia' ),
         'set_featured_image' => __( 'Seleziona Immagine Appuntamento' ),
-        'remove_featured_image' => __( 'Rimuovi Immagine Appuntamento' , 'digital-italia' ),
-        'use_featured_image' => __( 'Usa come Immagine Appuntamento' , 'digital-italia' ),
+        'remove_featured_image' => __( 'Rimuovi Immagine Appuntamento' , 'wp-digital-italia' ),
+        'use_featured_image' => __( 'Usa come Immagine Appuntamento' , 'wp-digital-italia' ),
     );
     $args = array(
-        'label'                 => __( 'Appuntamento', 'digital-italia' ),
+        'label'                 => __( 'Appuntamento', 'wp-digital-italia' ),
         'labels'                => $labels,
         'supports'              => array( 'title', 'editor' ),
         'hierarchical'          => false,
@@ -29,7 +29,7 @@ function dci_register_post_type_appuntamento() {
         'has_archive'           => false,
         'capability_type' => array('appuntamento', 'appuntamenti'),
         'map_meta_cap'    => true,
-        'description'    => __( "Struttura delle informazioni relative utili a presentare un appuntamento", 'digital-italia' ),
+        'description'    => __( "Struttura delle informazioni relative utili a presentare un appuntamento", 'wp-digital-italia' ),
         'show_in_menu'     => false, // Nasconde il menu principale, gestito da SWB_Admin
         'show_in_rest'       => true,
         'rest_base'          => 'appuntamenti',
@@ -54,10 +54,10 @@ function dci_appuntamento_add_content_after_title($post) {
 
         if (isset($curr_post_id)) {
             $post_title = get_the_title($curr_post_id);
-            _e('Richiesta di appuntamento: <h1>' . $post_title . '</h1>', 'digital-italia');
+            _e('Richiesta di appuntamento: <h1>' . $post_title . '</h1>', 'wp-digital-italia');
         }
 
-        //_e('<span><i>il <b>Titolo</b> è il <b>Titolo della richiesta</b></i></span><br><br><br> ', 'digital-italia');
+        //_e('<span><i>il <b>Titolo</b> è il <b>Titolo della richiesta</b></i></span><br><br><br> ', 'wp-digital-italia');
     }
 }
 
@@ -71,7 +71,7 @@ function dci_add_appuntamento_metaboxes()
 
     $cmb_dati = new_cmb2_box(array(
         'id' => $prefix . 'box_dati',
-        'title' => __('Dati'),
+        'title' => __('Dati', 'wp-digital-italia'),
         'object_types' => array('appuntamento'),
         'context' => 'normal',
         'priority' => 'high',
@@ -79,8 +79,8 @@ function dci_add_appuntamento_metaboxes()
 
     $cmb_dati->add_field( array(
         'id' => $prefix . 'email_richiedente',
-        'desc' => __( 'Email del richiedente' , 'digital-italia' ),
-        'name'  => __( 'Email Richiedente *', 'digital-italia' ),
+        'desc' => __( 'Email del richiedente' , 'wp-digital-italia' ),
+        'name'  => __( 'Email Richiedente *', 'wp-digital-italia' ),
         'type' => 'text_email',
         'attributes'    => array(
             'required'    => 'required',
@@ -90,8 +90,8 @@ function dci_add_appuntamento_metaboxes()
 
     $cmb_dati->add_field( array(
         'id' => $prefix . 'dettaglio_richiesta',
-        'desc' => __( 'Testo della richiesta' , 'digital-italia' ),
-        'name'  => __( 'Dettaglio richiesta *', 'digital-italia' ),
+        'desc' => __( 'Testo della richiesta' , 'wp-digital-italia' ),
+        'name'  => __( 'Dettaglio richiesta *', 'wp-digital-italia' ),
         'type' => 'textarea',
         'attributes'    => array(
             'required'    => 'required',
@@ -104,7 +104,7 @@ function dci_add_appuntamento_metaboxes()
      */
     $cmb_date = new_cmb2_box(array(
         'id' => $prefix . 'box_date',
-        'title' => __('Date'),
+        'title' => __('Date', 'wp-digital-italia'),
         'object_types' => array('appuntamento'),
         'context' => 'side',
         'priority' => 'high',
@@ -112,7 +112,7 @@ function dci_add_appuntamento_metaboxes()
 
     $cmb_date->add_field( array(
         'id' => $prefix . 'data_ora_prenotazione',
-        'name'    => __( 'Data e ora in cui è stata fatta la prenotazione *', 'digital-italia' ),
+        'name'    => __( 'Data e ora in cui è stata fatta la prenotazione *', 'wp-digital-italia' ),
         'type'    => 'text_datetime_timestamp',
         'date_format' => 'd-m-Y',
         'attributes'    => array(
@@ -123,7 +123,7 @@ function dci_add_appuntamento_metaboxes()
 
     $cmb_date->add_field( array(
         'id' => $prefix . 'data_ora_inizio_appuntamento',
-        'name'    => __( 'Data e ora inizio appuntamento *', 'digital-italia' ),
+        'name'    => __( 'Data e ora inizio appuntamento *', 'wp-digital-italia' ),
         'type'    => 'text_datetime_timestamp',
         'date_format' => 'd-m-Y',
         'attributes'    => array(
@@ -134,7 +134,7 @@ function dci_add_appuntamento_metaboxes()
 
     $cmb_date->add_field( array(
         'id' => $prefix . 'data_ora_fine_appuntamento',
-        'name'    => __( 'Data e ora della fine dell\'appuntamento *', 'digital-italia' ),
+        'name'    => __( 'Data e ora della fine dell\'appuntamento *', 'wp-digital-italia' ),
         'type'    => 'text_datetime_timestamp',
         'date_format' => 'd-m-Y',
         'attributes'    => array(
@@ -148,7 +148,7 @@ function dci_add_appuntamento_metaboxes()
      */
     $cmb_servizio = new_cmb2_box(array(
         'id' => $prefix . 'box_servizio',
-        'title' => __('Servizio *'),
+        'title' => __('Servizio *', 'wp-digital-italia'),
         'object_types' => array('appuntamento'),
         'context' => 'normal',
         'priority' => 'high',
@@ -156,7 +156,7 @@ function dci_add_appuntamento_metaboxes()
 
     $cmb_servizio->add_field( array(
         'id' => $prefix . 'servizio',
-        'desc' => __( 'Associazione con il servizio per il quale si prende appuntamento' , 'digital-italia' ),
+        'desc' => __( 'Associazione con il servizio per il quale si prende appuntamento' , 'wp-digital-italia' ),
         'type'    => 'text',
         'attributes'    => array(
             'required'    => 'required',
@@ -169,7 +169,7 @@ function dci_add_appuntamento_metaboxes()
      */
     $cmb_unita_organizzativa = new_cmb2_box(array(
         'id' => $prefix . 'box_unita_organizzativa',
-        'title' => __('Unità organizzativa *'),
+        'title' => __('Unità organizzativa *', 'wp-digital-italia'),
         'object_types' => array('appuntamento'),
         'context' => 'normal',
         'priority' => 'high',
@@ -177,7 +177,7 @@ function dci_add_appuntamento_metaboxes()
 
     $cmb_unita_organizzativa->add_field( array(
         'id' => $prefix . 'unita_organizzativa',
-        'desc' => __( 'Se l\'appuntamento non è su un servizio ma con un\'Unità organizzativa' , 'digital-italia' ),
+        'desc' => __( 'Se l\'appuntamento non è su un servizio ma con un\'Unità organizzativa' , 'wp-digital-italia' ),
         'type'    => 'text',
         'attributes'    => array(
             'required'    => 'required',
@@ -194,11 +194,11 @@ function dci_add_appuntamento_metaboxes()
  */
 function dci_filter_appuntamento_columns( $columns ) {
 
-    $columns['email_richiedente'] = __( 'Email Richiedente','digital-italia' );
-    $columns['servizio'] = __( 'Servizio','digital-italia' );
-    $columns['ufficio'] = __( 'Ufficio','digital-italia' );
-    $columns['data_ora_inizio'] = __( 'Data e ora inizio','digital-italia' );
-    $columns['data_ora_fine'] = __( 'Data e ora fine','digital-italia' );
+    $columns['email_richiedente'] = __( 'Email Richiedente','wp-digital-italia' );
+    $columns['servizio'] = __( 'Servizio','wp-digital-italia' );
+    $columns['ufficio'] = __( 'Ufficio','wp-digital-italia' );
+    $columns['data_ora_inizio'] = __( 'Data e ora inizio','wp-digital-italia' );
+    $columns['data_ora_fine'] = __( 'Data e ora fine','wp-digital-italia' );
 
     return $columns;
 }

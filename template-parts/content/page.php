@@ -22,7 +22,7 @@
 
 		wp_link_pages(
 			array(
-				'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'digital-italia' ),
+				'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'wp-digital-italia' ),
 				'after'  => '</div>',
 			)
 		);

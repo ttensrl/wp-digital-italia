@@ -7,20 +7,20 @@ add_action( 'init', 'dci_register_post_type_dipartimento' );
 function dci_register_post_type_dipartimento() {
 
     $labels = array(
-        'name'                  => _x( 'Dipartimenti', 'Post Type General Name', 'digital-italia' ),
-        'singular_name'         => _x( 'Dipartimento', 'Post Type Singular Name', 'digital-italia' ),
-        'add_new'               => _x( 'Aggiungi un Dipartimento', 'Post Type Singular Name', 'digital-italia' ),
-        'add_new_item'          => _x( 'Aggiungi un Dipartimento', 'Post Type Singular Name', 'digital-italia' ),
-        'featured_image'        => __( 'Logo del Dipartimento', 'digital-italia' ),
-        'edit_item'             => _x( 'Modifica il Dipartimento', 'Post Type Singular Name', 'digital-italia' ),
-        'view_item'             => _x( 'Visualizza il Dipartimento', 'Post Type Singular Name', 'digital-italia' ),
+        'name'                  => _x( 'Dipartimenti', 'Post Type General Name', 'wp-digital-italia' ),
+        'singular_name'         => _x( 'Dipartimento', 'Post Type Singular Name', 'wp-digital-italia' ),
+        'add_new'               => _x( 'Aggiungi un Dipartimento', 'Post Type Singular Name', 'wp-digital-italia' ),
+        'add_new_item'          => _x( 'Aggiungi un Dipartimento', 'Post Type Singular Name', 'wp-digital-italia' ),
+        'featured_image'        => __( 'Logo del Dipartimento', 'wp-digital-italia' ),
+        'edit_item'             => _x( 'Modifica il Dipartimento', 'Post Type Singular Name', 'wp-digital-italia' ),
+        'view_item'             => _x( 'Visualizza il Dipartimento', 'Post Type Singular Name', 'wp-digital-italia' ),
         'set_featured_image'    => __( 'Seleziona Logo' ),
-        'remove_featured_image' => __( 'Rimuovi Logo' , 'digital-italia' ),
-        'use_featured_image'    => __( 'Usa come Logo' , 'digital-italia' ),
+        'remove_featured_image' => __( 'Rimuovi Logo' , 'wp-digital-italia' ),
+        'use_featured_image'    => __( 'Usa come Logo' , 'wp-digital-italia' ),
     );
 
     $args = array(
-        'label'            => __( 'Dipartimento', 'digital-italia' ),
+        'label'            => __( 'Dipartimento', 'wp-digital-italia' ),
         'labels'           => $labels,
         'supports'         => array( 'title', 'editor', 'thumbnail' ),
         'hierarchical'     => true,
@@ -28,7 +28,7 @@ function dci_register_post_type_dipartimento() {
         'menu_position'    => 5,
         'menu_icon'        => 'dashicons-building',
         'has_archive'      => true,
-        'description'      => __( "Dipartimenti dell'organizzazione.", 'digital-italia' ),
+        'description'      => __( "Dipartimenti dell'organizzazione.", 'wp-digital-italia' ),
         'show_in_rest'       => true,
         'rest_base'          => 'dipartimenti',
         'rest_controller_class' => 'WP_REST_Posts_Controller',
@@ -47,7 +47,7 @@ function dci_add_dipartimento_metaboxes()
 
     $cmb_dati = new_cmb2_box(array(
         'id' => $prefix . 'box_dati',
-        'title' => __('Dati Dipartimento'),
+        'title' => __('Dati Dipartimento', 'wp-digital-italia'),
         'object_types' => array('dipartimento'),
         'context' => 'normal',
         'priority' => 'high',
@@ -55,29 +55,29 @@ function dci_add_dipartimento_metaboxes()
 
     $cmb_dati->add_field( array(
         'id' => $prefix . 'email',
-        'desc' => __( 'Email di contatto' , 'digital-italia' ),
-        'name'  => __( 'Email', 'digital-italia' ),
+        'desc' => __( 'Email di contatto' , 'wp-digital-italia' ),
+        'name'  => __( 'Email', 'wp-digital-italia' ),
         'type' => 'text_email',
     ) );
 
     $cmb_dati->add_field( array(
         'id' => $prefix . 'telefono',
-        'desc' => __( 'Telefono' , 'digital-italia' ),
-        'name'  => __( 'Telefono', 'digital-italia' ),
+        'desc' => __( 'Telefono' , 'wp-digital-italia' ),
+        'name'  => __( 'Telefono', 'wp-digital-italia' ),
         'type' => 'text',
     ) );
 
     $cmb_dati->add_field( array(
         'id' => $prefix . 'indirizzo',
-        'desc' => __( 'Indirizzo completo (via, numero, città, CAP)' , 'digital-italia' ),
-        'name'  => __( 'Indirizzo', 'digital-italia' ),
+        'desc' => __( 'Indirizzo completo (via, numero, città, CAP)' , 'wp-digital-italia' ),
+        'name'  => __( 'Indirizzo', 'wp-digital-italia' ),
         'type' => 'textarea_small',
     ) );
 
     $cmb_dati->add_field( array(
         'id' => $prefix . 'latitudine',
-        'name'  => __( 'Latitudine', 'digital-italia' ),
-        'desc' => __( 'Coordinate generate automaticamente dall\'indirizzo' , 'digital-italia' ),
+        'name'  => __( 'Latitudine', 'wp-digital-italia' ),
+        'desc' => __( 'Coordinate generate automaticamente dall\'indirizzo' , 'wp-digital-italia' ),
         'type' => 'text',
         'attributes' => array(
             'type' => 'number',
@@ -88,7 +88,7 @@ function dci_add_dipartimento_metaboxes()
 
     $cmb_dati->add_field( array(
         'id' => $prefix . 'longitudine',
-        'name'  => __( 'Longitudine', 'digital-italia' ),
+        'name'  => __( 'Longitudine', 'wp-digital-italia' ),
         'type' => 'text',
         'attributes' => array(
             'type' => 'number',
@@ -99,7 +99,7 @@ function dci_add_dipartimento_metaboxes()
 
     $cmb_organigramma = new_cmb2_box(array(
         'id' => $prefix . 'box_organigramma',
-        'title' => __('Organigramma'),
+        'title' => __('Organigramma', 'wp-digital-italia'),
         'object_types' => array('dipartimento'),
         'context' => 'normal',
         'priority' => 'high',
@@ -108,25 +108,25 @@ function dci_add_dipartimento_metaboxes()
     $group_field_id = $cmb_organigramma->add_field( array(
         'id'          => $prefix . 'organigramma',
         'type'        => 'group',
-        'description' => __( 'Persone che compongono l\'organigramma del dipartimento', 'digital-italia' ),
+        'description' => __( 'Persone che compongono l\'organigramma del dipartimento', 'wp-digital-italia' ),
         'options'     => array(
-            'group_title'       => __( 'Persona {#}', 'digital-italia' ),
-            'add_button'        => __( 'Aggiungi Persona', 'digital-italia' ),
-            'remove_button'     => __( 'Rimuovi Persona', 'digital-italia' ),
+            'group_title'       => __( 'Persona {#}', 'wp-digital-italia' ),
+            'add_button'        => __( 'Aggiungi Persona', 'wp-digital-italia' ),
+            'remove_button'     => __( 'Rimuovi Persona', 'wp-digital-italia' ),
             'sortable'          => true,
         ),
     ) );
 
     $cmb_organigramma->add_group_field( $group_field_id, array(
-        'name'       => __( 'Persona', 'digital-italia' ),
+        'name'       => __( 'Persona', 'wp-digital-italia' ),
         'id'         => 'persona_id',
         'type'       => 'select',
         'options_cb' => 'dci_get_persone_options',
     ) );
 
     $cmb_organigramma->add_group_field( $group_field_id, array(
-        'name'       => __( 'Ruolo nel dipartimento', 'digital-italia' ),
-        'desc'       => __( 'es: Responsabile, Dirigente, Addetto', 'digital-italia' ),
+        'name'       => __( 'Ruolo nel dipartimento', 'wp-digital-italia' ),
+        'desc'       => __( 'es: Responsabile, Dirigente, Addetto', 'wp-digital-italia' ),
         'id'         => 'ruolo',
         'type'       => 'text',
     ) );
@@ -155,7 +155,7 @@ function dci_get_persone_options() {
         'order'          => 'ASC',
     ) );
 
-    $options = array( '' => __( '— Seleziona una persona —', 'digital-italia' ) );
+    $options = array( '' => __( '— Seleziona una persona —', 'wp-digital-italia' ) );
     foreach ( $persone as $persona ) {
         $options[ $persona->ID ] = $persona->post_title;
     }

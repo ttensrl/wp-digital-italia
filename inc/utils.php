@@ -588,8 +588,8 @@ function dci_bootstrap_pagination(\WP_Query $wp_query = null, $echo = true)
             'end_size' => 3,
             'mid_size' => 1,
             'prev_next' => true,
-            'prev_text' => __('« '),
-            'next_text' => __(' »'),
+            'prev_text' => __('« ', 'wp-digital-italia'),
+            'next_text' => __(' »', 'wp-digital-italia'),
             'add_args' => false,
             'add_fragment' => ''
         ]

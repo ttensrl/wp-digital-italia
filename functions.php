@@ -4,7 +4,7 @@ require_once(get_template_directory() . '/classes/bootstrap_5_wp_simple_menu_wal
 require_once(get_template_directory() . '/classes/bootstrap_5_wp_inline_menu_walker.php');
 require_once(get_template_directory() . '/inc/block-functions.php');
 require_once(get_template_directory() . '/inc/elementor-support.php');
-require_once(get_template_directory() . '/inc/cmb2.php');
+require_once(get_template_directory() . '/companion-plugin/inc/cmb2/cmb2.php');
 require_once(get_template_directory() . '/inc/utils.php');
 require_once(get_template_directory() . '/inc/breadcrumbs.php');
 
@@ -35,9 +35,9 @@ function digital_italia_setup(): void
         * Make theme available for translation.
         * Translations can be filed in the /languages/ directory.
         * If you're building a theme based on digital-italia, use a find and replace
-        * to change 'digital-italia' to the name of your theme in all the template files.
+        * to change 'wp-digital-italia' to the name of your theme in all the template files.
         */
-    load_theme_textdomain( 'digital-italia', get_template_directory() . '/languages' );
+    load_theme_textdomain( 'wp-digital-italia', get_template_directory() . '/languages' );
 
     // Add default posts and comments RSS feed links to head.
     add_theme_support( 'automatic-feed-links' );
@@ -62,13 +62,13 @@ function digital_italia_setup(): void
     // This theme uses wp_nav_menu() in one location.
     register_nav_menus(
         array(
-            'top-menu' => esc_html__( 'Top Menu', 'digital-italia' ),
-            'main-menu' => esc_html__( 'Main Menu', 'digital-italia' ),
-            'footer-one' => esc_html__( 'Footer One', 'digital-italia' ),
-            'footer-two' => esc_html__( 'Footer Two', 'digital-italia' ),
-            'footer-three' => esc_html__( 'Footer Three', 'digital-italia' ),
-            'footer-four' => esc_html__( 'Footer Four', 'digital-italia' ),
-            'footer-bottom' => esc_html__( 'Footer Bottom', 'digital-italia' ),
+            'top-menu' => esc_html__( 'Top Menu', 'wp-digital-italia' ),
+            'main-menu' => esc_html__( 'Main Menu', 'wp-digital-italia' ),
+            'footer-one' => esc_html__( 'Footer One', 'wp-digital-italia' ),
+            'footer-two' => esc_html__( 'Footer Two', 'wp-digital-italia' ),
+            'footer-three' => esc_html__( 'Footer Three', 'wp-digital-italia' ),
+            'footer-four' => esc_html__( 'Footer Four', 'wp-digital-italia' ),
+            'footer-bottom' => esc_html__( 'Footer Bottom', 'wp-digital-italia' ),
         )
     );
 
@@ -143,9 +143,9 @@ function digital_italia_widgets_init(): void
 {
     register_sidebar(
         array(
-            'name'          => esc_html__( 'Sidebar', 'digital-italia' ),
+            'name'          => esc_html__( 'Sidebar', 'wp-digital-italia' ),
             'id'            => 'sidebar-1',
-            'description'   => esc_html__( 'Add widgets here.', 'digital-italia' ),
+            'description'   => esc_html__( 'Add widgets here.', 'wp-digital-italia' ),
             'before_widget' => '<section id="%1$s" class="widget %2$s sidebar-wrapper it-line-right-side border-0"><div class="sidebar-linklist-wrapper"><div class="link-list-wrapper">',
             'after_widget'  => '</div></div></section>',
             'before_title'  => '<h2 class="widget-title">',
@@ -281,10 +281,18 @@ add_action( 'wp_enqueue_scripts', function() {
 
 } );
 
+function digital_italia_sanitize_checkbox( $checked ) {
+    return ( ( isset( $checked ) && true == $checked ) ? true : false );
+}
+
 add_action( 'customize_register', function( $wp_customize ) {
     // Aggiungi il controllo di caricamento file
-    $wp_customize->add_setting( 'belong_administration_logo' );
-    $wp_customize->add_setting( 'white_logo' );
+    $wp_customize->add_setting( 'belong_administration_logo', array(
+        'sanitize_callback' => 'esc_url_raw',
+    ) );
+    $wp_customize->add_setting( 'white_logo', array(
+        'sanitize_callback' => 'esc_url_raw',
+    ) );
 
     $wp_customize->add_control( new WP_Customize_Upload_Control( $wp_customize, 'belong_administration_logo', array(
         'label'    => 'Logo Amministrazione d\'appartenenza',
@@ -305,13 +313,27 @@ add_action( 'customize_register', function( $wp_customize ) {
     ) );
 
     // Aggiungi i campi per la sezione "Site Contact"
-    $wp_customize->add_setting( 'site_contact_email' );
-    $wp_customize->add_setting( 'site_contact_phone' );
-    $wp_customize->add_setting( 'site_contact_address' );
-    $wp_customize->add_setting( 'site_contact_vat' );
-    $wp_customize->add_setting( 'site_contact_city' );
-    $wp_customize->add_setting( 'site_contact_urp' );
-    $wp_customize->add_setting( 'site_contact_administration_transparent' );
+    $wp_customize->add_setting( 'site_contact_email', array(
+        'sanitize_callback' => 'sanitize_email',
+    ) );
+    $wp_customize->add_setting( 'site_contact_phone', array(
+        'sanitize_callback' => 'sanitize_text_field',
+    ) );
+    $wp_customize->add_setting( 'site_contact_address', array(
+        'sanitize_callback' => 'sanitize_text_field',
+    ) );
+    $wp_customize->add_setting( 'site_contact_vat', array(
+        'sanitize_callback' => 'sanitize_text_field',
+    ) );
+    $wp_customize->add_setting( 'site_contact_city', array(
+        'sanitize_callback' => 'sanitize_text_field',
+    ) );
+    $wp_customize->add_setting( 'site_contact_urp', array(
+        'sanitize_callback' => 'esc_url_raw',
+    ) );
+    $wp_customize->add_setting( 'site_contact_administration_transparent', array(
+        'sanitize_callback' => 'esc_url_raw',
+    ) );
 
     $wp_customize->add_control( 'site_contact_email', array(
         'label'    => 'Email',
@@ -362,9 +384,15 @@ add_action( 'customize_register', function( $wp_customize ) {
     ) );
 
     // Aggiungi i campi per la sezione "Site Socials"
-    $wp_customize->add_setting( 'site_socials_fb' );
-    $wp_customize->add_setting( 'site_socials_instagram' );
-    $wp_customize->add_setting( 'site_socials_twitter' );
+    $wp_customize->add_setting( 'site_socials_fb', array(
+        'sanitize_callback' => 'esc_url_raw',
+    ) );
+    $wp_customize->add_setting( 'site_socials_instagram', array(
+        'sanitize_callback' => 'esc_url_raw',
+    ) );
+    $wp_customize->add_setting( 'site_socials_twitter', array(
+        'sanitize_callback' => 'esc_url_raw',
+    ) );
 
     $wp_customize->add_control( 'site_socials_fb', array(
         'label'    => 'Facebook',
@@ -393,6 +421,7 @@ add_action( 'customize_register', function( $wp_customize ) {
     // Aggiungi il controllo per il testo del banner
     $wp_customize->add_setting( 'banner_text_setting', array(
         'default' => '',
+        'sanitize_callback' => 'sanitize_textarea_field',
     ) );
     $wp_customize->add_control( 'banner_text_setting', array(
         'label'   => 'Testo del Banner',
@@ -402,6 +431,7 @@ add_action( 'customize_register', function( $wp_customize ) {
 
     $wp_customize->add_setting('cookie_expiration_setting', array(
         'default' => 365,
+        'sanitize_callback' => 'absint',
     ));
 
     $wp_customize->add_control('cookie_expiration_setting', array(
@@ -412,6 +442,7 @@ add_action( 'customize_register', function( $wp_customize ) {
 
     $wp_customize->add_setting( 'privacy_page_setting', array(
         'default' => '',
+        'sanitize_callback' => 'absint',
     ));
 
     $wp_customize->add_control( 'privacy_page_setting', array(
@@ -422,6 +453,7 @@ add_action( 'customize_register', function( $wp_customize ) {
 
     $wp_customize->add_setting( 'cookies_settings_consent_analytics', array(
         'default' => false,
+        'sanitize_callback' => 'digital_italia_sanitize_checkbox',
     ) );
     $wp_customize->add_control( 'cookies_settings_consent_analytics', array(
         'label'   => 'Abilita cookies di Analytics',
@@ -431,6 +463,7 @@ add_action( 'customize_register', function( $wp_customize ) {
 
     $wp_customize->add_setting( 'cookies_settings_consent_marketing', array(
         'default' => false,
+        'sanitize_callback' => 'digital_italia_sanitize_checkbox',
     ) );
     $wp_customize->add_control( 'cookies_settings_consent_marketing', array(
         'label'   => 'Abilita cookies di Marketing',
@@ -440,6 +473,7 @@ add_action( 'customize_register', function( $wp_customize ) {
 
     $wp_customize->add_setting( 'cookies_settings_consent_social', array(
         'default' => false,
+        'sanitize_callback' => 'digital_italia_sanitize_checkbox',
     ) );
     $wp_customize->add_control( 'cookies_settings_consent_social', array(
         'label'   => 'Abilita cookies Social',
@@ -449,6 +483,7 @@ add_action( 'customize_register', function( $wp_customize ) {
 
     $wp_customize->add_setting( 'cookies_settings_consent_youtube', array(
         'default' => false,
+        'sanitize_callback' => 'digital_italia_sanitize_checkbox',
     ) );
 
     $wp_customize->add_control( 'cookies_settings_consent_youtube', array(
@@ -460,7 +495,7 @@ add_action( 'customize_register', function( $wp_customize ) {
 
 add_filter( 'image_size_names_choose', function ($sizes){
     return array_merge( $sizes, array(
-        'loop-thumb' => __( 'Loop Thumb' ),
+        'loop-thumb' => __( 'Loop Thumb', 'wp-digital-italia' ),
     ) );
 });
 

@@ -172,11 +172,11 @@ $admin_transparent_url = get_theme_mod('site_contact_administration_transparent'
                     <a class="d-inline-flex align-items-center text-white fw-normal text-nowrap" href="https://github.com/ttensrl/wp-digital-italia" target="_blank">
                         <?php echo __(
                             'Realizzato con il Tema',
-                            'digital-italia'
+                            'wp-digital-italia'
                         ); ?>
                         <span class="strong fw-bold ms-2"><?php echo __(
                                 'Digital Italia',
-                                'digital-italia'
+                                'wp-digital-italia'
                             ); ?></span>
                         <svg class="icon icon-sm icon-white align-top ms-2" aria-hidden="true"><use xlink:href="<?php echo get_template_directory_uri() . '/dist/images/sprites.svg#it-github'; ?>"></use></svg>
                         <span class="visually-hidden"> (GitHub)</span>
