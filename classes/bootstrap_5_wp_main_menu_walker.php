@@ -98,7 +98,7 @@ class bootstrap_5_wp_main_menu_walker extends Walker_Nav_Menu
         $item_output .= '<a' . $attributes . '>';
         if ($args->walker->has_children) {
             $template_directory = get_template_directory_uri();
-            $svg_path = $template_directory . '/bootstrap-italia/svg/sprites.svg#it-expand';
+            $svg_path = $template_directory . '/dist/images/sprites.svg#it-expand';
 
             $item_output .= '<span>'.apply_filters('the_title', $item->title, $item->ID).'</span>
                     <svg class="icon icon-xs">

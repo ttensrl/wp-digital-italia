@@ -81,7 +81,7 @@ if ( ! function_exists( 'digital_italia_entry_footer' ) ) :
 	function digital_italia_entry_footer() {
 
 		if ( ! is_single() && ! post_password_required() && ( comments_open() || get_comments_number() ) ) {
-			echo '<span class="comments-link ms-4"><svg class="icon icon-sm icon-primary" aria-hidden="true"><use href="' . esc_url(get_template_directory_uri()) . '/bootstrap-italia/svg/sprites.svg#it-comment"></use></svg> ';
+			echo '<span class="comments-link ms-4"><svg class="icon icon-sm icon-primary" aria-hidden="true"><use href="' . esc_url(get_template_directory_uri()) . '/dist/images/sprites.svg#it-comment"></use></svg> ';
 			comments_popup_link(
 				sprintf(
 					wp_kses(
@@ -126,7 +126,7 @@ if ( ! function_exists( 'digital_italia_entry_footer' ) ) :
 				),
 				wp_kses_post( get_the_title() )
 			),
-			'<span class="edit-link ms-4"><svg class="icon icon-sm icon-primary" aria-hidden="true"><use href="' . esc_url(get_template_directory_uri()) . '/bootstrap-italia/svg/sprites.svg#it-pencil"></use></svg> ',
+			'<span class="edit-link ms-4"><svg class="icon icon-sm icon-primary" aria-hidden="true"><use href="' . esc_url(get_template_directory_uri()) . '/dist/images/sprites.svg#it-pencil"></use></svg> ',
 			'</span>'
 		);
 	}
