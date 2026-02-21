@@ -123,17 +123,17 @@ $admin_transparent_url = get_theme_mod('site_contact_administration_transparent'
                                     <?php
                                     // Facebook
                                     if (!empty($facebook_url)) {
-                                        echo '<li class="list-inline-item"><a class="p-2 text-white" href="' . esc_url($facebook_url) . '" target="_blank"><svg class="icon icon-sm icon-white align-top"><use xlink:href="' . esc_url(get_template_directory_uri()) . '/bootstrap-italia/svg/sprites.svg#it-facebook"></use></svg><span class="visually-hidden">Facebook</span></a></li>';
+                                        echo '<li class="list-inline-item"><a class="p-2 text-white" href="' . esc_url($facebook_url) . '" target="_blank"><svg class="icon icon-sm icon-white align-top"><use xlink:href="' . esc_url(get_template_directory_uri()) . '/dist/images/sprites.svg#it-facebook"></use></svg><span class="visually-hidden">Facebook</span></a></li>';
                                     }
 
                                     // Instagram
                                     if (!empty($instagram_url)) {
-                                        echo '<li class="list-inline-item"><a class="p-2 text-white" href="' . esc_url($instagram_url) . '" target="_blank"><svg class="icon icon-sm icon-white align-top"><use xlink:href="' . esc_url(get_template_directory_uri()) . '/bootstrap-italia/svg/sprites.svg#it-instagram"></use></svg><span class="visually-hidden">Instagram</span></a></li>';
+                                        echo '<li class="list-inline-item"><a class="p-2 text-white" href="' . esc_url($instagram_url) . '" target="_blank"><svg class="icon icon-sm icon-white align-top"><use xlink:href="' . esc_url(get_template_directory_uri()) . '/dist/images/sprites.svg#it-instagram"></use></svg><span class="visually-hidden">Instagram</span></a></li>';
                                     }
 
                                     // Twitter
                                     if (!empty($twitter_url)) {
-                                        echo '<li class="list-inline-item"><a class="p-2 text-white" href="' . esc_url($twitter_url) . '" target="_blank"><svg class="icon icon-sm icon-white align-top"><use xlink:href="' . esc_url(get_template_directory_uri()) . '/bootstrap-italia/svg/sprites.svg#it-twitter"></use></svg><span class="visually-hidden">Twitter</span></a></li>';
+                                        echo '<li class="list-inline-item"><a class="p-2 text-white" href="' . esc_url($twitter_url) . '" target="_blank"><svg class="icon icon-sm icon-white align-top"><use xlink:href="' . esc_url(get_template_directory_uri()) . '/dist/images/sprites.svg#it-twitter"></use></svg><span class="visually-hidden">Twitter</span></a></li>';
                                     }
                                     ?>
                                 </ul>
@@ -178,7 +178,7 @@ $admin_transparent_url = get_theme_mod('site_contact_administration_transparent'
                                 'Digital Italia',
                                 'digital-italia'
                             ); ?></span>
-                        <svg class="icon icon-sm icon-white align-top ms-2" aria-hidden="true"><use xlink:href="<?php echo get_template_directory_uri() . '/bootstrap-italia/svg/sprites.svg#it-github'; ?>"></use></svg>
+                        <svg class="icon icon-sm icon-white align-top ms-2" aria-hidden="true"><use xlink:href="<?php echo get_template_directory_uri() . '/dist/images/sprites.svg#it-github'; ?>"></use></svg>
                         <span class="visually-hidden"> (GitHub)</span>
                     </a>
                 </div>
@@ -192,7 +192,7 @@ $admin_transparent_url = get_theme_mod('site_contact_administration_transparent'
 
 <a href="#" aria-hidden="true" tabindex="-1" data-attribute="back-to-top" class="back-to-top">
     <svg class="icon icon-light">
-        <use xlink:href="<?php echo get_template_directory_uri(); ?>/bootstrap-italia/svg/sprites.svg#it-arrow-up"></use>
+        <use xlink:href="<?php echo get_template_directory_uri(); ?>/dist/images/sprites.svg#it-arrow-up"></use>
     </svg>
 </a>
 </div><!-- #page -->

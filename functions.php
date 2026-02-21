@@ -17,8 +17,8 @@ require_once(get_template_directory() . '/inc/breadcrumbs.php');
  */
 
 if ( ! defined( '_S_VERSION' ) ) {
-	// Replace the version number of the theme on each release.
-	define( '_S_VERSION', '1.0.0' );
+    // Replace the version number of the theme on each release.
+    define( '_S_VERSION', '1.0.0' );
 }
 
 /**
@@ -31,93 +31,93 @@ if ( ! defined( '_S_VERSION' ) ) {
 function digital_italia_setup(): void
 {
 
-	/*
-		* Make theme available for translation.
-		* Translations can be filed in the /languages/ directory.
-		* If you're building a theme based on digital-italia, use a find and replace
-		* to change 'digital-italia' to the name of your theme in all the template files.
-		*/
-	load_theme_textdomain( 'digital-italia', get_template_directory() . '/languages' );
+    /*
+        * Make theme available for translation.
+        * Translations can be filed in the /languages/ directory.
+        * If you're building a theme based on digital-italia, use a find and replace
+        * to change 'digital-italia' to the name of your theme in all the template files.
+        */
+    load_theme_textdomain( 'digital-italia', get_template_directory() . '/languages' );
 
-	// Add default posts and comments RSS feed links to head.
-	add_theme_support( 'automatic-feed-links' );
+    // Add default posts and comments RSS feed links to head.
+    add_theme_support( 'automatic-feed-links' );
 
-	/*
-		* Let WordPress manage the document title.
-		* By adding theme support, we declare that this theme does not use a
-		* hard-coded <title> tag in the document head, and expect WordPress to
-		* provide it for us.
-		*/
-	add_theme_support( 'title-tag' );
+    /*
+        * Let WordPress manage the document title.
+        * By adding theme support, we declare that this theme does not use a
+        * hard-coded <title> tag in the document head, and expect WordPress to
+        * provide it for us.
+        */
+    add_theme_support( 'title-tag' );
 
-	/*
-		* Enable support for Post Thumbnails on posts and pages.
-		*
-		* @link https://developer.wordpress.org/themes/functionality/featured-images-post-thumbnails/
-		*/
-	add_theme_support( 'post-thumbnails' );
+    /*
+        * Enable support for Post Thumbnails on posts and pages.
+        *
+        * @link https://developer.wordpress.org/themes/functionality/featured-images-post-thumbnails/
+        */
+    add_theme_support( 'post-thumbnails' );
 
     add_image_size('loop-thumb', 640, 420, true);
 
-	// This theme uses wp_nav_menu() in one location.
-	register_nav_menus(
-		array(
-			'top-menu' => esc_html__( 'Top Menu', 'digital-italia' ),
+    // This theme uses wp_nav_menu() in one location.
+    register_nav_menus(
+        array(
+            'top-menu' => esc_html__( 'Top Menu', 'digital-italia' ),
             'main-menu' => esc_html__( 'Main Menu', 'digital-italia' ),
             'footer-one' => esc_html__( 'Footer One', 'digital-italia' ),
             'footer-two' => esc_html__( 'Footer Two', 'digital-italia' ),
             'footer-three' => esc_html__( 'Footer Three', 'digital-italia' ),
             'footer-four' => esc_html__( 'Footer Four', 'digital-italia' ),
             'footer-bottom' => esc_html__( 'Footer Bottom', 'digital-italia' ),
-		)
-	);
+        )
+    );
 
-	/*
-		* Switch default core markup for search form, comment form, and comments
-		* to output valid HTML5.
-		*/
-	add_theme_support(
-		'html5',
-		array(
-			'search-form',
-			'comment-form',
-			'comment-list',
-			'gallery',
-			'caption',
-			'style',
-			'script',
-		)
-	);
+    /*
+        * Switch default core markup for search form, comment form, and comments
+        * to output valid HTML5.
+        */
+    add_theme_support(
+        'html5',
+        array(
+            'search-form',
+            'comment-form',
+            'comment-list',
+            'gallery',
+            'caption',
+            'style',
+            'script',
+        )
+    );
 
-	// Set up the WordPress core custom background feature.
-	add_theme_support(
-		'custom-background',
-		apply_filters(
-			'digital_italia_custom_background_args',
-			array(
-				'default-color' => 'ffffff',
-				'default-image' => '',
-			)
-		)
-	);
+    // Set up the WordPress core custom background feature.
+    add_theme_support(
+        'custom-background',
+        apply_filters(
+            'digital_italia_custom_background_args',
+            array(
+                'default-color' => 'ffffff',
+                'default-image' => '',
+            )
+        )
+    );
 
-	// Add theme support for selective refresh for widgets.
-	add_theme_support( 'customize-selective-refresh-widgets' );
+    // Add theme support for selective refresh for widgets.
+    add_theme_support( 'customize-selective-refresh-widgets' );
 
-	/**
-	 * Add support for core custom logo.
-	 *
-	 * @link https://codex.wordpress.org/Theme_Logo
-	 */
-	add_theme_support(
-		'custom-logo',
-		array(
-			'height'      => 250,
-			'width'       => 250,
-			'flex-width'  => true,
-			'flex-height' => true,
-		)
-	);
+    /**
+     * Add support for core custom logo.
+     *
+     * @link https://codex.wordpress.org/Theme_Logo
+     */
+    add_theme_support(
+        'custom-logo',
+        array(
+            'height'      => 250,
+            'width'       => 250,
+            'flex-width'  => true,
+            'flex-height' => true,
+        )
+    );
 
 }
 add_action( 'after_setup_theme', 'digital_italia_setup' );
@@ -130,7 +130,7 @@ add_action( 'after_setup_theme', 'digital_italia_setup' );
  * @global int $content_width
  */
 function digital_italia_content_width() {
-	$GLOBALS['content_width'] = apply_filters( 'digital_italia_content_width', 640 );
+    $GLOBALS['content_width'] = apply_filters( 'digital_italia_content_width', 640 );
 }
 add_action( 'after_setup_theme', 'digital_italia_content_width', 0 );
 
@@ -141,17 +141,17 @@ add_action( 'after_setup_theme', 'digital_italia_content_width', 0 );
  */
 function digital_italia_widgets_init(): void
 {
-	register_sidebar(
-		array(
-			'name'          => esc_html__( 'Sidebar', 'digital-italia' ),
-			'id'            => 'sidebar-1',
-			'description'   => esc_html__( 'Add widgets here.', 'digital-italia' ),
-			'before_widget' => '<section id="%1$s" class="widget %2$s sidebar-wrapper it-line-right-side border-0"><div class="sidebar-linklist-wrapper"><div class="link-list-wrapper">',
-			'after_widget'  => '</div></div></section>',
-			'before_title'  => '<h2 class="widget-title">',
-			'after_title'   => '</h2>',
-		)
-	);
+    register_sidebar(
+        array(
+            'name'          => esc_html__( 'Sidebar', 'digital-italia' ),
+            'id'            => 'sidebar-1',
+            'description'   => esc_html__( 'Add widgets here.', 'digital-italia' ),
+            'before_widget' => '<section id="%1$s" class="widget %2$s sidebar-wrapper it-line-right-side border-0"><div class="sidebar-linklist-wrapper"><div class="link-list-wrapper">',
+            'after_widget'  => '</div></div></section>',
+            'before_title'  => '<h2 class="widget-title">',
+            'after_title'   => '</h2>',
+        )
+    );
 }
 add_action( 'widgets_init', 'digital_italia_widgets_init' );
 
@@ -160,15 +160,14 @@ add_action( 'widgets_init', 'digital_italia_widgets_init' );
  */
 function digital_italia_scripts(): void
 {
-	wp_enqueue_style( 'digital-italia-style', get_stylesheet_uri(), array(), _S_VERSION );
-	wp_style_add_data( 'digital-italia-style', 'rtl', 'replace' );
+    wp_enqueue_style( 'digital-italia-style', get_stylesheet_uri(), array(), _S_VERSION );
+    wp_style_add_data( 'digital-italia-style', 'rtl', 'replace' );
 
-	wp_enqueue_script( 'digital-italia-navigation', get_template_directory_uri() . '/assets/js/navigation.js', array(), _S_VERSION, true );
+    wp_enqueue_script( 'digital-italia-navigation', get_template_directory_uri() . '/assets/js/navigation.js', array(), _S_VERSION, true );
 
-	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
-		wp_enqueue_script( 'comment-reply' );
-	}
-
+    if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
+        wp_enqueue_script( 'comment-reply' );
+    }
 }
 add_action( 'wp_enqueue_scripts', 'digital_italia_scripts' );
 
@@ -196,8 +195,9 @@ require get_template_directory() . '/inc/customizer.php';
  * Load Jetpack compatibility file.
  */
 if ( defined( 'JETPACK__VERSION' ) ) {
-	require get_template_directory() . '/inc/jetpack.php';
+    require get_template_directory() . '/inc/jetpack.php';
 }
+
 /**
  * BOOTSTRAP ITALIA SUPPORT
  */
@@ -214,20 +214,28 @@ if ( ! function_exists( 'get_menu_by_location' ) ):
 endif;
 
 add_action( 'wp_enqueue_scripts', function() {
-    wp_enqueue_style('bootstrap-style', get_template_directory_uri() . '/bootstrap-italia/css/bootstrap-italia.min.css');
-    // BUNDLE
-    wp_register_script( 'boostrap-bundle', get_template_directory_uri() . '/bootstrap-italia/js/bootstrap-italia.bundle.min.js', [], _S_VERSION, true );
+
+    /**
+     * ASSETS COMPILATI DA VITE (bootstrap-italia + leaflet)
+     */
+    wp_enqueue_style(
+        'theme-dist-style',
+        get_template_directory_uri() . '/dist/css/main.css',
+        [],
+        _S_VERSION
+    );
+
+    wp_register_script(
+        'theme-dist-script',
+        get_template_directory_uri() . '/dist/js/main.js',
+        [],
+        _S_VERSION,
+        true
+    );
+
     $bundle_options = [
         'cookie_expire' => get_theme_mod('cookie_expiration_setting', 365)
     ];
-    wp_localize_script( 'boostrap-bundle', 'bundleOptions', $bundle_options );
-    wp_enqueue_script('boostrap-bundle');
-    if(!is_admin()) {
-        wp_deregister_script('jquery');
-        wp_register_script( 'jquery', includes_url('/js/jquery/jquery.js'), false, false, true );
-        wp_enqueue_script('jquery');
-    }
-    wp_register_script( 'cookies-settings', get_template_directory_uri() . '/assets/js/cookies-settings.js', ['jquery', 'boostrap-bundle'], _S_VERSION, true);
     /**
      * OPZIONI COOKIES
      */
@@ -239,27 +247,39 @@ add_action( 'wp_enqueue_scripts', function() {
             $cookies_vars[] = $option_name;
         }
     }
-    wp_localize_script( 'cookies-settings', 'cookiesVars', $cookies_vars );
-    /**
-     * ALTRE IMPOSTAZIONI
-     */
-    $cookies_settings = [
-        'cookie_expire' => get_theme_mod('cookie_expiration_setting', 365)
-    ];
-    wp_localize_script( 'cookies-settings', 'cookiesSettings', $cookies_settings);
-    wp_enqueue_script('cookies-settings');
+    wp_localize_script( 'theme-dist-script', 'cookiesVars', $cookies_vars );
+    wp_localize_script( 'theme-dist-script', 'cookiesSettings', $bundle_options );
+    wp_enqueue_script('theme-dist-script');
+
+    if(!is_admin()) {
+        wp_deregister_script('jquery');
+        wp_register_script( 'jquery', includes_url('/js/jquery/jquery.js'), false, false, true );
+        wp_enqueue_script('jquery');
+    }
+
     /**
      * DISPATCHER
      */
     wp_enqueue_script( 'cookies-dispatcher', get_template_directory_uri() . '/assets/js/cookies-dispatcher.js', ['cookies-settings'], _S_VERSION, true);
 
     // Enqueue script per il pulsante prenota servizio
-    wp_register_script( 'servizio-booking', get_template_directory_uri() . '/assets/js/booking.js', ['jquery', 'boostrap-bundle'], _S_VERSION, true );
+    wp_register_script( 'servizio-booking', get_template_directory_uri() . '/assets/js/booking.js', ['jquery', 'theme-dist-script'], _S_VERSION, true );
     wp_enqueue_script( 'servizio-booking' );
 
     // Enqueue booking CSS (stile minimale per calendario e slot)
     wp_enqueue_style( 'booking-style', get_template_directory_uri() . '/assets/css/booking.css', array(), _S_VERSION );
-});
+
+    // Enqueue script per la mappa leaflet (ora globale)
+    wp_register_script(
+        'dci-leaflet-map',
+        get_template_directory_uri() . '/assets/js/leaflet-map.js',
+        [ 'theme-dist-script' ],
+        _S_VERSION,
+        true
+    );
+    wp_enqueue_script('dci-leaflet-map');
+
+} );
 
 add_action( 'customize_register', function( $wp_customize ) {
     // Aggiungi il controllo di caricamento file
@@ -381,7 +401,7 @@ add_action( 'customize_register', function( $wp_customize ) {
     ) );
 
     $wp_customize->add_setting('cookie_expiration_setting', array(
-        'default' => 365, // Scadenza predefinita in giorni
+        'default' => 365,
     ));
 
     $wp_customize->add_control('cookie_expiration_setting', array(
@@ -390,19 +410,16 @@ add_action( 'customize_register', function( $wp_customize ) {
         'type' => 'number',
     ));
 
-    //add setting
     $wp_customize->add_setting( 'privacy_page_setting', array(
         'default' => '',
     ));
 
-    //add control
     $wp_customize->add_control( 'privacy_page_setting', array(
         'label' => 'Pagina della policy',
         'type'  => 'dropdown-pages',
         'section' => 'cookies_settings_section',
     ));
 
-    // Aggiungi i controlli per le checkboxes
     $wp_customize->add_setting( 'cookies_settings_consent_analytics', array(
         'default' => false,
     ) );
@@ -447,8 +464,6 @@ add_filter( 'image_size_names_choose', function ($sizes){
     ) );
 });
 
-
-
 // Hook to override the block render callback
 add_action( 'init', 'digital_italia_render_blocks');
 
@@ -464,7 +479,8 @@ if (!defined('SWB_PLUGIN_URL')) {
  */
 require_once(get_template_directory() . '/inc/admin/tipologie/tipologia_servizio.php');
 require_once(get_template_directory() . '/inc/admin/tipologie/tipologia_appuntamento.php');
-
+require_once(get_template_directory() . '/inc/admin/tipologie/tipologia_persona.php');
+require_once(get_template_directory() . '/inc/admin/tipologie/tipologia_dipartimento.php');
 
 /**
  * Include booking system
@@ -491,7 +507,6 @@ function digital_italia_booking_init() {
 }
 add_action('after_setup_theme', 'digital_italia_booking_init', 20);
 
-
 /**
  * Create booking slots table on theme activation
  */
@@ -500,7 +515,6 @@ function digital_italia_create_booking_table(): void
     global $wpdb;
     $charset_collate = $wpdb->get_charset_collate();
 
-    // Table for slots
     $table_name = $wpdb->prefix . 'booking_slots';
 
     $sql = "CREATE TABLE IF NOT EXISTS $table_name (
@@ -524,7 +538,6 @@ function digital_italia_create_booking_table(): void
     require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
     dbDelta($sql);
 
-    // Table for reservations
     $reservations_table = $wpdb->prefix . 'booking_reservations';
 
     $sql2 = "CREATE TABLE IF NOT EXISTS $reservations_table (
@@ -548,12 +561,6 @@ add_action('after_switch_theme', 'digital_italia_create_booking_table');
 
 // Fallback per funzioni DCI (definite nel tema child) - evitare errori se il child non è attivo
 if (!function_exists('dci_filter_uo_with_services')) {
-    /**
-     * Filtra le unità organizzative mostrando solo quelle che offrono almeno un servizio
-     *
-     * @param array $unita_organizzative Array di post objects delle unità organizzative
-     * @return array Array filtrato di unità organizzative che offrono servizi
-     */
     function dci_filter_uo_with_services($unita_organizzative) {
         if (empty($unita_organizzative) || !is_array($unita_organizzative)) {
             return array();
@@ -566,13 +573,11 @@ if (!function_exists('dci_filter_uo_with_services')) {
                 continue;
             }
 
-            // Recupera i servizi offerti dalla UO
             $servizi_offerti_raw = get_post_meta($uo->ID, '_dci_unita_organizzativa_elenco_servizi_offerti', true);
             $servizi_offerti = is_string($servizi_offerti_raw)
                 ? maybe_unserialize($servizi_offerti_raw)
                 : $servizi_offerti_raw;
 
-            // Se ha almeno un servizio, la includiamo
             if (!empty($servizi_offerti) && is_array($servizi_offerti) && count($servizi_offerti) > 0) {
                 $filtered[] = $uo;
                 if (function_exists('error_log')) {
@@ -594,13 +599,6 @@ if (!function_exists('dci_filter_uo_with_services')) {
 }
 
 if (!function_exists('dci_uo_offers_service')) {
-    /**
-     * Verifica se una UO offre un servizio specifico
-     *
-     * @param int $uo_id ID dell'unità organizzativa
-     * @param int $service_id ID del servizio
-     * @return bool True se la UO offre il servizio
-     */
     function dci_uo_offers_service($uo_id, $service_id) {
         $servizi_offerti_raw = get_post_meta($uo_id, '_dci_unita_organizzativa_elenco_servizi_offerti', true);
         $servizi_offerti = is_string($servizi_offerti_raw)
