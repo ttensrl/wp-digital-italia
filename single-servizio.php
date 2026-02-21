@@ -24,7 +24,7 @@ get_header();
                     $booking_enabled = get_post_meta($post_id, '_swb_slots_enabled', true);
 
                     if ($booking_enabled === '1') :
-                        $booking_button_label = esc_html__('Prenota appuntamento', 'digital-italia');
+                        $booking_button_label = esc_html__('Prenota appuntamento', 'wp-digital-italia');
                         ?>
                         <div class="mt-4">
                             <a href="#" class="btn btn-primary swb-booking-button" data-post-id="<?php echo esc_attr($post_id); ?>">

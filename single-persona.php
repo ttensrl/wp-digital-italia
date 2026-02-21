@@ -54,7 +54,7 @@ get_header();
                             <div class="col-md-6">
                                 <?php if ($email) : ?>
                                     <div class="mb-3">
-                                        <small><?php _e('Email', 'digital-italia'); ?></small>
+                                        <small><?php _e('Email', 'wp-digital-italia'); ?></small>
                                         <p class="fw-semibold mb-0">
                                             <a href="mailto:<?php echo esc_attr($email); ?>"><?php echo esc_html($email); ?></a>
                                         </p>
@@ -63,7 +63,7 @@ get_header();
 
                                 <?php if ($telefono) : ?>
                                     <div class="mb-3">
-                                        <small><?php _e('Telefono', 'digital-italia'); ?></small>
+                                        <small><?php _e('Telefono', 'wp-digital-italia'); ?></small>
                                         <p class="fw-semibold mb-0">
                                             <a href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $telefono)); ?>"><?php echo esc_html($telefono); ?></a>
                                         </p>
@@ -75,7 +75,7 @@ get_header();
                         <?php
                         the_content();
                         wp_link_pages(array(
-                            'before' => '<div class="page-links">' . esc_html__('Pages:', 'digital-italia'),
+                            'before' => '<div class="page-links">' . esc_html__('Pages:', 'wp-digital-italia'),
                             'after'  => '</div>',
                         ));
                         ?>

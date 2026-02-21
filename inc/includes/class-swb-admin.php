@@ -141,10 +141,10 @@ class SWB_Admin {
                 'nonce' => wp_create_nonce('swb-admin-nonce'),
                 'pluginUrl' => SWB_PLUGIN_URL,
                 'strings' => array(
-                    'confirmDelete' => __('Sei sicuro di voler eliminare questo elemento?', 'simple-wp-booking'),
-                    'confirmDeleteSlot' => __('Eliminare questo slot?', 'simple-wp-booking'),
-                    'error' => __('Errore', 'simple-wp-booking'),
-                    'success' => __('Operazione completata', 'simple-wp-booking'),
+                    'confirmDelete' => __('Sei sicuro di voler eliminare questo elemento?', 'wp-digital-italia'),
+                    'confirmDeleteSlot' => __('Eliminare questo slot?', 'wp-digital-italia'),
+                    'error' => __('Errore', 'wp-digital-italia'),
+                    'success' => __('Operazione completata', 'wp-digital-italia'),
                 )
             ));
         }

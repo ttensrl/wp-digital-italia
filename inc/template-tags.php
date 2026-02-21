@@ -22,7 +22,7 @@ if ( ! function_exists( 'digital_italia_posted_on' ) ) :
 
         $posted_on = sprintf(
         /* translators: %s: post date. */
-            esc_html_x( '%s', 'post date', 'digital-italia' ),
+            esc_html_x( '%s', 'post date', 'wp-digital-italia' ),
             '<a href="' . esc_url( get_permalink() ) . '" rel="bookmark">' . $time_string . '</a>'
         );
 
@@ -48,7 +48,7 @@ if ( ! function_exists( 'digital_italia_updated_on' ) ) :
 
         $posted_on = sprintf(
         /* translators: %s: post date. */
-            esc_html_x( '%s', 'post date', 'digital-italia' ),
+            esc_html_x( '%s', 'post date', 'wp-digital-italia' ),
             $time_string
         );
 
@@ -65,7 +65,7 @@ if ( ! function_exists( 'digital_italia_posted_by' ) ) :
 
 		$byline = sprintf(
 			/* translators: %s: post author. */
-			esc_html_x( $pre.' %s '.$post, 'post author', 'digital-italia' ),
+			esc_html_x( $pre.' %s '.$post, 'post author', 'wp-digital-italia' ),
 			'<span class="author vcard"><a class="url fn n" href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '">' . ucfirst( esc_html( get_the_author() ) ) . '</a></span>'
 		);
 
@@ -86,7 +86,7 @@ if ( ! function_exists( 'digital_italia_entry_footer' ) ) :
 				sprintf(
 					wp_kses(
 						/* translators: %s: post title */
-						__( 'Leave a Comment <span class="visually-hidden"> on %s</span>', 'digital-italia' ),
+						__( 'Leave a Comment <span class="visually-hidden"> on %s</span>', 'wp-digital-italia' ),
                         array(
                             'span' => array(
                                 'class' => array(),
@@ -110,7 +110,7 @@ if ( ! function_exists( 'digital_italia_entry_footer' ) ) :
 			sprintf(
 				wp_kses(
 					/* translators: %s: Name of current post. Only visible to screen readers */
-					__( 'Edit <span class="screen-reader-text">%s</span>', 'digital-italia' ),
+					__( 'Edit <span class="screen-reader-text">%s</span>', 'wp-digital-italia' ),
 					array(
 						'span' => array(
 							'class' => array(),
@@ -139,7 +139,7 @@ if ( ! function_exists( 'digital_italia_category_links' ) ) :
 
         if ( empty( $categories ) ) {
             /** This filter is documented in wp-includes/category-template.php */
-            return apply_filters( 'the_category', __( 'Uncategorized' ));
+            return apply_filters( 'the_category', __( 'Uncategorized', 'wp-digital-italia' ));
         }
 
         $thelist = '<ul class="post-categories list-unstyled d-flex flex-wrap gap-2 mb-0 pt-1">';
@@ -183,7 +183,7 @@ if ( ! function_exists( 'digital_italia_taxonomy' ) ) :
             $taxonomy = '';
 
             /* translators: used between list items, there is a space after the comma */
-            $categories_list = digital_italia_category_links( esc_html__( '', 'digital-italia' ) );
+            $categories_list = digital_italia_category_links( esc_html__( '', 'wp-digital-italia' ) );
             if ( $categories_list ) {
                 /* translators: 1: list of categories. */
                 $taxonomy .= '<section>';
@@ -193,7 +193,7 @@ if ( ! function_exists( 'digital_italia_taxonomy' ) ) :
             }
 
             /* translators: used between list items, there is a space after the comma */
-            $tags_list = digital_italia_tag_links( esc_html_x( '', 'digital-italia' ) );
+            $tags_list = digital_italia_tag_links( esc_html_x( '', 'tags list', 'wp-digital-italia' ) );
             if ( $tags_list ) {
                 /* translators: 1: list of tags. */
                 $taxonomy .= '<section class="mt-4">';
