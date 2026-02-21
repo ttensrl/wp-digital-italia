@@ -3,8 +3,10 @@ require_once(get_template_directory() . '/classes/bootstrap_5_wp_main_menu_walke
 require_once(get_template_directory() . '/classes/bootstrap_5_wp_simple_menu_walker.php');
 require_once(get_template_directory() . '/classes/bootstrap_5_wp_inline_menu_walker.php');
 require_once(get_template_directory() . '/inc/block-functions.php');
+require_once(get_template_directory() . '/inc/elementor-support.php');
 require_once(get_template_directory() . '/inc/cmb2.php');
 require_once(get_template_directory() . '/inc/utils.php');
+require_once(get_template_directory() . '/inc/breadcrumbs.php');
 
 /**
  * digital-italia functions and definitions
@@ -26,7 +28,8 @@ if ( ! defined( '_S_VERSION' ) ) {
  * runs before the init hook. The init hook is too late for some features, such
  * as indicating support for post thumbnails.
  */
-function digital_italia_setup() {
+function digital_italia_setup(): void
+{
 
 	/*
 		* Make theme available for translation.
@@ -136,7 +139,8 @@ add_action( 'after_setup_theme', 'digital_italia_content_width', 0 );
  *
  * @link https://developer.wordpress.org/themes/functionality/sidebars/#registering-a-sidebar
  */
-function digital_italia_widgets_init() {
+function digital_italia_widgets_init(): void
+{
 	register_sidebar(
 		array(
 			'name'          => esc_html__( 'Sidebar', 'digital-italia' ),
@@ -159,7 +163,7 @@ function digital_italia_scripts(): void
 	wp_enqueue_style( 'digital-italia-style', get_stylesheet_uri(), array(), _S_VERSION );
 	wp_style_add_data( 'digital-italia-style', 'rtl', 'replace' );
 
-	wp_enqueue_script( 'digital-italia-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );
+	wp_enqueue_script( 'digital-italia-navigation', get_template_directory_uri() . '/assets/js/navigation.js', array(), _S_VERSION, true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
@@ -210,9 +214,7 @@ if ( ! function_exists( 'get_menu_by_location' ) ):
 endif;
 
 add_action( 'wp_enqueue_scripts', function() {
-    global $wpdb;
     wp_enqueue_style('bootstrap-style', get_template_directory_uri() . '/bootstrap-italia/css/bootstrap-italia.min.css');
-    //wp_enqueue_style('booking-style', get_template_directory_uri() . '/wp-booking.css');
     // BUNDLE
     wp_register_script( 'boostrap-bundle', get_template_directory_uri() . '/bootstrap-italia/js/bootstrap-italia.bundle.min.js', [], _S_VERSION, true );
     $bundle_options = [
@@ -225,7 +227,7 @@ add_action( 'wp_enqueue_scripts', function() {
         wp_register_script( 'jquery', includes_url('/js/jquery/jquery.js'), false, false, true );
         wp_enqueue_script('jquery');
     }
-    wp_register_script( 'cookies-settings', get_template_directory_uri() . '/js/cookies-settings.js', ['jquery', 'boostrap-bundle'], _S_VERSION, true);
+    wp_register_script( 'cookies-settings', get_template_directory_uri() . '/assets/js/cookies-settings.js', ['jquery', 'boostrap-bundle'], _S_VERSION, true);
     /**
      * OPZIONI COOKIES
      */
@@ -249,10 +251,10 @@ add_action( 'wp_enqueue_scripts', function() {
     /**
      * DISPATCHER
      */
-    wp_enqueue_script( 'cookies-dispatcher', get_template_directory_uri() . '/js/cookies-dispatcher.js', ['cookies-settings'], _S_VERSION, true);
+    wp_enqueue_script( 'cookies-dispatcher', get_template_directory_uri() . '/assets/js/cookies-dispatcher.js', ['cookies-settings'], _S_VERSION, true);
 
     // Enqueue script per il pulsante prenota servizio
-    wp_register_script( 'servizio-booking', get_template_directory_uri() . '/js/booking.js', ['jquery', 'boostrap-bundle'], _S_VERSION, true );
+    wp_register_script( 'servizio-booking', get_template_directory_uri() . '/assets/js/booking.js', ['jquery', 'boostrap-bundle'], _S_VERSION, true );
     wp_enqueue_script( 'servizio-booking' );
 
     // Enqueue booking CSS (stile minimale per calendario e slot)
@@ -489,17 +491,12 @@ function digital_italia_booking_init() {
 }
 add_action('after_setup_theme', 'digital_italia_booking_init', 20);
 
-/**
- * Include verifica menu (per debug)
- */
-if (is_admin()) {
-    require_once(get_template_directory() . '/verifica-menu-appuntamenti.php');
-}
 
 /**
  * Create booking slots table on theme activation
  */
-function digital_italia_create_booking_table() {
+function digital_italia_create_booking_table(): void
+{
     global $wpdb;
     $charset_collate = $wpdb->get_charset_collate();
 
@@ -617,4 +614,3 @@ if (!function_exists('dci_uo_offers_service')) {
         return in_array($service_id, array_map('intval', $servizi_offerti));
     }
 }
-

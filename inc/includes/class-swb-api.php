@@ -42,8 +42,9 @@ class SWB_API {
         add_action('wp_ajax_get_available_appointments', array($this, 'ajax_get_available_appointments'));
         add_action('wp_ajax_nopriv_get_available_appointments', array($this, 'ajax_get_available_appointments'));
 
-        // NOTA: Hook save_appuntamento gestito dal tema child (booking-handler.php)
-        // per evitare conflitti con la logica del tema principale
+        // Endpoint per invio prenotazione dal frontend
+        add_action('wp_ajax_submit_booking', array($this, 'ajax_submit_booking'));
+        add_action('wp_ajax_nopriv_submit_booking', array($this, 'ajax_submit_booking'));
     }
 
     /**
@@ -54,7 +55,7 @@ class SWB_API {
         $service_id = isset($_GET['service_id']) ? intval($_GET['service_id']) : 0;
         $uo_id = isset($_GET['uo_id']) ? intval($_GET['uo_id']) : 0;
 
-        if (empty($month) || !$service_id || !$uo_id) {
+        if (empty($month) || !$service_id) {
             wp_send_json_error('Parametri mancanti');
             return;
         }
@@ -122,50 +123,196 @@ class SWB_API {
     }
 
     /**
+     * AJAX: Invia prenotazione dal frontend
+     */
+    public function ajax_submit_booking() {
+        error_log('SWB SUBMIT: ajax_submit_booking chiamato');
+        error_log('SWB SUBMIT: POST data: ' . print_r($_POST, true));
+
+        $slot_id = isset($_POST['slot_id']) ? intval($_POST['slot_id']) : 0;
+        $service_id = isset($_POST['service_id']) ? intval($_POST['service_id']) : 0;
+        $nome = isset($_POST['nome']) ? sanitize_text_field($_POST['nome']) : '';
+        $cognome = isset($_POST['cognome']) ? sanitize_text_field($_POST['cognome']) : '';
+        $email = isset($_POST['email']) ? sanitize_email($_POST['email']) : '';
+        $telefono = isset($_POST['telefono']) ? sanitize_text_field($_POST['telefono']) : '';
+        $messaggio = isset($_POST['messaggio']) ? sanitize_textarea_field($_POST['messaggio']) : '';
+
+        if (!$slot_id || !$service_id || !$nome || !$cognome || !$email) {
+            wp_send_json_error('Dati mancanti o non validi');
+            return;
+        }
+
+        if (!is_email($email)) {
+            wp_send_json_error('Email non valida');
+            return;
+        }
+
+        $slot = $this->slot_manager->get_slot($slot_id);
+        if (!$slot) {
+            wp_send_json_error('Slot non trovato');
+            return;
+        }
+
+        if ($slot->current_bookings >= $slot->max_bookings) {
+            wp_send_json_error('Slot non più disponibile');
+            return;
+        }
+
+        $user_name = trim($cognome . ' ' . $nome);
+
+        $appuntamento_title = sprintf(
+            'Appuntamento %s - %s %s - %s',
+            date_i18n('d/m/Y H:i', strtotime($slot->slot_date . ' ' . $slot->slot_start_time)),
+            $nome,
+            $cognome,
+            $email
+        );
+
+        $data_ora_inizio = strtotime($slot->slot_date . ' ' . $slot->slot_start_time);
+        $data_ora_fine = strtotime($slot->slot_date . ' ' . $slot->slot_end_time);
+
+        $servizio_nome = get_the_title($service_id);
+
+        $appuntamento_id = wp_insert_post(array(
+            'post_type' => 'appuntamento',
+            'post_title' => $appuntamento_title,
+            'post_status' => 'publish',
+            'post_author' => 1,
+        ));
+
+        if (is_wp_error($appuntamento_id)) {
+            error_log('SWB SUBMIT: Errore creazione appuntamento: ' . $appuntamento_id->get_error_message());
+            wp_send_json_error('Errore nella creazione dell\'appuntamento');
+            return;
+        }
+
+        error_log('SWB SUBMIT: Appuntamento creato con ID: ' . $appuntamento_id);
+
+        update_post_meta($appuntamento_id, '_dci_appuntamento_email_richiedente', $email);
+        update_post_meta($appuntamento_id, '_dci_appuntamento_dettaglio_richiesta', $messaggio);
+        update_post_meta($appuntamento_id, '_dci_appuntamento_data_ora_prenotazione', current_time('timestamp'));
+        update_post_meta($appuntamento_id, '_dci_appuntamento_data_ora_inizio_appuntamento', $data_ora_inizio);
+        update_post_meta($appuntamento_id, '_dci_appuntamento_data_ora_fine_appuntamento', $data_ora_fine);
+        update_post_meta($appuntamento_id, '_dci_appuntamento_servizio', $servizio_nome);
+
+        $booking_id = $this->slot_manager->book_slot(
+            $slot_id,
+            $appuntamento_id,
+            $email,
+            $user_name,
+            null
+        );
+
+        if (!$booking_id) {
+            error_log('SWB SUBMIT: Errore prenotazione slot');
+            wp_delete_post($appuntamento_id, true);
+            wp_send_json_error('Errore nella prenotazione dello slot');
+            return;
+        }
+
+        update_post_meta($appuntamento_id, '_swb_booking_id', $booking_id);
+        update_post_meta($appuntamento_id, '_swb_slot_id', $slot_id);
+
+        error_log('SWB SUBMIT: Slot prenotato, booking_id: ' . $booking_id);
+
+        $booking_data = array(
+            'slot_id' => $slot_id,
+            'user_email' => $email,
+            'user_name' => $user_name,
+            'user_phone' => $telefono,
+        );
+
+        $this->send_confirmation_email($appuntamento_id, $booking_data);
+
+        $this->send_admin_notification($appuntamento_id, $booking_data, $slot, $servizio_nome, $telefono, $messaggio);
+
+        wp_send_json_success(array(
+            'appuntamento_id' => $appuntamento_id,
+            'booking_id' => $booking_id,
+            'message' => 'Prenotazione completata con successo'
+        ));
+    }
+
+    /**
+     * Invia notifica all'amministratore
+     */
+    private function send_admin_notification($appuntamento_id, $booking_data, $slot, $servizio_nome, $telefono, $messaggio) {
+        $admin_email = get_option('admin_email');
+        $site_name = get_bloginfo('name');
+
+        $data_appuntamento = date_i18n('l d F Y', strtotime($slot->slot_date));
+        $ora_inizio = substr($slot->slot_start_time, 0, 5);
+        $ora_fine = substr($slot->slot_end_time, 0, 5);
+
+        $subject = sprintf('[%s] Nuova prenotazione appuntamento', $site_name);
+
+        $message = sprintf(
+            "Nuova prenotazione ricevuta.\n\n" .
+            "DETTAGLI APPUNTAMENTO:\n" .
+            "------------------------\n" .
+            "Data: %s\n" .
+            "Orario: %s - %s\n" .
+            "Servizio: %s\n\n" .
+            "DETTAGLI RICHIEDENTE:\n" .
+            "------------------------\n" .
+            "Nome: %s\n" .
+            "Email: %s\n" .
+            "Telefono: %s\n" .
+            "Note: %s\n\n" .
+            "------------------------\n" .
+            "ID Appuntamento: %d\n" .
+            "ID Prenotazione: %d\n\n" .
+            "Gestisci la prenotazione: %s",
+            $data_appuntamento,
+            $ora_inizio,
+            $ora_fine,
+            $servizio_nome,
+            $booking_data['user_name'],
+            $booking_data['user_email'],
+            $telefono ?: 'Non fornito',
+            $messaggio ?: 'Nessuna nota',
+            $appuntamento_id,
+            $booking_data['slot_id'],
+            admin_url('post.php?post=' . $appuntamento_id . '&action=edit')
+        );
+
+        $headers = array(
+            'Content-Type: text/plain; charset=UTF-8',
+            'From: ' . $site_name . ' <' . $admin_email . '>'
+        );
+
+        $sent = wp_mail($admin_email, $subject, $message, $headers);
+
+        if ($sent) {
+            error_log('SWB ADMIN EMAIL: Notifica inviata all\'admin: ' . $admin_email);
+        } else {
+            error_log('SWB ADMIN EMAIL: Errore invio notifica all\'admin');
+        }
+
+        return $sent;
+    }
+
+    /**
      * Ottiene i mesi disponibili per un servizio
      */
     private function get_available_months($service_id) {
         global $wpdb;
         $table_name = $wpdb->prefix . 'booking_slots';
 
-        // Prova a determinare l'UO del servizio (se configurata)
-        $canale_fisico = dci_get_meta("canale_fisico_uffici", '_dci_servizio_', $service_id);
-        if (!empty($canale_fisico) && is_array($canale_fisico)) {
-            $uo_id = intval($canale_fisico[0]);
-        } else {
-            $uo_id = intval(dci_get_meta("unita_responsabile", '_dci_servizio_', $service_id));
-        }
-
         $today = date('Y-m-d');
 
         // Costruisci la query per ottenere YEAR e MONTH distinti che hanno slot disponibili
-        if ($uo_id) {
-            $sql = $wpdb->prepare(
-                "SELECT DISTINCT YEAR(slot_date) as year, MONTH(slot_date) as month
-                FROM {$table_name}
-                WHERE service_id = %d
-                AND uo_id = %d
-                AND is_active = 1
-                AND current_bookings < max_bookings
-                AND slot_date >= %s
-                ORDER BY year ASC, month ASC",
-                $service_id,
-                $uo_id,
-                $today
-            );
-        } else {
-            $sql = $wpdb->prepare(
-                "SELECT DISTINCT YEAR(slot_date) as year, MONTH(slot_date) as month
-                FROM {$table_name}
-                WHERE service_id = %d
-                AND is_active = 1
-                AND current_bookings < max_bookings
-                AND slot_date >= %s
-                ORDER BY year ASC, month ASC",
-                $service_id,
-                $today
-            );
-        }
+        $sql = $wpdb->prepare(
+            "SELECT DISTINCT YEAR(slot_date) as year, MONTH(slot_date) as month
+            FROM {$table_name}
+            WHERE service_id = %d
+            AND is_active = 1
+            AND current_bookings < max_bookings
+            AND slot_date >= %s
+            ORDER BY year ASC, month ASC",
+            $service_id,
+            $today
+        );
 
         $rows = $wpdb->get_results($sql);
 
@@ -206,6 +353,7 @@ class SWB_API {
         // Ottieni i giorni con slot disponibili dal database
         global $wpdb;
         $table_name = $wpdb->prefix . 'booking_slots';
+        $today = date('Y-m-d');
 
         $days = $wpdb->get_results($wpdb->prepare(
             "SELECT DISTINCT DAY(slot_date) as day, slot_date 
@@ -213,12 +361,14 @@ class SWB_API {
             WHERE service_id = %d 
             AND YEAR(slot_date) = %d 
             AND MONTH(slot_date) = %d 
+            AND slot_date >= %s
             AND is_active = 1 
             AND current_bookings < max_bookings 
             ORDER BY slot_date ASC",
             $service_id,
             $year,
-            $month_num
+            $month_num,
+            $today
         ));
 
         if (empty($days)) {
@@ -289,7 +439,7 @@ class SWB_API {
     }
 
     /**
-     * AJAX: Ottiene UO di un servizio
+     * AJAX: Ottiene UO di un servizio (mantenuto per compatibilità, ma ora restituisce sempre 0)
      */
     public function ajax_get_service_uo() {
         $service_id = isset($_GET['service_id']) ? intval($_GET['service_id']) : 0;
@@ -299,22 +449,10 @@ class SWB_API {
             return;
         }
 
-        // Ottieni UO
-        $canale_fisico = dci_get_meta("canale_fisico_uffici", '_dci_servizio_', $service_id);
-        if (!empty($canale_fisico) && is_array($canale_fisico)) {
-            $uo_id = intval($canale_fisico[0]);
-        } else {
-            $uo_id = intval(dci_get_meta("unita_responsabile", '_dci_servizio_', $service_id));
-        }
-
-        if (!$uo_id) {
-            wp_send_json_error('Nessuna UO trovata');
-            return;
-        }
-
+        // Non più necessario recuperare UO
         wp_send_json_success(array(
-            'id' => $uo_id,
-            'title' => get_the_title($uo_id)
+            'id' => 0,
+            'title' => 'Nessuna unità organizzativa'
         ));
     }
 
@@ -514,8 +652,6 @@ class SWB_API {
         $user_name = isset($_POST['surname']) && isset($_POST['name'])
             ? sanitize_text_field($_POST['surname'] . ' ' . $_POST['name'])
             : '';
-        $user_cf = isset($_POST['cf']) ? sanitize_text_field($_POST['cf']) : null;
-
         error_log('SWB: User email: ' . $user_email);
         error_log('SWB: User name: ' . $user_name);
 
@@ -526,8 +662,7 @@ class SWB_API {
         $transient_data = array(
             'slot_id' => $slot_id,
             'user_email' => $user_email,
-            'user_name' => $user_name,
-            'user_cf' => $user_cf
+            'user_name' => $user_name
         );
 
         $transient_key = 'swb_pending_booking_' . $slot_id;
@@ -547,7 +682,8 @@ class SWB_API {
     /**
      * Completa la prenotazione dopo che l'appuntamento è stato creato
      */
-    public function complete_booking($post_id, $post) {
+    public function complete_booking($post_id, $post): void
+    {
         error_log('SWB: complete_booking chiamato - Post ID: ' . $post_id . ', Post Type: ' . $post->post_type);
 
         if ($post->post_type !== 'appuntamento') {
@@ -729,13 +865,13 @@ class SWB_API {
         }
 
         $service_id = isset($_POST['service_id']) ? intval($_POST['service_id']) : 0;
-        $uo_id = isset($_POST['uo_id']) ? intval($_POST['uo_id']) : 0;
+        $uo_id = 0; // Non più necessario
         $date = isset($_POST['date']) ? sanitize_text_field($_POST['date']) : '';
         $time = isset($_POST['time']) ? sanitize_text_field($_POST['time']) : '';
         $duration = isset($_POST['duration']) ? intval($_POST['duration']) : 45;
         $max_bookings = isset($_POST['max_bookings']) ? intval($_POST['max_bookings']) : 1;
 
-        if (!$service_id || !$uo_id || !$date || !$time) {
+        if (!$service_id || !$date || !$time) {
             wp_send_json_error('Parametri mancanti');
             return;
         }
@@ -754,7 +890,7 @@ class SWB_API {
         $overlapping_slot = $wpdb->get_row($wpdb->prepare(
             "SELECT id, slot_start_time, slot_end_time FROM $table_name 
             WHERE service_id = %d 
-            AND uo_id = %d 
+            AND uo_id = 0 
             AND slot_date = %s 
             AND is_active = 1
             AND (
@@ -763,7 +899,6 @@ class SWB_API {
                 OR (slot_start_time >= %s AND slot_end_time <= %s)
             )",
             $service_id,
-            $uo_id,
             $date,
             // Il nuovo slot inizia prima che finisca quello esistente
             $end->format('H:i:s'),
@@ -815,7 +950,7 @@ class SWB_API {
         }
 
         $service_id = isset($_POST['service_id']) ? intval($_POST['service_id']) : 0;
-        $uo_id = isset($_POST['uo_id']) ? intval($_POST['uo_id']) : 0;
+        $uo_id = 0; // Non più necessario
         $start_date = isset($_POST['start_date']) ? sanitize_text_field($_POST['start_date']) : '';
         $end_date = isset($_POST['end_date']) ? sanitize_text_field($_POST['end_date']) : '';
         $start_time = isset($_POST['start_time']) ? sanitize_text_field($_POST['start_time']) : '09:00';
@@ -838,7 +973,7 @@ class SWB_API {
             }
         }
 
-        if (!$service_id || !$uo_id || !$start_date || !$end_date) {
+        if (!$service_id || !$start_date || !$end_date) {
             wp_send_json_error('Parametri mancanti');
             return;
         }

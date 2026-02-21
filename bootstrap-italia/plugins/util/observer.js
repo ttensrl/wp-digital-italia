@@ -1,4 +1,12 @@
 /**
+ * --------------------------------------------------------------------------
+ * Bootstrap Italia (https://italia.github.io/bootstrap-italia/)
+ * Authors: https://github.com/italia/bootstrap-italia/blob/main/AUTHORS
+ * Licensed under BSD-3-Clause license (https://github.com/italia/bootstrap-italia/blob/main/LICENSE)
+ * --------------------------------------------------------------------------
+ */
+
+/**
  * Mutation CSS Class Observer Object
  */
 //https://stackoverflow.com/a/53914092
@@ -98,8 +106,8 @@ class ContentObserver {
       actionRemove && typeof this.contentRemovedCallback === 'function'
         ? this.contentRemovedCallback
         : typeof this.contentAddedCallback === 'function'
-        ? this.contentAddedCallback
-        : null;
+          ? this.contentAddedCallback
+          : null;
     if (foundNodes && callback) {
       foundNodes.forEach((node) => callback(node));
     }

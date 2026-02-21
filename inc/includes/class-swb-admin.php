@@ -184,18 +184,9 @@ class SWB_Admin {
         wp_nonce_field('swb_save_meta', 'swb_meta_nonce');
 
         $enabled = get_post_meta($post->ID, '_swb_slots_enabled', true);
-        $uo_id = get_post_meta($post->ID, '_swb_default_uo', true);
 
-        // Ottieni UO del servizio
-        $canale_fisico = dci_get_meta("canale_fisico_uffici", '_dci_servizio_', $post->ID);
-        if (!empty($canale_fisico) && is_array($canale_fisico)) {
-            $uo_id = intval($canale_fisico[0]);
-        } else {
-            $uo_id = intval(dci_get_meta("unita_responsabile", '_dci_servizio_', $post->ID));
-        }
-
-        // Conta slot attivi
-        $slots = $this->slot_manager->get_all_slots_by_service($post->ID, $uo_id, true);
+        // Conta slot attivi (senza filtro per UO)
+        $slots = $this->slot_manager->get_all_slots_by_service($post->ID, 0, true);
         $slot_count = count($slots);
 
         ?>
@@ -207,16 +198,9 @@ class SWB_Admin {
                 </label>
             </p>
 
-            <?php if ($uo_id): ?>
-                <p><strong>Unità Organizzativa:</strong> <?php echo get_the_title($uo_id); ?> (ID: <?php echo $uo_id; ?>)</p>
-            <?php else: ?>
-                <p style="color: #dc3545;"><strong>⚠️ Nessuna unità organizzativa configurata!</strong></p>
-                <p>Configura "Canale Fisico" o "Unità Responsabile" per abilitare gli slot.</p>
-            <?php endif; ?>
-
             <p><strong>Slot attivi futuri:</strong> <?php echo $slot_count; ?></p>
 
-            <?php if ($enabled && $uo_id): ?>
+            <?php if ($enabled): ?>
                 <hr>
                 <h4>Azioni Rapide</h4>
                 <p>
@@ -337,7 +321,7 @@ class SWB_Admin {
         // Gestione form submit
         if (isset($_POST['swb_generate_submit']) && check_admin_referer('swb_generate_slots', 'swb_generate_nonce')) {
             $service_id = intval($_POST['service_id']);
-            $uo_id = intval($_POST['uo_id']);
+            $uo_id = 0; // Non più necessario, ma mantenuto per compatibilità
             $start_date = sanitize_text_field($_POST['start_date']);
             $end_date = sanitize_text_field($_POST['end_date']);
             $start_time = sanitize_text_field($_POST['start_time']);
@@ -408,9 +392,9 @@ class SWB_Admin {
                         <th><label for="uo_id">Unità Organizzativa *</label></th>
                         <td>
                             <select name="uo_id" id="uo_id" required class="regular-text">
-                                <option value="">-- Seleziona prima un servizio --</option>
+                                <option value="0">-- Nessuna unità organizzativa --</option>
                             </select>
-                            <p class="description">Verrà popolato automaticamente in base al servizio</p>
+                            <p class="description">Non è più necessario selezionare un'unità organizzativa</p>
                         </td>
                     </tr>
                     <tr>
@@ -521,18 +505,12 @@ class SWB_Admin {
             $('#service_id').on('change', function() {
                 var serviceId = $(this).val();
                 if (!serviceId) {
-                    $('#uo_id').html('<option value="">-- Seleziona prima un servizio --</option>');
+                    $('#uo_id').html('<option value="0">-- Nessuna unità organizzativa --</option>');
                     return;
                 }
 
-                $.get(ajaxurl, {
-                    action: 'swb_get_service_uo',
-                    service_id: serviceId
-                }, function(response) {
-                    if (response.success) {
-                        $('#uo_id').html('<option value="' + response.data.id + '">' + response.data.title + '</option>');
-                    }
-                });
+                // Non più necessario recuperare UO dal servizio
+                $('#uo_id').html('<option value="0">-- Nessuna unità organizzativa --</option>');
             });
 
             <?php if ($service_id): ?>

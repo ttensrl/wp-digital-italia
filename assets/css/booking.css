@@ -52,18 +52,39 @@
   border-color: #0d6efd;
 }
 
-/* Slots grid (adattata dal vecchio tema) */
-.slots-grid {
+/* Supporto quando il markup usa utilità Bootstrap (d-flex) */
+.calendar-grid.d-flex,
+.slots-grid.d-flex {
+  display: flex !important; /* forziamo flex quando bootstrap aggiunge d-flex */
+  flex-wrap: wrap;
+  gap: 0.75rem; /* fallback gap per flex */
+}
+
+/* Assicuriamo che i bottoni/giorni abbiano una larghezza compatibile con il design
+   sia quando si usa grid (colonna fissa) sia quando si usa flex (wrap). */
+.calendar-grid button.btn {
+  /* quando è dentro flex, usiamo una base fissa */
+  flex: 0 1 120px;
+  min-width: 100px;
+}
+
+/* Per gli slot (quando slots-grid è d-flex) le card dovrebbero adattarsi */
+.slots-grid.d-flex .slot-time-btn {
+  flex: 0 1 140px;
+  min-width: 120px;
+}
+
+/* Se invece si usa la griglia (no d-flex), manteniamo le regole grid originali */
+.calendar-grid:not(.d-flex) {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
+}
+
+.slots-grid:not(.d-flex) {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
   gap: 12px;
-}
-
-@media (max-width: 576px) {
-  .slots-grid {
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    gap: 8px;
-  }
 }
 
 /* Pulsante slot orario (stile vecchio tema) */
@@ -139,4 +160,41 @@
   overflow: hidden;
   clip: rect(1px, 1px, 1px, 1px);
   white-space: nowrap;
+}
+
+/* Garantire che i wrapper del calendario e degli slot si mostrino correttamente
+   quando la classe d-none viene rimossa via JS */
+#calendar-wrapper:not(.d-none),
+#slots-wrapper:not(.d-none) {
+  display: block;
+}
+
+/* Miglioriamo l'altezza e l'allineamento dei pulsanti giorni (come nel vecchio tema) */
+.calendar-grid.d-flex button.btn,
+.calendar-grid:not(.d-flex) button.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 80px;
+  padding: 12px 8px;
+  border-radius: 4px;
+  text-align: center;
+}
+
+/* Spaziatura più consistente per i bottoni nella versione flex */
+.calendar-grid.d-flex button.btn {
+  margin: 6px 6px 6px 0;
+}
+
+/* Gli slot come card devono avere dimensioni consistenti */
+.slots-grid.d-flex .slot-time-btn,
+.slots-grid:not(.d-flex) .slot-time-btn {
+  min-height: 60px;
+  padding: 12px;
+  box-sizing: border-box;
+}
+
+/* Forziamo che il container degli slot abbia un min-height per evitare collasso */
+#slots-wrapper:not(.d-none) .slots-grid {
+  min-height: 60px;
 }

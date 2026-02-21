@@ -1097,13 +1097,13 @@ if(!function_exists("dci_get_related_unita_amministrative")) {
         $unita_organizzative = array();
 
         foreach ($id_servizi as $id_servizio) {
-            $id = dci_get_meta('unita_responsabile', '_dci_servizio_', $id_servizio);
+            $id = 0; // Non più necessario recuperare l'unità responsabile
 
             if (!dci_contains_element_with($unita_organizzative, $key= 'id', $value = $id)){
                 $unita_organizzative [] = array(
                     'id' => $id,
-                    'link' => get_permalink($id),
-                    'title' => get_the_title($id)
+                    'link' => '',
+                    'title' => 'Nessuna unità organizzativa'
                 );
             }
         }

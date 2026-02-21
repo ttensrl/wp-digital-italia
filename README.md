@@ -2,111 +2,214 @@
 
 ## Descrizione
 
-Il tema WordPress "Digital Italia" è basato sul framework Bootstrap Italia e è progettato per creare un sito web conforme agli standard del design italiano per il web. Questo tema offre una solida base per la creazione di siti web governativi, istituzionali o corporate con un'attenzione particolare alla conformità alle linee guida dell'AgID.
+Il tema WordPress "Digital Italia" è basato sul framework Bootstrap Italia e progettato per creare siti web conformi agli standard del design italiano per la web. Ideale per siti governativi, istituzionali e della Pubblica Amministrazione, con particolare attenzione alla conformità alle linee guida AgID.
 
 ## Funzionalità Principali
 
-- Integrazione completa con Bootstrap Italia per un design moderno e responsivo.
-- Compatibilità con le linee guida dell'AgID per l'accessibilità e l'usabilità.
-- Layout flessibile e personalizzabile per adattarsi alle esigenze del tuo progetto.
-- Pannelli di personalizzazione per il controllo del logo, del colore e di altri aspetti del design.
-- Supporto per widget personalizzati per l'aggiunta di contenuti aggiuntivi.
-- Ottimizzato per la velocità e la sicurezza.
+### Framework e Design
+
+- **Bootstrap Italia**: Integrazione completa con il framework ufficiale per un design moderno, responsivo e conforme alle linee guida di design per i siti della PA
+- **Font Titillium Web e Roboto Mono**: Font ufficiali inclusi per la tipografia
+- **Layout responsivo**: Adattamento automatico per desktop, tablet e mobile
+- **Supporto RTL**: Compatibilità con lingue da destra a sinistra
+
+### Sistema di Prenotazione Appuntamenti
+
+Sistema completo per la gestione delle prenotazioni online:
+
+- **Gestione Slot**: Creazione, modifica ed eliminazione di slot orari per appuntamenti
+- **Generazione Automatica**: Generazione batch di slot per range di date con configurazione flessibile (orari, durata, pausa pranzo, intervallo tra slot)
+- **Calendario Frontend**: Interfaccia guidata per i cittadini (selezione mese → giorno → orario)
+- **Gestione Giorni di Chiusura**: Supporto per giorni festivi singoli e ricorrenze settimanali
+- **Email Automatiche**: Conferma prenotazione all'utente e notifica all'amministratore
+- **API AJAX**: Endpoint per interazione frontend/backend
+
+### Custom Post Types
+
+- **Servizio**: Post type per la gestione dei servizi offerti dall'ente
+- **Appuntamento**: Post type per le prenotazioni, con metabox per dati richiedente, date e servizio associato
+
+### Menu e Navigazione
+
+- **7 Posizioni Menu**: Top Menu, Main Menu, Footer One/Two/Three/Four, Footer Bottom
+- **Menu Walker Bootstrap 5**: Tre walker personalizzati per menu compliant con Bootstrap Italia:
+  - `bootstrap_5_wp_main_menu_walker`: Menu principale con dropdown
+  - `bootstrap_5_wp_simple_menu_walker`: Menu semplice
+  - `bootstrap_5_wp_inline_menu_walker`: Menu inline
+
+### Breadcrumbs
+
+Sistema di breadcrumb completo con:
+- Supporto microdata Schema.org
+- Navigazione per pagine, post, CPT, archivi, tassonomie
+- Integrazione con Elementor
+
+### Cookie Consent (GDPR)
+
+- **Banner Cookie**: Barra di consenso configurabile
+- **Modal Preferenze**: Gestione granulare dei consensi
+- **Tipologie Supportate**: Analytics, Marketing, Social, YouTube
+- **Dispatcher JavaScript**: Sistema per attivare/fallback script in base alle preferenze
+
+### WordPress Customizer
+
+Sezioni dedicate per:
+- **Site Contact**: Email, telefono, indirizzo, P.IVA, città, URP, Amministrazione Trasparente
+- **Site Socials**: Facebook, Instagram, Twitter
+- **Cookies Settings**: Configurazione banner, scadenza, pagina privacy, tipologie cookie
+- **Loghi**: Logo principale, logo amministrazione appartenenza, logo chiaro per footer
+
+### Integrazioni
+
+- **Elementor**: Supporto nativo con breadcrumb automatici e ottimizzazione risorse
+- **Jetpack**: Compatibilità con il plugin Jetpack
+- **CMB2**: Libreria inclusa per metabox avanzati con estensioni:
+  - Font Awesome picker
+  - Select2 fields
+  - Attached posts
+  - Conditional logic
+
+### Blocchi Gutenberg
+
+Override del blocco "Ultimi Post" con styling Bootstrap Italia (card, grid/list layout)
+
+### Template di Pagina
+
+- **page-booking.php**: Template per la prenotazione appuntamenti
+- **page-home.php**: Template homepage
+- **page-full.php**: Template a larghezza piena
+
+## Requisiti
+
+- WordPress 5.0+
+- PHP 7.4+
 
 ## Installazione
 
-1. Scarica il tema "Digital Italia" dal repository GitHub.
-2. Carica il tema nella cartella `wp-content/themes/` della tua installazione di WordPress.
-3. Attiva il tema dalla sezione "Aspetto" nel tuo pannello di controllo WordPress.
+1. Scarica il tema dal repository
+2. Carica la cartella `wp-digital-italia` in `wp-content/themes/`
+3. Attiva il tema da Aspetto > Temi
+4. Configura le opzioni dal Customizer (Aspetto > Personalizza)
 
-# Personalizzazione del Tema "Digital Italia"
+## Personalizzazione
 
-Puoi personalizzare il tema "Digital Italia" attraverso il pannello di personalizzazione di WordPress. Questo ti consente di apportare modifiche al logo, ai colori principali e ad altri aspetti del design per adattarli al tuo progetto.
+### Child Theme
 
-## Creazione di un Child Theme
+Per personalizzazioni che sopravvivono agli aggiornamenti, creare un child theme:
 
-Per personalizzare ulteriormente il tema "Digital Italia" e garantire che le tue modifiche sopravvivano agli aggiornamenti del tema principale, puoi creare un child theme. Ecco come farlo:
+```css
+/*
+Theme Name: Digital Italia Child
+Template: wp-digital-italia
+Version: 1.0.0
+*/
 
-1. **Crea una Cartella per il Child Theme**: Nella directory dei temi del tuo sito WordPress (di solito `wp-content/themes/`), crea una nuova cartella per il tuo child theme. Ad esempio, puoi chiamarla "digital-italia-child".
+/* Aggiungi le tue personalizzazioni CSS qui */
+```
 
-2. **Crea un File style.css**: All'interno della cartella del tuo child theme, crea un file chiamato `style.css`. In questo file, specifica le informazioni del tuo child theme. Ecco un esempio:
+### Personalizzare il Cookie Dispatcher
 
-    ```css
-    /*
-    Theme Name: Digital Italia Child
-    Template: digital-italia
-    Version: 1.0.0
-    */
+Il tema include un oggetto JavaScript `cookiesDispatcher` per gestire le callback delle scelte cookie. Per personalizzarlo:
 
-    /* Aggiungi le tue personalizzazioni CSS qui */
-    ```
+1. Deregistra lo script predefinito nel functions.php del child theme:
 
-   Assicurati di sostituire "Digital Italia Child" con il nome desiderato per il tuo child theme e "wp-digital-italia" con il nome del tema genitore che desideri ereditare.
+```php
+function deregister_default_cookies_dispatcher() {
+    wp_deregister_script('cookies-settings');
+}
+add_action('wp_enqueue_scripts', 'deregister_default_cookies_dispatcher', 100);
+```
 
-3. **Attiva il Tuo Child Theme**: Vai al pannello di amministrazione di WordPress e attiva il tuo child theme dalla sezione "Aspetto" > "Temi".
+2. Registra il tuo script personalizzato:
 
-4. **Aggiungi Personalizzazioni**: Ora puoi aggiungere le tue personalizzazioni CSS o altri file al tuo child theme. Qualsiasi file con lo stesso nome e percorso del tema genitore verrà sovrascritto dal tuo child theme.
+```php
+function register_custom_cookies_dispatcher() {
+    wp_enqueue_script('custom-cookies-dispatcher', get_stylesheet_directory_uri() . '/js/custom-cookies-dispatcher.js', ['jquery'], '1.0.0', true);
+}
+add_action('wp_enqueue_scripts', 'register_custom_cookies_dispatcher');
+```
 
-## Personalizzazione dell'oggetto JavaScript `cookiesDispatcher`
+3. Implementa le callback:
 
-Il tema "Digital Italia" include un oggetto JavaScript chiamato `cookiesDispatcher`, che gestisce le preferenze dei cookie scelte dall'utente. Se desideri personalizzare questo oggetto, segui questi passaggi:
-
-1. **Deregistra lo Script Predefinito**:
-
-   Nel tuo child theme, puoi deregistrare lo script predefinito `cookies-dispatcher` utilizzando la funzione `wp_deregister_script()`. Assicurati di farlo all'interno del file `functions.php` del tuo child theme. Ecco un esempio:
-
-    ```php
-    function deregister_default_cookies_dispatcher() {
-        wp_deregister_script('cookies-dispatcher');
-    }
-    add_action('wp_enqueue_scripts', 'deregister_default_cookies_dispatcher', 100);
-    ```
-
-2. **Registra il Tuo Script Personalizzato**:
-
-   Dopo aver deregistrato lo script predefinito, puoi registrare il tuo script personalizzato all'interno del file `functions.php` del tuo child theme utilizzando `wp_enqueue_script()`. Ecco un esempio:
-
-    ```php
-    function register_custom_cookies_dispatcher() {
-        wp_enqueue_script('custom-cookies-dispatcher', get_stylesheet_directory_uri() . '/js/custom-cookies-dispatcher.js', array('jquery'), '1.0.0', true);
-    }
-    add_action('wp_enqueue_scripts', 'register_custom_cookies_dispatcher');
-    ```
-
-   Assicurati di sostituire `'custom-cookies-dispatcher'` con un nome univoco per il tuo script personalizzato e specifica il percorso corretto al tuo file JavaScript all'interno del child theme.
-
-3. **Personalizza l'oggetto `cookiesDispatcher`**:
-
-   Ora puoi personalizzare l'oggetto `cookiesDispatcher` nel tuo file JavaScript personalizzato (`custom-cookies-dispatcher.js`). Implementa le funzioni `activate` e `fallback` per gestire le callback delle scelte dell'utente per ciascun cookie specifico. Ecco un esempio:
-
-    ```javascript
-    const cookiesDispatcher = {
-        cookies_settings_consent_analytics: {
-            activate: function () {
-                // Codice per l'attivazione dei cookie di analytics
-            },
-            fallback: function () {
-                // Codice per il fallback dei cookie di analytics
-            }
+```javascript
+const cookiesDispatcher = {
+    cookies_settings_consent_analytics: {
+        activate: function () {
+            // Codice per attivare analytics
         },
-        // Altri cookie settings...
+        fallback: function () {
+            // Codice per disattivare analytics
+        }
     }
-    ```
+}
+```
 
-   Personalizza le funzioni `activate` e `fallback` in base alle esigenze del tuo progetto e delle tue preferenze relative ai cookie.
+## Database Tables
 
-Con questi passaggi, hai creato un child theme per personalizzare il tema "Digital Italia" e hai personalizzato l'oggetto JavaScript `cookiesDispatcher` per gestire le preferenze dei cookie nel tuo sito WordPress.
+Il tema crea automaticamente le seguenti tabelle al momento dell'attivazione:
+
+- `wp_booking_slots`: Gestione degli slot orari
+- `wp_booking_reservations`: Gestione delle prenotazioni
+- `wp_booking_closed_days`: Giorni di chiusura
+
+## Hooks e Filtri
+
+### Filtri Utili
+
+- `wpdi_breadcrumbs_defaults`: Personalizza le opzioni dei breadcrumb
+- `digital_italia_custom_background_args`: Personalizza il background
+
+### Funzioni Helper
+
+- `wpdi_get_breadcrumbs($args)`: Restituisce l'HTML dei breadcrumb
+- `wpdi_breadcrumbs($args)`: Stampa i breadcrumb
+- `get_menu_by_location($location)`: Ottiene le voci menu per location
+- `dci_filter_uo_with_services($uos)`: Filtra UO che offrono servizi
+- `dci_uo_offers_service($uo_id, $service_id)`: Verifica se una UO offre un servizio
+
+## API AJAX
+
+### Frontend (pubbliche)
+
+- `get_available_appointments`: Ottiene mesi/giorni/slot disponibili
+- `submit_booking`: Invia una prenotazione
+
+### Admin (autenticazione richiesta)
+
+- `swb_get_slots`: Ottiene slot per mese
+- `swb_delete_slot`: Elimina uno slot
+- `swb_quick_add_slot`: Aggiunge rapidamente uno slot
+- `swb_generate_range`: Genera slot per un range di date
+- `swb_bulk_delete_month`: Elimina tutti gli slot di un mese
+- `swb_add_closed_day`: Aggiunge un giorno di chiusura
+- `swb_remove_closed_day`: Rimuove un giorno di chiusura
+
+## File Structure
+
+```
+wp-digital-italia/
+├── bootstrap-italia/          # Framework Bootstrap Italia
+├── classes/                   # Walker per menu
+├── inc/
+│   ├── admin/tipologie/       # Custom Post Types
+│   ├── includes/              # Sistema booking
+│   ├── lib/                   # Librerie (CMB2, TGM, etc.)
+│   └── *.php                  # Funzionalità core
+├── js/                        # JavaScript frontend
+├── assets/                    # CSS, immagini
+├── page-templates/            # Template di pagina
+├── template-parts/            # Parti di template
+└── *.php                      # File template principali
+```
 
 ## Contributi
 
-Se desideri contribuire allo sviluppo del tema "Digital Italia", sei il benvenuto! Puoi inviare suggerimenti, segnalare problemi o proporre modifiche tramite il repository GitHub del tema.
+Contributi benvenuti! Apri una issue o una pull request sul repository.
 
 ## Licenza
 
-Il tema "Digital Italia" è distribuito con licenza open source sotto i termini della licenza MIT. Puoi utilizzarlo, modificarlo e distribuirlo gratuitamente.
+Distribuito sotto licenza MIT.
 
 ## Contatti
 
-Per ulteriori informazioni o assistenza, contatta il nostro team all'indirizzo email [luca.terribili@tten.it](mailto:luca.terribili@tten.it).
-
-Grazie per aver scelto il tema "Digital Italia" per il tuo sito web WordPress!
+Per assistenza: [luca.terribili@tten.it](mailto:luca.terribili@tten.it)

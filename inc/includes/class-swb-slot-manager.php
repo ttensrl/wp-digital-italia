@@ -184,7 +184,7 @@ class SWB_Slot_Manager {
     /**
      * Prenota uno slot
      */
-    public function book_slot($slot_id, $appuntamento_id, $user_email, $user_name, $user_cf = null) {
+    public function book_slot($slot_id, $appuntamento_id, $user_email, $user_name) {
         global $wpdb;
 
         // Verifica che lo slot sia disponibile
@@ -209,10 +209,9 @@ class SWB_Slot_Manager {
                     'appuntamento_id' => $appuntamento_id,
                     'user_email' => $user_email,
                     'user_name' => $user_name,
-                    'user_cf' => $user_cf,
                     'status' => 'confirmed'
                 ),
-                array('%d', '%d', '%s', '%s', '%s', '%s')
+                array('%d', '%d', '%s', '%s', '%s')
             );
 
             if ($result === false) {

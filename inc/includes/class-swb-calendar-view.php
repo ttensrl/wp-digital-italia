@@ -32,20 +32,8 @@ class SWB_Calendar_View {
 
         $servizio = get_post($service_id);
 
-        // Ottieni UO
-        $canale_fisico = dci_get_meta("canale_fisico_uffici", '_dci_servizio_', $service_id);
-        if (!empty($canale_fisico) && is_array($canale_fisico)) {
-            $uo_id = intval($canale_fisico[0]);
-        } else {
-            $uo_id = intval(dci_get_meta("unita_responsabile", '_dci_servizio_', $service_id));
-        }
-
-        if (!$uo_id) {
-            echo '<div class="notice notice-error"><p>❌ Nessuna UO configurata per questo servizio!</p></div>';
-            return ['service_id' => $service_id, 'uo_id' => 0, 'month' => $month_str];
-        }
-
-        $uo = get_post($uo_id);
+        // Non più necessario recuperare UO
+        $uo_id = 0;
 
         // Parse mese
         list($year, $month) = explode('-', $month_str);
@@ -61,12 +49,11 @@ class SWB_Calendar_View {
         $slots_raw = $wpdb->get_results($wpdb->prepare(
             "SELECT * FROM $table_name 
             WHERE service_id = %d 
-            AND uo_id = %d 
+            AND uo_id = 0 
             AND slot_date BETWEEN %s AND %s
             AND is_active = 1
             ORDER BY slot_start_time",
             $service_id,
-            $uo_id,
             $first_day->format('Y-m-d'),
             $last_day->format('Y-m-d')
         ));
@@ -93,7 +80,7 @@ class SWB_Calendar_View {
         $is_past_month = $last_day < $today;
 
         // Render Header Info
-        $this->render_header_info($servizio, $uo, $month_str, $total_slots, $booked_slots, $is_past_month);
+        $this->render_header_info($servizio, $month_str, $total_slots, $booked_slots, $is_past_month);
 
         // Render Action Buttons
         $this->render_action_buttons($is_past_month);
@@ -115,11 +102,10 @@ class SWB_Calendar_View {
     /**
      * Renderizza le informazioni header del calendario
      */
-    private function render_header_info($servizio, $uo, $month_str, $total_slots, $booked_slots, $is_past_month): void {
+    private function render_header_info($servizio, $month_str, $total_slots, $booked_slots, $is_past_month): void {
         ?>
         <div class="swb-calendar-info" style="background: #fff; padding: 15px; border: 1px solid #ddd; border-radius: 4px; margin-bottom: 20px;">
             <h2 style="margin-top: 0;"><?php echo esc_html($servizio->post_title); ?></h2>
-            <p><strong>Unità Organizzativa:</strong> <?php echo esc_html($uo->post_title); ?></p>
             <p><strong>Mese:</strong> <?php echo date_i18n('F Y', strtotime($month_str . '-01')); ?></p>
             <p><strong>Slot totali:</strong> <?php echo $total_slots; ?> | <strong>Prenotazioni:</strong> <?php echo $booked_slots; ?></p>
             <?php if ($is_past_month): ?>

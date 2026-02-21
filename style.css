@@ -40,6 +40,11 @@ body {
     text-decoration: underline;
 }
 
+.custom-logo-link img {
+    max-height: 92px;
+    width: auto;
+}
+
 /* RICERCA MODALE */
 .search-modal .modal-title {
     font-size: 1.125rem;
@@ -549,9 +554,17 @@ footer {
 .it-footer-small-prints-list ul {
     padding-left: 0;
 }
+.it-footer .footer-list a {
+    color: #fff;
+}
 
 .it-footer-small-prints ul.it-footer-small-prints-list,
 .credit {
     padding: .5rem 1rem!important;
 }
 
+/** HACK **/
+
+main a, main img{
+    max-width: 100%;
+}

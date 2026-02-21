@@ -23,112 +23,53 @@ $admin_transparent_url = get_theme_mod('site_contact_administration_transparent'
     <div class="it-footer-main">
         <div class="container-fluid">
             <section class="p-3">
-                <div class="it-brand-wrapper d-flex justify-content-sm-center">
-                    <a href="#">
-                        <?php if ($white_logo) : ?>
-                            <div class="it-brand-text pe-0">
-                                <img src="<?php echo esc_url($white_logo); ?>" alt="TODO" height="120">
+                <div class="d-flex flex-column flex-sm-row align-items-center align-items-sm-center gap-4">
+                    <!-- Logo -->
+                    <div class="it-brand-wrapper flex-shrink-0">
+                        <a href="#">
+                            <?php if ($white_logo) : ?>
+                                <div class="it-brand-text pe-0">
+                                    <img src="<?php echo esc_url($white_logo); ?>" alt="TODO" height="120">
+                                </div>
+                            <?php endif; ?>
+                        </a>
+                    </div>
+
+                    <!-- Menu -->
+                    <div class="d-flex flex-column flex-sm-row flex-wrap gap-4 w-100">
+                        <?php if (has_nav_menu('footer-one') && !empty(get_menu_by_location('footer-one'))): ?>
+                            <div class="pb-2">
+                                <h4 class="h6 text-uppercase"><?php echo wp_get_nav_menu_name('footer-one') ?? ''; ?></h4>
+                                <div class="link-list-wrapper">
+                                    <?php wp_nav_menu(['theme_location' => 'footer-one', 'container' => false, 'fallback_cb' => '__return_false', 'items_wrap' => '<ul id="%1$s" class="footer-list link-list clearfix %2$s">%3$s</ul>', 'depth' => 1, 'walker' => new bootstrap_5_wp_simple_menu_walker()]); ?>
+                                </div>
                             </div>
                         <?php endif; ?>
-                    </a>
-                </div>
-            </section>
-            <section class="px-3">
-                <div class="row justify-content-between text-sm-center">
-                    <?php if (has_nav_menu('footer-one') && !empty(get_menu_by_location('footer-one'))): ?>
-                        <div class="col-lg-3 col-md-3 col-sm-6 pb-2">
-                            <h4 class="h6 text-uppercase">
-                                <?php echo wp_get_nav_menu_name('footer-one') ?? ''; ?>
-                            </h4>
-                            <div class="link-list-wrapper">
-                                <?php
-                                wp_nav_menu(
-                                    [
-                                        'theme_location' => 'footer-one',
-                                        'container' => false,
-                                        'menu_class' => 'list-item',
-                                        'fallback_cb' => '__return_false',
-                                        'items_wrap' => '<ul id="%1$s" class="footer-list link-list clearfix %2$s">%3$s</ul>',
-                                        'depth' => 1,
-                                        'walker' => new bootstrap_5_wp_simple_menu_walker()
-                                    ]
-                                );
-                                ?>
+                        <?php if (has_nav_menu('footer-two') && !empty(get_menu_by_location('footer-two'))): ?>
+                            <div class="pb-2">
+                                <h4 class="h6 text-uppercase"><?php echo wp_get_nav_menu_name('footer-two') ?? ''; ?></h4>
+                                <div class="link-list-wrapper">
+                                    <?php wp_nav_menu(['theme_location' => 'footer-two', 'container' => false, 'fallback_cb' => '__return_false', 'items_wrap' => '<ul id="%1$s" class="footer-list link-list clearfix %2$s">%3$s</ul>', 'depth' => 1, 'walker' => new bootstrap_5_wp_simple_menu_walker()]); ?>
+                                </div>
                             </div>
-                        </div>
-                    <?php endif; ?>
-                    <?php if (has_nav_menu('footer-two') && !empty(get_menu_by_location('footer-two'))): ?>
-                        <div class="col-lg-3 col-md-3 col-sm-6 pb-2">
-                            <h4 class="h6 text-uppercase">
-                                <?php echo wp_get_nav_menu_name('footer-two') ?? ''; ?>
-                            </h4>
-                            <div class="link-list-wrapper">
-                                <ul class="footer-list link-list clearfix">
-                                    <?php
-                                    wp_nav_menu(
-                                        [
-                                            'theme_location' => 'footer-two',
-                                            'container' => false,
-                                            'menu_class' => 'list-item',
-                                            'fallback_cb' => '__return_false',
-                                            'items_wrap' => '<ul id="%1$s" class="footer-list link-list clearfix %2$s">%3$s</ul>',
-                                            'depth' => 1,
-                                            'walker' => new bootstrap_5_wp_simple_menu_walker()
-                                        ]
-                                    );
-                                    ?>
-                                </ul>
+                        <?php endif; ?>
+                        <?php if (has_nav_menu('footer-three') && !empty(get_menu_by_location('footer-three'))): ?>
+                            <div class="pb-2">
+                                <h4 class="h6 text-uppercase"><?php echo wp_get_nav_menu_name('footer-three') ?? ''; ?></h4>
+                                <div class="link-list-wrapper">
+                                    <?php wp_nav_menu(['theme_location' => 'footer-three', 'container' => false, 'fallback_cb' => '__return_false', 'items_wrap' => '<ul id="%1$s" class="footer-list link-list clearfix %2$s">%3$s</ul>', 'depth' => 1, 'walker' => new bootstrap_5_wp_simple_menu_walker()]); ?>
+                                </div>
                             </div>
-                        </div>
-                    <?php endif; ?>
-                    <?php if (has_nav_menu('footer-three') && !empty(get_menu_by_location('footer-three'))): ?>
-                        <div class="col-lg-3 col-md-3 col-sm-6 pb-2">
-                            <h4 class="h6 text-uppercase">
-                                <?php echo wp_get_nav_menu_name('footer-three') ?? ''; ?>
-                            </h4>
-                            <div class="link-list-wrapper">
-                                <ul class="footer-list link-list clearfix">
-                                    <?php
-                                    wp_nav_menu(
-                                        [
-                                            'theme_location' => 'footer-three',
-                                            'container' => false,
-                                            'menu_class' => 'list-item',
-                                            'fallback_cb' => '__return_false',
-                                            'items_wrap' => '<ul id="%1$s" class="footer-list link-list clearfix %2$s">%3$s</ul>',
-                                            'depth' => 1,
-                                            'walker' => new bootstrap_5_wp_simple_menu_walker()
-                                        ]
-                                    );
-                                    ?>
-                                </ul>
+                        <?php endif; ?>
+                        <?php if (has_nav_menu('footer-four') && !empty(get_menu_by_location('footer-four'))): ?>
+                            <div class="pb-2">
+                                <h4 class="h6 text-uppercase"><?php echo wp_get_nav_menu_name('footer-four') ?? ''; ?></h4>
+                                <div class="link-list-wrapper">
+                                    <?php wp_nav_menu(['theme_location' => 'footer-four', 'container' => false, 'fallback_cb' => '__return_false', 'items_wrap' => '<ul id="%1$s" class="footer-list link-list clearfix %2$s">%3$s</ul>', 'depth' => 1, 'walker' => new bootstrap_5_wp_simple_menu_walker()]); ?>
+                                </div>
                             </div>
-                        </div>
-                    <?php endif; ?>
-                    <?php if (has_nav_menu('footer-four') && !empty(get_menu_by_location('footer-four'))): ?>
-                        <div class="col-lg-3 col-md-3 col-sm-6">
-                            <h4 class="h6 text-uppercase">
-                                <?php echo wp_get_nav_menu_name('footer-four') ?? ''; ?>
-                            </h4>
-                            <div class="link-list-wrapper">
-                                <ul class="footer-list link-list clearfix">
-                                    <?php
-                                    wp_nav_menu(
-                                        [
-                                            'theme_location' => 'footer-four',
-                                            'container' => false,
-                                            'menu_class' => 'list-item',
-                                            'fallback_cb' => '__return_false',
-                                            'items_wrap' => '<ul id="%1$s" class="footer-list link-list clearfix %2$s">%3$s</ul>',
-                                            'depth' => 1,
-                                            'walker' => new bootstrap_5_wp_simple_menu_walker()
-                                        ]
-                                    );
-                                    ?>
-                                </ul>
-                            </div>
-                        </div>
-                    <?php endif; ?>
+                        <?php endif; ?>
+                    </div>
                 </div>
             </section>
             <div class="px-3">

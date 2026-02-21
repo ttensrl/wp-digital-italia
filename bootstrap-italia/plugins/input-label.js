@@ -1,5 +1,14 @@
-import EventHandler from 'bootstrap/js/src/dom/event-handler';
-import SelectorEngine from 'bootstrap/js/src/dom/selector-engine';
+import EventHandler from './dom/event-handler.js';
+import SelectorEngine from './dom/selector-engine.js';
+
+/**
+ * --------------------------------------------------------------------------
+ * Bootstrap Italia (https://italia.github.io/bootstrap-italia/)
+ * Authors: https://github.com/italia/bootstrap-italia/blob/main/AUTHORS
+ * Licensed under BSD-3-Clause license (https://github.com/italia/bootstrap-italia/blob/main/LICENSE)
+ * --------------------------------------------------------------------------
+ */
+
 
 const NAME = 'inputlabel';
 const DATA_KEY = 'bs.inputlabel';
@@ -26,7 +35,9 @@ class InputLabel {
   }
 
   static getInputFromLabel = (labelElement) => {
-    return document.querySelector('#' + CSS.escape(labelElement.getAttribute('for')))
+    if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+      return document.querySelector('#' + CSS.escape(labelElement.getAttribute('for')))
+    }
   }
 
   // Public
@@ -39,7 +50,10 @@ class InputLabel {
       this._labelOut();
       this._labelOver();
     }
-    this._bindEvents();
+
+    if (label && label.getAttribute('it-bs-static') === null) {
+      this._bindEvents();
+    }
   }
 
   _bindEvents() {
@@ -68,7 +82,11 @@ class InputLabel {
   }
 
   _isEmpty() {
-    return !this._element.value && !this._element.getAttribute('placeholder')
+    if (this._element.getAttribute('type') === 'number') {
+      return !this._element.value && !this._element.getAttribute('placeholder') && !this._element.validity.badInput
+    } else {
+      return !this._element.value && !this._element.getAttribute('placeholder')
+    }
   }
 
   _labelOut() {
