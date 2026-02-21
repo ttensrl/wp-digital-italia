@@ -1,7 +1,16 @@
-import BaseComponent from 'bootstrap/js/src/base-component.js';
-import { reflow } from 'bootstrap/js/src/util';
+import BaseComponent from './base-component.js';
+import { reflow } from './util/index.js';
 import { cookies } from './util/cookies.js';
-import SelectorEngine from 'bootstrap/js/src/dom/selector-engine';
+import SelectorEngine from './dom/selector-engine.js';
+
+/**
+ * --------------------------------------------------------------------------
+ * Bootstrap Italia (https://italia.github.io/bootstrap-italia/)
+ * Authors: https://github.com/italia/bootstrap-italia/blob/main/AUTHORS
+ * Licensed under BSD-3-Clause license (https://github.com/italia/bootstrap-italia/blob/main/LICENSE)
+ * --------------------------------------------------------------------------
+ */
+
 
 const NAME = 'acceptoverlay';
 
@@ -15,9 +24,13 @@ class AcceptOverlay extends BaseComponent {
   constructor(element, config) {
     const parentElement = element.closest('.acceptoverlay');
     super(parentElement);
+    this._overlayable = element.closest('.acceptoverlayable');
     const remember = cookies.isChoiceRemembered(config.service);
     this._isShown = true;
     this._toggleElement = element;
+    if (this._element.classList.contains(CLASS_NAME_SHOW)) {
+      this._overlayable.classList.add(CLASS_NAME_SHOW);
+    }
     if (remember) {
       this.hide();
       setTimeout(() => {
@@ -67,6 +80,7 @@ class AcceptOverlay extends BaseComponent {
     }
 
     this._element.classList.remove(CLASS_NAME_SHOW);
+    this._overlayable.classList.remove(CLASS_NAME_SHOW);
 
     this._queueCallback(() => this._hideElement(), this._element, isAnimated);
   }
@@ -87,6 +101,7 @@ class AcceptOverlay extends BaseComponent {
     }
 
     this._element.classList.add(CLASS_NAME_SHOW);
+    this._overlayable.add(CLASS_NAME_SHOW);
 
     const transitionComplete = () => {
       this._isTransitioning = false;
@@ -106,12 +121,13 @@ class AcceptOverlay extends BaseComponent {
  * Data Api implementation
  * ------------------------------------------------------------------------
  */
-
-const acceptOverlays = SelectorEngine.find(SELECTOR_DATA_TOGGLE);
-if (acceptOverlays.length > 0) {
-  acceptOverlays.forEach((element) => {
-    AcceptOverlay.getOrCreateInstance(element, { service: element.dataset.bsAcceptFrom });
-  });
+if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+  const acceptOverlays = SelectorEngine.find(SELECTOR_DATA_TOGGLE);
+  if (acceptOverlays.length > 0) {
+    acceptOverlays.forEach((element) => {
+      AcceptOverlay.getOrCreateInstance(element, { service: element.dataset.bsAcceptFrom });
+    });
+  }
 }
 
 export { AcceptOverlay as default };

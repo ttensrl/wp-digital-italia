@@ -1,13 +1,22 @@
-import SelectorEngine from 'bootstrap/js/src/dom/selector-engine';
-import { isVisible } from 'bootstrap/js/src/util';
+import SelectorEngine from './dom/selector-engine.js';
+import { isVisible } from './util/index.js';
 import Sticky from './sticky.js';
 import onDocumentScroll from './util/on-document-scroll.js';
+
+/**
+ * --------------------------------------------------------------------------
+ * Bootstrap Italia (https://italia.github.io/bootstrap-italia/)
+ * Authors: https://github.com/italia/bootstrap-italia/blob/main/AUTHORS
+ * Licensed under BSD-3-Clause license (https://github.com/italia/bootstrap-italia/blob/main/LICENSE)
+ * --------------------------------------------------------------------------
+ */
+
 
 const CLASS_NAME_CLONED_HEADER = 'cloned-element';
 const CLASS_NAME_SHOW = 'show';
 const CLASS_NAME_ISTICKY = 'is-sticky';
 
-const SELECTOR_HEADER = '.it-header-sticky';
+const SELECTOR_HEADER = '.it-header-sticky [data-bs-toggle="sticky"]';
 const SELECTOR_TOGGLER = '.custom-navbar-toggler';
 const SELECTOR_MENU_WRAPPER = '.menu-wrapper';
 const SELECTOR_BRAND_WRAPPER = '.it-brand-wrapper';
@@ -15,7 +24,6 @@ const SELECTOR_SEARCH_WRAPPER = '.it-search-wrapper';
 const SELECTOR_USER_WRAPPER = '.it-user-wrapper';
 const SELECTOR_CLONED = `.${CLASS_NAME_CLONED_HEADER}`;
 
-// eslint-disable-next-line no-undef
 const dataSet = new Map();
 
 class HeaderSticky {
@@ -80,12 +88,6 @@ class HeaderSticky {
       }
     }
   }
-
-  /*if (toAdd) {
-    elSticky.nextElementSibling.style.paddingTop = navbarHeight + (isDesktop ? navOffsetTop - scrollToGap : navbarHeight - scrollToGap) + 'px'
-  } else {
-    elSticky.nextElementSibling.style.paddingTop = 0 + 'px'
-  }*/
 }
 
 /**

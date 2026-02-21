@@ -1,21 +1,25 @@
-import BaseComponent from 'bootstrap/js/src/base-component';
-import EventHandler from 'bootstrap/js/src/dom/event-handler';
+import BaseComponent from './base-component.js';
+import EventHandler from './dom/event-handler.js';
 import InputLabel from './input-label.js';
 
-//import BaseComponent from 'bootstrap/js/src/base-component.js'
+/**
+ * --------------------------------------------------------------------------
+ * Bootstrap Italia (https://italia.github.io/bootstrap-italia/)
+ * Authors: https://github.com/italia/bootstrap-italia/blob/main/AUTHORS
+ * Licensed under BSD-3-Clause license (https://github.com/italia/bootstrap-italia/blob/main/LICENSE)
+ * --------------------------------------------------------------------------
+ */
+
 
 const NAME = 'inputsearchautocomplete';
 const DATA_KEY = 'bs.inputsearchautocomplete';
 const EVENT_KEY = `.${DATA_KEY}`;
-const DATA_API_KEY = '.data-api';
 
 const Default = {
   autocomplete: [],
 };
 
 const EVENT_KEYUP = `keyup${EVENT_KEY}`;
-const EVENT_KEYUP_DATA_API = `keyup${EVENT_KEY}${DATA_API_KEY}`;
-const EVENT_MOUSEDOWN_DATA_API = `mousedown${EVENT_KEY}${DATA_API_KEY}`;
 
 const CLASS_NAME_SHOW = 'autocomplete-list-show';
 const CLASS_NAME_AUTOCOMPLETE = 'autocomplete';
@@ -89,6 +93,9 @@ class InputSearch extends BaseComponent {
 
   _init() {
     if (this._element.classList.contains(CLASS_NAME_AUTOCOMPLETE)) {
+      if (typeof document === 'undefined') {
+        return
+      }
       this._items = this._getItems();
       this._autocompleteElement = document.createElement('ul');
       this._autocompleteElement.classList.add('autocomplete-list');
@@ -101,6 +108,9 @@ class InputSearch extends BaseComponent {
   }
 
   _createOption(link, text, label, icon) {
+    if (typeof document === 'undefined') {
+      return
+    }
     const option = document.createElement('li');
     option.innerHTML = `<a href="${link}">
         ${icon}
@@ -120,14 +130,6 @@ class InputSearch extends BaseComponent {
  * ------------------------------------------------------------------------
  */
 
-/*const inputs = SelectorEngine.find(SELECTOR_SEARCH)
-inputs.forEach((input) => {
-  EventHandler.one(input, EVENT_KEYUP_DATA_API, () => {
-    const searchInput = InputSearch.getOrCreateInstance(input)
-    searchInput.search()
-  })
-})*/
-
 const createInput = (element) => {
   if (element && element.matches(SELECTOR_SEARCH)) {
     return InputSearch.getOrCreateInstance(element)
@@ -135,17 +137,15 @@ const createInput = (element) => {
   return null
 };
 
-EventHandler.on(document, EVENT_MOUSEDOWN_DATA_API, SELECTOR_SEARCH + ', label', function () {
-  const target = InputLabel.getInputFromLabel(this) || this;
-  createInput(target);
-});
-EventHandler.on(document, EVENT_KEYUP_DATA_API, SELECTOR_SEARCH + ', label', function () {
-  const target = InputLabel.getInputFromLabel(this) || this;
-  const element = createInput(target);
-  if (element && element._label) {
-    element._label._labelOut();
-  }
-});
+if (typeof document !== 'undefined') {
+  document.addEventListener('DOMContentLoaded', function () {
+    var frmel = document.querySelectorAll(SELECTOR_SEARCH + ', label');
+    frmel.forEach(function (item) {
+      const target = InputLabel.getInputFromLabel(item) || item;
+      createInput(target);
+    });
+  });
+}
 
 export { InputSearch as default };
 //# sourceMappingURL=input-search-autocomplete.js.map

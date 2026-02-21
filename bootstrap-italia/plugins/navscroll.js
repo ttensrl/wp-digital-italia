@@ -1,23 +1,17 @@
-import BaseComponent from 'bootstrap/js/src/base-component.js';
-import EventHandler from 'bootstrap/js/src/dom/event-handler';
-import SelectorEngine from 'bootstrap/js/src/dom/selector-engine';
-import Manipulator from 'bootstrap/js/src/dom/manipulator';
+import BaseComponent from './base-component.js';
+import EventHandler from './dom/event-handler.js';
+import SelectorEngine from './dom/selector-engine.js';
+import Manipulator from './dom/manipulator.js';
 import onDocumentScroll from './util/on-document-scroll.js';
 import NavBarCollapsible from './navbar-collapsible.js';
 import { documentScrollTo } from './util/tween.js';
 
 const NAME = 'navscroll';
-//const DATA_KEY = 'bs.navscroll'
-//const EVENT_KEY = `.${DATA_KEY}`
-//const DATA_API_KEY = '.data-api'
-
-//const EVENT_SCROLL = `scroll${EVENT_KEY}`
 
 const CLASS_NAME_ACTIVE = 'active';
 
 const SELECTOR_NAVSCROLL = '[data-bs-navscroll]'; //'.it-navscroll-wrapper'
 const SELECTOR_LIST = 'ul.link-list';
-//const SELECTOR_ITEM = '.nav-item'
 const SELECTOR_LINK_CONTAINER = 'li.nav-link, li.nav-item';
 const SELECTOR_LINK = 'a.nav-link';
 const SELECTOR_LINK_ACTIVE = `${SELECTOR_LINK}.${CLASS_NAME_ACTIVE}`;
@@ -28,6 +22,7 @@ const SELECTOR_TOGGLER = '.custom-navbar-toggler';
 const SELECTOR_TOGGLER_ICON = '.it-list';
 const SELECTOR_COLLAPSIBLE = '.navbar-collapsable';
 const SELECTOR_PROGRESS_BAR = '.it-navscroll-progressbar';
+const SELECTOR_MENU_WRAPPER = '.menu-wrapper';
 
 const Default = {
   scrollPadding: 10,
@@ -47,6 +42,11 @@ class NavScroll extends BaseComponent {
     this._callbackQueue = [];
     this._scrollCb = null;
 
+    const menuWrapper = SelectorEngine.findOne(SELECTOR_MENU_WRAPPER, this._element);
+    if (menuWrapper && !menuWrapper.hasAttribute('tabindex')) {
+      menuWrapper.setAttribute('tabindex', '-1');
+    }
+
     this._bindEvents();
   }
   // Getters
@@ -61,11 +61,9 @@ class NavScroll extends BaseComponent {
   }
 
   dispose() {
-    //EventHandler.off(window, EVENT_SCROLL, this._onScroll)
     if (this._scrollCb) {
       this._scrollCb.dispose();
     }
-
     super.dispose();
   }
 
@@ -80,8 +78,6 @@ class NavScroll extends BaseComponent {
   }
 
   _bindEvents() {
-    //EventHandler.on(window, EVENT_SCROLL, this._onScroll)
-
     this._scrollCb = onDocumentScroll(() => this._onScroll());
 
     if (this._collapsible) {
@@ -90,8 +86,7 @@ class NavScroll extends BaseComponent {
     }
 
     SelectorEngine.find(SELECTOR_LINK_CLICKABLE, this._element).forEach((link) => {
-      link.addEventListener('click', (event) => {
-        event.preventDefault();
+      link.addEventListener('click', () => {
         const scrollHash = () => this._scrollToHash(link.hash);
         if (this._isCollapseOpened) {
           this._callbackQueue.push(scrollHash);
@@ -101,11 +96,12 @@ class NavScroll extends BaseComponent {
         }
       });
     });
-
-    EventHandler.on(window, 'load', () => {
-      //if page is already scrolled
-      setTimeout(() => this._onScroll(), 150);
-    });
+    if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+      EventHandler.on(window, 'load', () => {
+        //if page is already scrolled
+        setTimeout(() => this._onScroll(), 150);
+      });
+    }
   }
 
   _onCollapseOpened() {
@@ -154,13 +150,31 @@ class NavScroll extends BaseComponent {
   }
 
   _scrollToHash(hash) {
-    const target = SelectorEngine.findOne(hash, this._sectionContainer);
+    if (!hash || hash === '#') {
+      // Validate hash to prevent errors
+      return
+    }
+    const target = this._sectionContainer // Fallback: when container is null, omit the second parameter entirely
+      ? SelectorEngine.findOne(hash, this._sectionContainer)
+      : SelectorEngine.findOne(hash);
     if (target) {
       documentScrollTo(target.offsetTop - this._getScrollPadding(), {
         duration: this._config.duration,
         easing: this._config.easing,
-        /*complete: () => {
-        },*/
+        complete: () => {
+          const isHeading = target.matches('h1, h2, h3, h4, h5, h6');
+          const needsTabIndex = !target.hasAttribute('tabindex');
+          if (needsTabIndex) {
+            target.setAttribute('tabindex', '-1');
+          }
+          target.focus({ preventScroll: true }); // preventScroll to avoid double scrolling
+          if (needsTabIndex && isHeading) {
+            // remove tabIndex for headings after 500ms
+            setTimeout(() => {
+              target.removeAttribute('tabindex');
+            }, 500);
+          }
+        },
       });
 
       if (history.pushState) {
@@ -196,6 +210,9 @@ class NavScroll extends BaseComponent {
 
   _onScroll() {
     const sectionsContainerTop = this._sectionContainer ? this._sectionContainer.offsetTop : 0;
+    if (typeof document === 'undefined') {
+      return
+    }
     const scrollDistance = document.scrollingElement.scrollTop - sectionsContainerTop;
 
     const navItems = SelectorEngine.find(SELECTOR_LINK, this._element);
@@ -242,12 +259,12 @@ class NavScroll extends BaseComponent {
  * ------------------------------------------------------------------------
  */
 
-onDocumentScroll(() => {
+if (typeof window !== 'undefined' && typeof document !== 'undefined') {
   const navs = SelectorEngine.find(SELECTOR_NAVSCROLL);
   navs.map((nav) => {
     NavScroll.getOrCreateInstance(nav);
   });
-});
+}
 
 export { NavScroll as default };
 //# sourceMappingURL=navscroll.js.map

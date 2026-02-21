@@ -11,21 +11,19 @@
 $belong_administration_logo = get_theme_mod( 'belong_administration_logo' );
 ?>
 <!doctype html>
-<html <?php language_attributes(); ?>>
+<html lang="<?php language_attributes(); ?>">
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="profile" href="https://gmpg.org/xfn/11">
-
-	<?php wp_head(); ?>
+    <?php wp_head(); ?>
 </head>
 
 <body <?php body_class(); ?>>
+<?php get_template_part("template-parts/common/skiplink"); ?>
 <?php get_template_part( 'template-parts/cookie-bar' ); ?>
 <?php wp_body_open(); ?>
 <div id="page" class="site">
-	<a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e( 'Skip to content', 'digital-italia' ); ?></a>
-
     <!-- Nuovo Header -->
     <header class="it-header-wrapper">
         <!-- Menu principale in alto (responsive) -->
@@ -80,9 +78,7 @@ $belong_administration_logo = get_theme_mod( 'belong_administration_logo' );
                         <div class="col-12">
                             <div class="it-header-center-content-wrapper">
                                 <div class="it-brand-wrapper">
-                                    <a href="#">
-                                        <?php the_custom_logo(); ?>
-                                    </a>
+                                    <?php the_custom_logo(); ?>
                                 </div>
                                 <div class="it-right-zone">
                                     <?php
