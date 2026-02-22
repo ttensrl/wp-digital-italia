@@ -573,7 +573,7 @@ if (!function_exists("dci_get_mapbox_access_token")) {
  *       echo bootstrap_pagination($query);
  *     ?>
  */
-function dci_bootstrap_pagination(\WP_Query $wp_query = null, $echo = true)
+function dci_bootstrap_pagination(\WP_Query $wp_query = null, $echo = true): ?string
 {
     if (null === $wp_query) {
         global $wp_query;
@@ -596,7 +596,7 @@ function dci_bootstrap_pagination(\WP_Query $wp_query = null, $echo = true)
     );
     if (is_array($pages)) {
         //$paged = ( get_query_var( 'paged' ) == 0 ) ? 1 : get_query_var( 'paged' );
-        $pagination = '<div class="pagination"><ul class="pagination">';
+        $pagination = '<div class="pagination mt-5"><ul class="pagination">';
         foreach ($pages as $page) {
             $pagination .= '<li class="page-item' . (strpos($page, 'current') !== false ? ' active' : '') . '"> ' . str_replace('page-numbers', 'page-link', $page) . '</li>';
         }
@@ -1149,3 +1149,98 @@ if(!function_exists("dci_removeslashes")) {
         return stripslashes(trim($string)); 
     }
 }
+
+if (!function_exists('dci_bootstrap_comment')) {
+    function dci_bootstrap_comment($comment, $args, $depth) {
+        $GLOBALS['comment'] = $comment;
+        $tag = ($args['style'] === 'div') ? 'div' : 'li';
+        ?>
+        <<?php echo $tag; ?> id="comment-<?php comment_ID(); ?>" <?php comment_class(empty($args['has_children']) ? 'media mb-4' : 'media mb-4 parent', $comment); ?>>
+            <div class="d-flex">
+                <div class="flex-shrink-0 me-3">
+                    <?php if ($args['avatar_size'] != 0) : ?>
+                        <div class="rounded-circle overflow-hidden" style="width: <?php echo $args['avatar_size']; ?>px; height: <?php echo $args['avatar_size']; ?>px;">
+                            <?php echo get_avatar($comment, $args['avatar_size'], '', '', array('class' => 'w-100 h-100')); ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
+                <div class="flex-grow-1">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title mb-1"><?php echo get_comment_author_link(); ?></h5>
+                            <p class="text-muted small mb-2">
+                                <time datetime="<?php comment_time('c'); ?>">
+                                    <?php printf(__('%1$s alle %2$s', 'wp-digital-italia'), get_comment_date(), get_comment_time()); ?>
+                                </time>
+                            </p>
+                            <?php if ($comment->comment_approved == '0') : ?>
+                                <div class="alert alert-info py-1 px-2 small mb-2">
+                                    <?php _e('Il tuo commento è in attesa di moderazione.', 'wp-digital-italia'); ?>
+                                </div>
+                            <?php endif; ?>
+                            <div class="card-text">
+                                <?php comment_text(); ?>
+                            </div>
+                            <div class="mt-2">
+                                <?php edit_comment_link(__('Modifica', 'wp-digital-italia'), '<span class="me-2">', '</span>'); ?>
+                                <?php
+                                comment_reply_link(array_merge($args, array(
+                                    'add_below' => 'comment',
+                                    'depth' => $depth,
+                                    'max_depth' => $args['max_depth'],
+                                    'before' => '<span class="btn btn-sm btn-outline-primary me-2">',
+                                    'after' => '</span>'
+                                )));
+                                ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php
+    }
+}
+
+if (!function_exists('dci_bootstrap_comment_end')) {
+    function dci_bootstrap_comment_end($comment, $args, $depth) {
+        $tag = ($args['style'] === 'div') ? 'div' : 'li';
+        echo '</' . $tag . '>';
+    }
+}
+
+if (!function_exists('dci_bootstrap_comment_form_fields')) {
+    function dci_bootstrap_comment_form_fields($fields) {
+        $commenter = wp_get_current_commenter();
+        $req = get_option('require_name_email');
+        $aria_req = ($req ? " aria-required='true'" : '');
+        $html5 = current_theme_supports('html5', 'comment-form') ? 'html5' : 'xhtml';
+        
+        $fields['author'] = '<div class="mb-3"><label for="author" class="form-label">' . __('Nome', 'wp-digital-italia') . ($req ? ' <span class="text-danger">*</span>' : '') . '</label><input id="author" name="author" type="text" class="form-control" value="' . esc_attr($commenter['comment_author']) . '"' . $aria_req . ' /></div>';
+        
+        $fields['email'] = '<div class="mb-3"><label for="email" class="form-label">' . __('Email', 'wp-digital-italia') . ($req ? ' <span class="text-danger">*</span>' : '') . '</label><input id="email" name="email" type="' . ($html5 === 'html5' ? 'email' : 'text') . '" class="form-control" value="' . esc_attr($commenter['comment_author_email']) . '"' . $aria_req . ' /></div>';
+        
+        $fields['url'] = '<div class="mb-3"><label for="url" class="form-label">' . __('Sito web', 'wp-digital-italia') . '</label><input id="url" name="url" type="' . ($html5 === 'html5' ? 'url' : 'text') . '" class="form-control" value="' . esc_attr($commenter['comment_author_url']) . '" /></div>';
+        
+        return $fields;
+    }
+}
+add_filter('comment_form_default_fields', 'dci_bootstrap_comment_form_fields');
+
+if (!function_exists('dci_bootstrap_comment_form_defaults')) {
+    function dci_bootstrap_comment_form_defaults($args) {
+        $args['comment_field'] = '<div class="mb-3"><label for="comment" class="form-label">' . _x('Commento', 'noun', 'wp-digital-italia') . '</label><textarea id="comment" name="comment" cols="45" rows="5" class="form-control" aria-required="true"></textarea></div>';
+        
+        $args['class_submit'] = 'btn btn-primary';
+        $args['submit_button'] = '<input name="%1$s" type="submit" id="%2$s" class="%3$s" value="%4$s" />';
+        $args['submit_field'] = '<div class="form-submit mb-3">%1$s %2$s</div>';
+        $args['title_reply_before'] = '<h3 id="reply-title" class="comment-reply-title h4 mb-3">';
+        $args['title_reply_after'] = '</h3>';
+        $args['cancel_reply_before'] = ' <small class="ms-2">';
+        $args['cancel_reply_after'] = '</small>';
+        $args['comment_notes_before'] = '';
+        $args['class_form'] = 'comment-form needs-validation';
+        
+        return $args;
+    }
+}
+add_filter('comment_form_defaults', 'dci_bootstrap_comment_form_defaults');

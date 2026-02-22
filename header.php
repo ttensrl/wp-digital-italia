@@ -44,7 +44,7 @@ $belong_administration_logo = get_theme_mod( 'belong_administration_logo' );
                                     <a class="it-opener d-lg-none" data-bs-toggle="collapse" href="#menu1a" role="button" aria-expanded="false" aria-controls="menu4">
                                         <span>Ente appartenenza</span>
                                         <svg class="icon" aria-hidden="true">
-                                            <use href="<?php echo get_template_directory_uri(); ?>/dist/images/sprites.svg#it-expand"></use>
+                                            <use href="<?php echo esc_url(get_template_directory_uri()); ?>/dist/images/sprites.svg#it-expand"></use>
                                         </svg>
                                     </a>
                                     <div class="link-list-wrapper collapse" id="menu1a">
@@ -118,7 +118,7 @@ $belong_administration_logo = get_theme_mod( 'belong_administration_logo' );
                                     <div class="it-search-wrapper no-print">
                                         <span class="d-none d-md-block">Cerca</span>
                                         <a href="#" class="search-link rounded-icon" data-bs-toggle="modal" data-bs-target="#search-modal" aria-label="Mostra ricerca">
-                                            <svg class="icon"><use xlink:href="<?php echo get_template_directory_uri(); ?>/dist/images/sprites.svg#it-search"></use></svg>
+                                            <svg class="icon"><use xlink:href="<?php echo esc_url(get_template_directory_uri()); ?>/dist/images/sprites.svg#it-search"></use></svg>
                                             <span class="visually-hidden">Mostra ricerca</span>
                                         </a>
                                     </div>
@@ -138,7 +138,7 @@ $belong_administration_logo = get_theme_mod( 'belong_administration_logo' );
                             <nav class="navbar navbar-expand-lg has-megamenu" aria-label="Navigazione principale">
                                 <button class="custom-navbar-toggler" type="button" aria-controls="nav1" aria-expanded="false" aria-label="Mostra/Nascondi la navigazione" data-bs-toggle="navbarcollapsible" data-bs-target="#nav1">
                                     <svg class="icon bg-override">
-                                        <use href="<?php echo get_template_directory_uri(); ?>/dist/images/sprites.svg#it-burger"></use>
+                                        <use href="<?php echo esc_url(get_template_directory_uri()); ?>/dist/images/sprites.svg#it-burger"></use>
                                     </svg>
                                 </button>
                                 <div class="navbar-collapsable" id="nav1" style="display: none;">
@@ -147,7 +147,7 @@ $belong_administration_logo = get_theme_mod( 'belong_administration_logo' );
                                         <button class="btn close-menu" type="button">
                                             <span class="visually-hidden">Nascondi la navigazione</span>
                                             <svg class="icon">
-                                                <use href="<?php echo get_template_directory_uri(); ?>/dist/images/sprites.svg#it-close-big"></use>
+                                                <use href="<?php echo esc_url(get_template_directory_uri()); ?>/dist/images/sprites.svg#it-close-big"></use>
                                             </svg>
                                         </button>
                                     </div>
@@ -184,13 +184,13 @@ $belong_administration_logo = get_theme_mod( 'belong_administration_logo' );
                                 <div class="modal-title">
                                     <button class="btn btn-link  d-md-none d-flex align-items-center px-2 me-2" type="button" data-bs-toggle="modal" data-bs-target="#search-modal" aria-label="Chiudi">
                                         <svg class="icon icon-sm icon-secondary">
-                                            <use href="<?php echo get_template_directory_uri(); ?>/dist/images/sprites.svg#it-arrow-left"></use>
+                                            <use href="<?php echo esc_url(get_template_directory_uri()); ?>/dist/images/sprites.svg#it-arrow-left"></use>
                                         </svg>
                                     </button>
                                     <h2 class="mb-0">Ricerca</h2>
                                     <button class="btn-close search-link d-none d-md-block me-0" type="button" data-bs-toggle="modal" data-bs-target="#search-modal" aria-label="Chiudi" data-focus-mouse="false">
                                         <svg class="icon icon-md icon-secondary">
-                                            <use href="<?php echo get_template_directory_uri(); ?>/dist/images/sprites.svg#it-close-big"></use>
+                                            <use href="<?php echo esc_url(get_template_directory_uri()); ?>/dist/images/sprites.svg#it-close-big"></use>
                                         </svg>
                                     </button>
                                 </div>

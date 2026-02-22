@@ -91,10 +91,11 @@ get_header();
                         </article>
 
                         <?php if (!empty($organigramma) && is_array($organigramma)) : ?>
-                        <div class="card card-big bg-white shadow-sm mt-4">
+                        <section class="card card-big bg-white shadow-sm mt-4" aria-labelledby="organigramma-title">
                             <div class="card-body">
-                                <h2 class="h3 mb-4"><?php _e('Organigramma', 'wp-digital-italia'); ?></h2>
-                                <div class="row">
+                                <h2 id="organigramma-title" class="h3 mb-4"><?php _e('Organigramma', 'wp-digital-italia'); ?></h2>
+
+                                <div class="row g-3">
                                     <?php foreach ($organigramma as $entry) :
                                         $persona_id = $entry['persona_id'] ?? '';
                                         $ruolo_org = $entry['ruolo'] ?? '';
@@ -108,31 +109,52 @@ get_header();
                                                 if (!$full_name) {
                                                     $full_name = $persona->post_title;
                                                 }
+                                                $permalink = get_permalink($persona_id);
                                                 ?>
-                                                <div class="col-md-6 col-lg-4 mb-3">
-                                                    <div class="card h-100">
-                                                        <?php if (has_post_thumbnail($persona_id)) : ?>
-                                                            <div class="text-center pt-3">
-                                                                <?php echo get_the_post_thumbnail($persona_id, 'thumbnail', array('class' => 'rounded-circle')); ?>
+                                                <div class="col-12 col-md-6 col-xl-4">
+                                                    <article class="card h-100" aria-labelledby="persona-<?php echo esc_attr($persona_id); ?>">
+                                                        <div class="card-body d-flex gap-3 align-items-start">
+                                                            <div class="flex-shrink-0 d-flex align-items-center justify-content-center rounded-2 bg-light" style="width: 80px; height: 80px; overflow: hidden;">
+                                                                <?php if (has_post_thumbnail($persona_id)) : ?>
+                                                                    <?php echo get_the_post_thumbnail(
+                                                                            $persona_id,
+                                                                            'thumbnail',
+                                                                            array(
+                                                                                    'class' => 'img-fluid rounded-2',
+                                                                                    'style' => 'width: 80px; height: 80px; object-fit: cover;',
+                                                                                    'alt' => esc_attr($full_name)
+                                                                            )
+                                                                    ); ?>
+                                                                <?php else : ?>
+                                                                    <svg class="icon icon-primary" aria-hidden="true" focusable="false" style="width: 48px; height: 48px;">
+                                                                        <use href="<?php echo esc_url(get_template_directory_uri()); ?>/dist/images/sprites.svg#it-user"></use>
+                                                                    </svg>
+                                                                    <span class="visually-hidden"><?php echo esc_html($full_name); ?></span>
+                                                                <?php endif; ?>
                                                             </div>
-                                                        <?php endif; ?>
-                                                        <div class="card-body text-center">
-                                                            <h3 class="h5 card-title mb-1">
-                                                                <a href="<?php echo get_permalink($persona_id); ?>"><?php echo esc_html($full_name); ?></a>
-                                                            </h3>
-                                                            <?php if ($ruolo_org) : ?>
-                                                                <p class="card-text text-muted"><?php echo esc_html($ruolo_org); ?></p>
-                                                            <?php endif; ?>
+
+                                                            <div class="flex-grow-1">
+                                                                <h3 id="persona-<?php echo esc_attr($persona_id); ?>" class="h6 mb-1">
+                                                                    <a class="text-decoration-none" href="<?php echo esc_url($permalink); ?>">
+                                                                        <?php echo esc_html($full_name); ?>
+                                                                    </a>
+                                                                </h3>
+
+                                                                <?php if ($ruolo_org) : ?>
+                                                                    <p class="mb-0 text-muted small">
+                                                                        <?php echo esc_html($ruolo_org); ?>
+                                                                    </p>
+                                                                <?php endif; ?>
+                                                            </div>
                                                         </div>
-                                                    </div>
+                                                    </article>
                                                 </div>
-                                            <?php
-                                            endif;
+                                            <?php endif;
                                         endif;
                                     endforeach; ?>
                                 </div>
                             </div>
-                        </div>
+                        </section>
                     <?php endif; ?>
 
                     <?php

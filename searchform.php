@@ -7,11 +7,11 @@
             <label for="main-search" class="visually-hidden active">Cerca nel sito</label>
             <input type="search" class="autocomplete ps-2 ps-md-5 flex-grow-1 min-w-0" name="s" id="main-search" placeholder="Cerca..." value="<?php echo get_search_query(); ?>">
             <span class="autocomplete-icon d-none d-md-block px-0" aria-hidden="true">
-                <svg class="icon"><use href="<?php echo get_template_directory_uri(); ?>/dist/images/sprites.svg#it-search"></use></svg>
+                <svg class="icon"><use href="<?php echo esc_url(get_template_directory_uri()); ?>/dist/images/sprites.svg#it-search"></use></svg>
             </span>
             <button type="submit" class="btn btn-primary rounded ms-2 ms-sm-3 ms-md-4 px-3 px-md-4">
                 <span class="d-none d-md-block">Cerca</span>
-                <svg class="icon icon-sm icon-white d-block d-md-none" aria-label="Cerca"><use href="<?php echo get_template_directory_uri(); ?>/dist/images/sprites.svg#it-search"></use></svg>
+                <svg class="icon icon-sm icon-white d-block d-md-none" aria-label="Cerca"><use href="<?php echo esc_url(get_template_directory_uri()); ?>/dist/images/sprites.svg#it-search"></use></svg>
             </button>
         </div>
     </form>

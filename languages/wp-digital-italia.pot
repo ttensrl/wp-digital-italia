@@ -1,63 +1,72 @@
-# Copyright (C) 2020 Automattic
+# Copyright (C) 2026 Luca Terribili
 # This file is distributed under the GNU General Public License v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: _s 1.0.0\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/theme/_s\n"
+"Project-Id-Version: WP Digital Italia 1.1.1\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/theme/wp-digital-italia\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-04-17T21:03:15+00:00\n"
+"POT-Creation-Date: 2026-02-21T22:33:50+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.4.0\n"
-"X-Domain: _s\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: wp-digital-italia\n"
 
 #. Theme Name of the theme
-msgid "_s"
+#: style.css
+msgid "WP Digital Italia"
 msgstr ""
 
 #. Theme URI of the theme
-msgid "https://underscores.me/"
+#: style.css
+msgid "https://github.com/ttensrl/wp-digital-italia"
 msgstr ""
 
 #. Description of the theme
-msgid "Hi. I'm a starter theme called <code>_s</code>, or <em>underscores</em>, if you like. I'm a theme meant for hacking so don't use me as a <em>Parent Theme</em>. Instead try turning me into the next, most awesome, WordPress theme out there. That's what I'm here for."
+#: style.css
+#: companion-plugin/inc/cmb2/core/example-functions.php:544
+msgid "Description"
 msgstr ""
 
 #. Author of the theme
-msgid "Automattic"
+#: style.css
+msgid "Luca Terribili"
 msgstr ""
 
 #. Author URI of the theme
-msgid "https://automattic.com/"
+#: style.css
+msgid "https://lucaterribili.it/"
 msgstr ""
 
-#: 404.php:18
+#: 404.php:17
 msgid "Oops! That page can&rsquo;t be found."
 msgstr ""
 
-#: 404.php:22
+#: 404.php:21
 msgid "It looks like nothing was found at this location. Maybe try one of the links below or a search?"
 msgstr ""
 
-#: 404.php:31
+#: 404.php:30
 msgid "Most Used Categories"
 msgstr ""
 
 #. translators: %1$s: smiley
-#: 404.php:49
+#: 404.php:48
+#, php-format
 msgid "Try looking in the monthly archives. %1$s"
 msgstr ""
 
 #. translators: 1: title.
 #: comments.php:35
+#, php-format
 msgid "One thought on &ldquo;%1$s&rdquo;"
 msgstr ""
 
 #. translators: 1: comment count number, 2: title.
 #: comments.php:41
+#, php-format
 msgctxt "comments title"
 msgid "%1$s thought on &ldquo;%2$s&rdquo;"
 msgid_plural "%1$s thoughts on &ldquo;%2$s&rdquo;"
@@ -68,105 +77,1237 @@ msgstr[1] ""
 msgid "Comments are closed."
 msgstr ""
 
-#: footer.php:18
-msgid "https://wordpress.org/"
+#: companion-plugin/inc/cmb2/cmb2.php:64
+msgid "Nessun contenuto"
 msgstr ""
 
-#. translators: %s: CMS name, i.e. WordPress.
-#: footer.php:21
-msgid "Proudly powered by %s"
+#: companion-plugin/inc/cmb2/cmb2.php:83
+#: companion-plugin/inc/cmb2/cmb2.php:106
+msgid "Nessuna pagina"
 msgstr ""
 
-#. translators: 1: Theme name, 2: Theme author.
-#: footer.php:27
-msgid "Theme: %1$s by %2$s."
+#: companion-plugin/inc/cmb2/core/example-functions.php:115
+msgid "Test Metabox"
 msgstr ""
 
-#: functions.php:53
-msgid "Primary"
+#: companion-plugin/inc/cmb2/core/example-functions.php:148
+#: companion-plugin/inc/cmb2/core/example-functions.php:492
+msgid "Test Text"
 msgstr ""
 
-#: functions.php:130
+#: companion-plugin/inc/cmb2/core/example-functions.php:149
+#: companion-plugin/inc/cmb2/core/example-functions.php:162
+#: companion-plugin/inc/cmb2/core/example-functions.php:175
+#: companion-plugin/inc/cmb2/core/example-functions.php:182
+#: companion-plugin/inc/cmb2/core/example-functions.php:195
+#: companion-plugin/inc/cmb2/core/example-functions.php:203
+#: companion-plugin/inc/cmb2/core/example-functions.php:212
+#: companion-plugin/inc/cmb2/core/example-functions.php:220
+#: companion-plugin/inc/cmb2/core/example-functions.php:235
+#: companion-plugin/inc/cmb2/core/example-functions.php:243
+#: companion-plugin/inc/cmb2/core/example-functions.php:251
+#: companion-plugin/inc/cmb2/core/example-functions.php:268
+#: companion-plugin/inc/cmb2/core/example-functions.php:277
+#: companion-plugin/inc/cmb2/core/example-functions.php:293
+#: companion-plugin/inc/cmb2/core/example-functions.php:300
+#: companion-plugin/inc/cmb2/core/example-functions.php:307
+#: companion-plugin/inc/cmb2/core/example-functions.php:332
+#: companion-plugin/inc/cmb2/core/example-functions.php:345
+#: companion-plugin/inc/cmb2/core/example-functions.php:358
+#: companion-plugin/inc/cmb2/core/example-functions.php:370
+#: companion-plugin/inc/cmb2/core/example-functions.php:384
+#: companion-plugin/inc/cmb2/core/example-functions.php:392
+#: companion-plugin/inc/cmb2/core/example-functions.php:401
+#: companion-plugin/inc/cmb2/core/example-functions.php:408
+#: companion-plugin/inc/cmb2/core/example-functions.php:422
+#: companion-plugin/inc/cmb2/core/example-functions.php:493
+#: companion-plugin/inc/cmb2/core/example-functions.php:583
+#: companion-plugin/inc/cmb2/core/example-functions.php:591
+#: companion-plugin/inc/cmb2/core/example-functions.php:598
+#: companion-plugin/inc/cmb2/core/example-functions.php:605
+#: companion-plugin/inc/cmb2/core/example-functions.php:612
+#: companion-plugin/inc/cmb2/core/example-functions.php:619
+#: companion-plugin/inc/cmb2/core/example-functions.php:626
+#: companion-plugin/inc/cmb2/core/example-functions.php:652
+#: companion-plugin/inc/cmb2/core/example-functions.php:660
+#: companion-plugin/inc/cmb2/core/example-functions.php:667
+#: companion-plugin/inc/cmb2/core/example-functions.php:717
+msgid "field description (optional)"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:161
+msgid "Test Text Small"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:174
+msgid "Test Text Medium"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:181
+msgid "Read-only Disabled Field"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:185
+msgid "Hey there, I'm a read-only field"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:194
+msgid "Custom Rendered Field"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:202
+msgid "Website URL"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:211
+msgid "Test Text Email"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:219
+msgid "Test Time"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:227
+#: companion-plugin/inc/cmb2/core/example-functions.php:228
+msgid "Time zone"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:234
+msgid "Test Date Picker"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:242
+msgid "Test Date Picker (UNIX timestamp)"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:250
+msgid "Test Date/Time Picker Combo (UNIX timestamp)"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:267
+msgid "Test Money"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:276
+msgid "Test Color Picker"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:292
+msgid "Test Text Area"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:299
+msgid "Test Text Area Small"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:306
+msgid "Test Text Area for Code"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:324
+msgid "Test Title Weeeee"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:325
+msgid "This is a title description"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:331
+msgid "Test Select"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:337
+#: companion-plugin/inc/cmb2/core/example-functions.php:350
+#: companion-plugin/inc/cmb2/core/example-functions.php:362
+msgid "Option One"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:338
+#: companion-plugin/inc/cmb2/core/example-functions.php:351
+#: companion-plugin/inc/cmb2/core/example-functions.php:363
+msgid "Option Two"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:339
+#: companion-plugin/inc/cmb2/core/example-functions.php:352
+#: companion-plugin/inc/cmb2/core/example-functions.php:364
+msgid "Option Three"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:344
+msgid "Test Radio inline"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:357
+msgid "Test Radio"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:369
+msgid "Test Taxonomy Radio"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:383
+msgid "Test Taxonomy Select"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:391
+msgid "Test Taxonomy Multi Checkbox"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:400
+msgid "Test Checkbox"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:407
+msgid "Test Multi Checkbox"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:413
+msgid "Check One"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:414
+msgid "Check Two"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:415
+msgid "Check Three"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:421
+msgid "Test wysiwyg"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:431
+msgid "Test Image"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:432
+msgid "Upload an image or enter a URL."
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:438
+msgid "Multiple Files"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:439
+msgid "Upload or add multiple images/attachments."
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:446
+msgid "oEmbed"
+msgstr ""
+
+#. translators: %s: link to codex.wordpress.org/Embeds
+#: companion-plugin/inc/cmb2/core/example-functions.php:449
+#, php-format
+msgid "Enter a youtube, twitter, or instagram URL. Supports services listed at %s."
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:481
+msgid "About Page Metabox"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:511
+msgid "Repeating Field Group"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:519
+msgid "Generates reusable form entries"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:521
+msgid "Entry {#}"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:522
+msgid "Add Another Entry"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:523
+msgid "Remove Entry"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:537
+msgid "Entry Title"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:545
+msgid "Write a short description for this entry"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:551
+msgid "Entry Image"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:557
+msgid "Image Caption"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:575
+msgid "User Profile Metabox"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:582
+#: companion-plugin/inc/cmb2/core/example-functions.php:651
+msgid "Extra Info"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:590
+msgid "Avatar"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:597
+msgid "Facebook URL"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:604
+msgid "Twitter URL"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:611
+msgid "Google+ URL"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:618
+msgid "Linkedin URL"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:625
+msgid "User Field"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:644
+msgid "Category Metabox"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:659
+msgid "Term Image"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:666
+msgid "Arbitrary Term Field"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:685
+msgid "Theme Options"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:716
+msgid "Site Background Color"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:753
+#, php-format
+msgid "%s &mdash; Updated!"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:785
+msgid "REST Test Box"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:794
+msgid "REST Test Text"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:795
+msgid "Will show in the REST API for this box and for pages."
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:801
+msgid "REST Editable Test Text"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/example-functions.php:802
+msgid "Will show in REST API \"editable\" contexts only (`POST` requests)."
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/CMB2.php:207
+msgid "Metabox configuration is required to have an ID parameter."
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/CMB2.php:626
+msgid "Click to toggle"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/CMB2_Ajax.php:75
+msgid "Please Try Again"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/CMB2_Ajax.php:181
+msgid "Remove Embed"
+msgstr ""
+
+#. translators: 1: results for. 2: link to codex.wordpress.org/Embeds
+#: companion-plugin/inc/cmb2/core/includes/CMB2_Ajax.php:189
+#: companion-plugin/inc/cmb2/core/includes/helper-functions.php:107
+#, php-format
+msgid "No oEmbed Results Found for %1$s. View more info at %2$s."
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/CMB2_Base.php:423
+#, php-format
+msgid "The \"%1$s\" field parameter has been deprecated in favor of the \"%2$s\" parameter."
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/CMB2_Base.php:427
+#, php-format
+msgid "Using the \"%1$s\" field parameter as a callback has been deprecated in favor of the \"%2$s\" parameter."
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/CMB2_Base.php:457
+#, php-format
+msgid "%1$s was called with a parameter that is <strong>deprecated</strong> since version %2$s! %3$s"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/CMB2_Base.php:459
+#, php-format
+msgid "%1$s was called with a parameter that is <strong>deprecated</strong> since version %2$s with no alternative available."
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/CMB2_Base.php:492
+#: companion-plugin/inc/cmb2/core/includes/CMB2_Hookup_Base.php:102
+#: companion-plugin/inc/cmb2/core/includes/CMB2_Options.php:247
+#: companion-plugin/inc/cmb2/core/includes/CMB2_Options_Hookup.php:369
+#: companion-plugin/inc/cmb2/core/includes/types/CMB2_Type_Base.php:173
+#, php-format
+msgid "Invalid %1$s property: %2$s"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/CMB2_Base.php:510
+#: companion-plugin/inc/cmb2/core/includes/types/CMB2_Type_Base.php:157
+#, php-format
+msgid "Invalid %1$s method: %2$s"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/CMB2_Field.php:1443
+msgid "Add Group"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/CMB2_Field.php:1444
+msgid "Remove Group"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/CMB2_Field.php:1476
+#: companion-plugin/inc/cmb2/core/includes/CMB2_Field.php:1480
+msgid "None"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/CMB2_Field.php:1594
+msgid "Sorry, this field does not have a cmb_id specified."
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/CMB2_Field_Display.php:454
+#: companion-plugin/inc/cmb2/core/includes/CMB2_JS.php:242
+#: companion-plugin/inc/cmb2/core/includes/types/CMB2_Type_File_Base.php:90
+msgid "File:"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/CMB2_Hookup.php:191
+msgid "Term Metadata is a WordPress 4.4+ feature. Please upgrade your WordPress install."
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/CMB2_Hookup.php:195
+msgid "Term metaboxes configuration requires a \"taxonomies\" parameter."
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/CMB2_Hookup_Base.php:44
+#, php-format
+msgid "%1$s should be implemented by the extended class."
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/CMB2_JS.php:177
+#: companion-plugin/inc/cmb2/core/includes/CMB2_JS.php:222
+msgid "Clear"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/CMB2_JS.php:178
+msgid "Default"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/CMB2_JS.php:179
+msgid "Select Color"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/CMB2_JS.php:180
+msgid "Current Color"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/CMB2_JS.php:212
+msgctxt "Valid formatDate string for jquery-ui datepicker"
+msgid "mm/dd/yy"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/CMB2_JS.php:213
+msgid "Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/CMB2_JS.php:214
+msgid "Su, Mo, Tu, We, Th, Fr, Sa"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/CMB2_JS.php:215
+msgid "Sun, Mon, Tue, Wed, Thu, Fri, Sat"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/CMB2_JS.php:216
+msgid "January, February, March, April, May, June, July, August, September, October, November, December"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/CMB2_JS.php:217
+msgid "Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/CMB2_JS.php:218
+msgid "Next"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/CMB2_JS.php:219
+msgid "Prev"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/CMB2_JS.php:220
+msgid "Today"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/CMB2_JS.php:221
+#: companion-plugin/inc/cmb2/core/includes/CMB2_JS.php:231
+msgid "Done"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/CMB2_JS.php:225
+msgid "Choose Time"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/CMB2_JS.php:226
+msgid "Time"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/CMB2_JS.php:227
+msgid "Hour"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/CMB2_JS.php:228
+msgid "Minute"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/CMB2_JS.php:229
+msgid "Second"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/CMB2_JS.php:230
+msgid "Now"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/CMB2_JS.php:232
+msgctxt "Valid formatting string, as per http://trentrichardson.com/examples/timepicker/"
+msgid "hh:mm TT"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/CMB2_JS.php:238
+msgid "Use this file"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/CMB2_JS.php:239
+msgid "Use these files"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/CMB2_JS.php:240
+#: companion-plugin/inc/cmb2/core/includes/types/CMB2_Type_File_Base.php:75
+msgid "Remove Image"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/CMB2_JS.php:241
+#: companion-plugin/inc/cmb2/core/includes/CMB2_Types.php:408
+#: companion-plugin/inc/cmb2/core/includes/types/CMB2_Type_File_Base.php:95
+msgid "Remove"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/CMB2_JS.php:243
+#: companion-plugin/inc/cmb2/core/includes/types/CMB2_Type_File_Base.php:93
+msgid "Download"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/CMB2_JS.php:244
+msgid "Select / Deselect All"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/CMB2_Options_Hookup.php:139
+msgid "Nothing to update."
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/CMB2_Options_Hookup.php:143
+msgid "Settings updated."
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/CMB2_Types.php:226
+msgid "Custom CMB2 field type classes must extend CMB2_Type_Base."
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/CMB2_Types.php:344
+msgid "Add Row"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/CMB2_Types.php:408
+msgid "Remove Row"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/helper-functions.php:308
+msgid "Save"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/rest-api/CMB2_REST_Controller.php:257
+msgid "This box does not have read permissions."
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/rest-api/CMB2_REST_Controller.php:277
+msgid "This box does not have write permissions."
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/rest-api/CMB2_REST_Controller.php:300
+msgid "No box found by that id. A box needs to be registered with the \"show_in_rest\" parameter configured."
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/rest-api/CMB2_REST_Controller.php:378
+msgid "A human-readable description of the object."
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/rest-api/CMB2_REST_Controller.php:385
+msgid "The id for the object."
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/rest-api/CMB2_REST_Controller.php:392
+msgid "The title for the object."
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/rest-api/CMB2_REST_Controller_Boxes.php:51
+msgid "Includes the registered fields for the box in the response."
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/rest-api/CMB2_REST_Controller_Boxes.php:72
+msgid "Includes the fully rendered attributes, 'form_open', 'form_close', as well as the enqueued 'js_dependencies' script handles, and 'css_dependencies' stylesheet handles."
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/rest-api/CMB2_REST_Controller_Boxes.php:122
+msgid "No boxes found."
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/rest-api/CMB2_REST_Controller_Fields.php:27
+msgid "Includes the box object which the fields are registered to in the response."
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/rest-api/CMB2_REST_Controller_Fields.php:30
+msgid "When the '_rendered' argument is passed, the renderable field attributes will be returned fully rendered. By default, the names of the callback handers for the renderable attributes will be returned."
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/rest-api/CMB2_REST_Controller_Fields.php:33
+#: companion-plugin/inc/cmb2/core/includes/rest-api/CMB2_REST_Controller_Fields.php:36
+msgid "To view or modify the field's value, the 'object_id' and 'object_type' arguments are required."
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/rest-api/CMB2_REST_Controller_Fields.php:236
+msgid "CMB2 Field value cannot be updated without the value parameter specified."
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/rest-api/CMB2_REST_Controller_Fields.php:297
+msgid "CMB2 Field value cannot be modified without the object_id and object_type parameters specified."
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/rest-api/CMB2_REST_Controller_Fields.php:312
+#: companion-plugin/inc/cmb2/core/includes/rest-api/CMB2_REST_Controller_Fields.php:341
+msgid "No field found by that id."
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/rest-api/CMB2_REST_Controller_Fields.php:415
+#, php-format
+msgid "Value Error for %s"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/types/CMB2_Type_Counter_Base.php:50
+msgid "Words left"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/types/CMB2_Type_Counter_Base.php:51
+msgid "Words"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/types/CMB2_Type_Counter_Base.php:56
+msgid "Characters left"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/types/CMB2_Type_Counter_Base.php:57
+msgid "Characters"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/types/CMB2_Type_Counter_Base.php:62
+msgid "Your text may be truncated."
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/types/CMB2_Type_File.php:76
+msgid "Add or Upload File"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/types/CMB2_Type_File_List.php:41
+msgid "Add or Upload Files"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/core/includes/types/CMB2_Type_Taxonomy_Base.php:115
+#: companion-plugin/inc/cmb2/plugins/CMB2-taxonomy-hierarchy-child.php:70
+msgid "No terms"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/plugins/cmb2-attached-posts/example-field-setup.php:22
+#: companion-plugin/inc/cmb2/plugins/cmb2-attached-posts/example-field-setup.php:30
+msgid "Attached Posts"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/plugins/cmb2-attached-posts/example-field-setup.php:31
+msgid "Drag posts from the left column to the right column to attach them to this page.<br />You may rearrange the order of the posts in the right column by dragging and dropping."
+msgstr ""
+
+#: companion-plugin/inc/cmb2/plugins/cmb2-attached-posts/example-field-setup.php:46
+msgid "Attached Users"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/plugins/cmb2-attached-posts/example-field-setup.php:47
+msgid "Drag users from the left column to the right column to attach them to this page.<br />You may rearrange the order of the users in the right column by dragging and dropping."
+msgstr ""
+
+#: companion-plugin/inc/cmb2/plugins/cmb2-attached-posts/init.php:118
+msgid "Users"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/plugins/cmb2-attached-posts/init.php:124
+#, php-format
+msgid "Filter %s"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/plugins/cmb2-attached-posts/init.php:142
+#, php-format
+msgid "Available %s"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/plugins/cmb2-attached-posts/init.php:162
+msgid "Search"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/plugins/cmb2-attached-posts/init.php:168
+msgid "An error has occurred. Please reload the page and try again."
+msgstr ""
+
+#: companion-plugin/inc/cmb2/plugins/cmb2-attached-posts/init.php:169
+msgid "Find Posts or Pages"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/plugins/cmb2-attached-posts/init.php:182
+#, php-format
+msgid "Attached %s"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/plugins/cmb2-attached-posts/init.php:290
+msgid "Edit"
+msgstr ""
+
+#: companion-plugin/inc/cmb2/plugins/CMB2-field-Leaflet-Geocoder/cmb-field-leaflet-map.php:121
+msgid "Search..."
+msgstr ""
+
+#: companion-plugin/inc/cmb2/plugins/CMB2-field-Leaflet-Geocoder/cmb-field-leaflet-map.php:122
+msgid "Not found"
+msgstr ""
+
+#: footer.php:173
+msgid "Realizzato con il Tema"
+msgstr ""
+
+#: footer.php:177
+msgid "Digital Italia"
+msgstr ""
+
+#: functions.php:65
+msgid "Top Menu"
+msgstr ""
+
+#: functions.php:66
+msgid "Main Menu"
+msgstr ""
+
+#: functions.php:67
+msgid "Footer One"
+msgstr ""
+
+#: functions.php:68
+msgid "Footer Two"
+msgstr ""
+
+#: functions.php:69
+msgid "Footer Three"
+msgstr ""
+
+#: functions.php:70
+msgid "Footer Four"
+msgstr ""
+
+#: functions.php:71
+msgid "Footer Bottom"
+msgstr ""
+
+#: functions.php:146
 msgid "Sidebar"
 msgstr ""
 
-#: functions.php:132
+#: functions.php:148
 msgid "Add widgets here."
 msgstr ""
 
-#: header.php:26
-msgid "Skip to content"
+#: functions.php:498
+msgid "Loop Thumb"
 msgstr ""
 
-#: header.php:49
-msgid "Primary Menu"
+#: inc/admin/tipologie/tipologia_appuntamento.php:10
+msgctxt "Post Type General Name"
+msgid "Appuntamenti"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_appuntamento.php:11
+msgctxt "Post Type Singular Name"
+msgid "Appuntamento"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_appuntamento.php:12
+#: inc/admin/tipologie/tipologia_appuntamento.php:13
+msgctxt "Post Type Singular Name"
+msgid "Aggiungi un Appuntamento"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_appuntamento.php:14
+msgid "Logo Identificativo dell'Appuntamento"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_appuntamento.php:15
+msgctxt "Post Type Singular Name"
+msgid "Dettagli richiesta Appuntamento"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_appuntamento.php:16
+msgctxt "Post Type Singular Name"
+msgid "Visualizza l'Appuntamento"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_appuntamento.php:18
+msgid "Rimuovi Immagine Appuntamento"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_appuntamento.php:19
+msgid "Usa come Immagine Appuntamento"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_appuntamento.php:22
+msgid "Appuntamento"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_appuntamento.php:32
+msgid "Struttura delle informazioni relative utili a presentare un appuntamento"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_appuntamento.php:57
+msgid "Richiesta di appuntamento: <h1>"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_appuntamento.php:74
+msgid "Dati"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_appuntamento.php:82
+msgid "Email del richiedente"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_appuntamento.php:83
+msgid "Email Richiedente *"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_appuntamento.php:93
+msgid "Testo della richiesta"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_appuntamento.php:94
+msgid "Dettaglio richiesta *"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_appuntamento.php:107
+msgid "Date"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_appuntamento.php:115
+msgid "Data e ora in cui è stata fatta la prenotazione *"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_appuntamento.php:126
+msgid "Data e ora inizio appuntamento *"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_appuntamento.php:137
+msgid "Data e ora della fine dell'appuntamento *"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_appuntamento.php:151
+msgid "Servizio *"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_appuntamento.php:159
+msgid "Associazione con il servizio per il quale si prende appuntamento"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_appuntamento.php:172
+msgid "Unità organizzativa *"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_appuntamento.php:180
+msgid "Se l'appuntamento non è su un servizio ma con un'Unità organizzativa"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_appuntamento.php:197
+msgid "Email Richiedente"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_appuntamento.php:198
+#: inc/admin/tipologie/tipologia_servizio.php:24
+msgid "Servizio"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_appuntamento.php:199
+msgid "Ufficio"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_appuntamento.php:200
+msgid "Data e ora inizio"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_appuntamento.php:201
+msgid "Data e ora fine"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_dipartimento.php:10
+msgctxt "Post Type General Name"
+msgid "Dipartimenti"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_dipartimento.php:11
+msgctxt "Post Type Singular Name"
+msgid "Dipartimento"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_dipartimento.php:12
+#: inc/admin/tipologie/tipologia_dipartimento.php:13
+msgctxt "Post Type Singular Name"
+msgid "Aggiungi un Dipartimento"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_dipartimento.php:14
+msgid "Logo del Dipartimento"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_dipartimento.php:15
+msgctxt "Post Type Singular Name"
+msgid "Modifica il Dipartimento"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_dipartimento.php:16
+msgctxt "Post Type Singular Name"
+msgid "Visualizza il Dipartimento"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_dipartimento.php:18
+#: inc/admin/tipologie/tipologia_servizio.php:19
+msgid "Rimuovi Logo"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_dipartimento.php:19
+#: inc/admin/tipologie/tipologia_servizio.php:20
+msgid "Usa come Logo"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_dipartimento.php:23
+msgid "Dipartimento"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_dipartimento.php:31
+msgid "Dipartimenti dell'organizzazione."
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_dipartimento.php:50
+msgid "Dati Dipartimento"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_dipartimento.php:58
+msgid "Email di contatto"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_dipartimento.php:59
+#: inc/admin/tipologie/tipologia_persona.php:78
+#: inc/admin/tipologie/tipologia_persona.php:79
+#: single-dipartimento.php:53
+#: single-persona.php:57
+msgid "Email"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_dipartimento.php:65
+#: inc/admin/tipologie/tipologia_dipartimento.php:66
+#: inc/admin/tipologie/tipologia_persona.php:85
+#: inc/admin/tipologie/tipologia_persona.php:86
+#: single-dipartimento.php:62
+#: single-persona.php:66
+msgid "Telefono"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_dipartimento.php:72
+msgid "Indirizzo completo (via, numero, città, CAP)"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_dipartimento.php:73
+#: single-dipartimento.php:71
+msgid "Indirizzo"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_dipartimento.php:79
+msgid "Latitudine"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_dipartimento.php:80
+msgid "Coordinate generate automaticamente dall'indirizzo"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_dipartimento.php:91
+msgid "Longitudine"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_dipartimento.php:102
+#: single-dipartimento.php:96
+msgid "Organigramma"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_dipartimento.php:111
+msgid "Persone che compongono l'organigramma del dipartimento"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_dipartimento.php:113
+msgid "Persona {#}"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_dipartimento.php:114
+msgid "Aggiungi Persona"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_dipartimento.php:115
+msgid "Rimuovi Persona"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_dipartimento.php:121
+#: inc/admin/tipologie/tipologia_persona.php:23
+msgid "Persona"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_dipartimento.php:128
+msgid "Ruolo nel dipartimento"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_dipartimento.php:129
+msgid "es: Responsabile, Dirigente, Addetto"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_dipartimento.php:158
+msgid "— Seleziona una persona —"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_persona.php:10
+msgctxt "Post Type General Name"
+msgid "Persone"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_persona.php:11
+msgctxt "Post Type Singular Name"
+msgid "Persona"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_persona.php:12
+#: inc/admin/tipologie/tipologia_persona.php:13
+msgctxt "Post Type Singular Name"
+msgid "Aggiungi una Persona"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_persona.php:14
+msgid "Foto della Persona"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_persona.php:15
+msgctxt "Post Type Singular Name"
+msgid "Modifica la Persona"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_persona.php:16
+msgctxt "Post Type Singular Name"
+msgid "Visualizza la Persona"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_persona.php:18
+msgid "Rimuovi Foto"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_persona.php:19
+msgid "Usa come Foto"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_persona.php:31
+msgid "Persone che compongono l'organizzazione."
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_persona.php:50
+msgid "Dati Persona"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_persona.php:58
+msgid "Nome"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_persona.php:59
+msgid "Nome *"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_persona.php:68
+msgid "Cognome"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_persona.php:69
+msgid "Cognome *"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_persona.php:92
+msgid "Ruolo/Ruolo professionale"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_persona.php:93
+msgid "Ruolo"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_servizio.php:11
+msgctxt "Post Type General Name"
+msgid "Servizi"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_servizio.php:12
+msgctxt "Post Type Singular Name"
+msgid "Servizio"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_servizio.php:13
+#: inc/admin/tipologie/tipologia_servizio.php:14
+msgctxt "Post Type Singular Name"
+msgid "Aggiungi un Servizio"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_servizio.php:15
+msgid "Logo Identificativo del Servizio"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_servizio.php:16
+msgctxt "Post Type Singular Name"
+msgid "Modifica il Servizio"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_servizio.php:17
+msgctxt "Post Type Singular Name"
+msgid "Visualizza il Servizio"
+msgstr ""
+
+#: inc/admin/tipologie/tipologia_servizio.php:32
+msgid "I servizi che il comune mette a disposizione del cittadino."
+msgstr ""
+
+#: inc/breadcrumbs.php:144
+#, php-format
+msgid "Page %d"
+msgstr ""
+
+#: inc/includes/class-swb-admin.php:144
+msgid "Sei sicuro di voler eliminare questo elemento?"
+msgstr ""
+
+#: inc/includes/class-swb-admin.php:145
+msgid "Eliminare questo slot?"
+msgstr ""
+
+#: inc/includes/class-swb-admin.php:146
+msgid "Errore"
+msgstr ""
+
+#: inc/includes/class-swb-admin.php:147
+msgid "Operazione completata"
 msgstr ""
 
 #. translators: %s: post date.
-#: inc/template-tags.php:30
+#: inc/template-tags.php:25
+#: inc/template-tags.php:51
+#, php-format
 msgctxt "post date"
-msgid "Posted on %s"
-msgstr ""
-
-#. translators: %s: post author.
-#: inc/template-tags.php:46
-msgctxt "post author"
-msgid "by %s"
-msgstr ""
-
-#. translators: used between list items, there is a space after the comma
-#: inc/template-tags.php:63
-msgid ", "
-msgstr ""
-
-#. translators: 1: list of categories.
-#: inc/template-tags.php:66
-msgid "Posted in %1$s"
-msgstr ""
-
-#. translators: used between list items, there is a space after the comma
-#: inc/template-tags.php:70
-msgctxt "list item separator"
-msgid ", "
-msgstr ""
-
-#. translators: 1: list of tags.
-#: inc/template-tags.php:73
-msgid "Tagged %1$s"
+msgid "%s"
 msgstr ""
 
 #. translators: %s: post title
-#: inc/template-tags.php:83
-msgid "Leave a Comment<span class=\"screen-reader-text\"> on %s</span>"
+#: inc/template-tags.php:89
+#, php-format
+msgid "Leave a Comment <span class=\"visually-hidden\"> on %s</span>"
 msgstr ""
 
 #. translators: %s: Name of current post. Only visible to screen readers
-#: inc/template-tags.php:100
-#: template-parts/content-page.php:39
+#: inc/template-tags.php:113
+#, php-format
 msgid "Edit <span class=\"screen-reader-text\">%s</span>"
 msgstr ""
 
-#: inc/woocommerce.php:186
-msgid "View your shopping cart"
+#: inc/template-tags.php:142
+msgid "Uncategorized"
 msgstr ""
 
-#. translators: number of items in the mini cart.
-#: inc/woocommerce.php:190
-msgid "%d item"
-msgid_plural "%d items"
-msgstr[0] ""
-msgstr[1] ""
+#: inc/utils.php:591
+msgid "« "
+msgstr ""
+
+#: inc/utils.php:592
+msgid " »"
+msgstr ""
+
+#. Template Name of the theme
+#: single-servizio.php:27
+msgid "Prenota appuntamento"
+msgstr ""
+
+#. Template Name of the theme
+msgid "Full Page"
+msgstr ""
+
+#. Template Name of the theme
+msgid "Home"
+msgstr ""
 
 #. translators: %s: search query.
-#: search.php:22
+#: search.php:21
+#, php-format
 msgid "Search Results for: %s"
 msgstr ""
 
-#: single.php:23
+#: single-dipartimento.php:86
+#: single-persona.php:78
+#: template-parts/content/page-full.php:30
+#: template-parts/content/page.php:25
+#: template-parts/content/single.php:91
+msgid "Pages:"
+msgstr ""
+
+#: single.php:26
 msgid "Previous:"
 msgstr ""
 
-#: single.php:24
+#: single.php:27
 msgid "Next:"
 msgstr ""
 
@@ -176,6 +1317,7 @@ msgstr ""
 
 #. translators: 1: link to WP admin new post page.
 #: template-parts/content-none.php:24
+#, php-format
 msgid "Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
 msgstr ""
 
@@ -187,12 +1329,65 @@ msgstr ""
 msgid "It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help."
 msgstr ""
 
-#: template-parts/content-page.php:25
-#: template-parts/content.php:53
-msgid "Pages:"
+#. translators: %s: Name of current post. Only visible to screen readers
+#: template-parts/content/single.php:78
+#, php-format
+msgid "Continue reading<span class=\"screen-reader-text\"> \"%s\"</span>"
 msgstr ""
 
-#. translators: %s: Name of current post. Only visible to screen readers
-#: template-parts/content.php:40
-msgid "Continue reading<span class=\"screen-reader-text\"> \"%s\"</span>"
+#: template-parts/cookie-bar.php:15
+msgid "Preferenze Cookies"
+msgstr ""
+
+#: template-parts/cookie-bar.php:16
+#: template-parts/cookie-bar.php:45
+msgid "Chiudi"
+msgstr ""
+
+#: template-parts/cookie-bar.php:22
+msgid "Abilita cookies di Analytics"
+msgstr ""
+
+#: template-parts/cookie-bar.php:28
+msgid "Abilita cookies di Marketing"
+msgstr ""
+
+#: template-parts/cookie-bar.php:34
+msgid "Abilita cookies Social"
+msgstr ""
+
+#: template-parts/cookie-bar.php:40
+msgid "Abilita cookies di YouTube"
+msgstr ""
+
+#: template-parts/cookie-bar.php:53
+msgid "Gestione dei cookies"
+msgstr ""
+
+#: template-parts/cookie-bar.php:58
+msgid "Preferenze"
+msgstr ""
+
+#: template-parts/cookie-bar.php:58
+msgid "cookies"
+msgstr ""
+
+#: template-parts/cookie-bar.php:59
+msgid "Accetto"
+msgstr ""
+
+#: template-parts/cookie-bar.php:59
+msgid "i cookies"
+msgstr ""
+
+#: template-parts/prenotazione/tabs.php:96
+msgid "Seleziona un servizio"
+msgstr ""
+
+#: template-parts/prenotazione/tabs.php:107
+msgid "Nessun servizio disponibile"
+msgstr ""
+
+#: template-parts/prenotazione/tabs.php:137
+msgid "Seleziona prima il servizio"
 msgstr ""

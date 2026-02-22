@@ -178,7 +178,7 @@ $admin_transparent_url = get_theme_mod('site_contact_administration_transparent'
                                 'Digital Italia',
                                 'wp-digital-italia'
                             ); ?></span>
-                        <svg class="icon icon-sm icon-white align-top ms-2" aria-hidden="true"><use xlink:href="<?php echo get_template_directory_uri() . '/dist/images/sprites.svg#it-github'; ?>"></use></svg>
+                        <svg class="icon icon-sm icon-white align-top ms-2" aria-hidden="true"><use xlink:href="<?php echo esc_url(get_template_directory_uri()) . '/dist/images/sprites.svg#it-github'; ?>"></use></svg>
                         <span class="visually-hidden"> (GitHub)</span>
                     </a>
                 </div>
@@ -192,7 +192,7 @@ $admin_transparent_url = get_theme_mod('site_contact_administration_transparent'
 
 <a href="#" aria-hidden="true" tabindex="-1" data-attribute="back-to-top" class="back-to-top">
     <svg class="icon icon-light">
-        <use xlink:href="<?php echo get_template_directory_uri(); ?>/dist/images/sprites.svg#it-arrow-up"></use>
+        <use xlink:href="<?php echo esc_url(get_template_directory_uri()); ?>/dist/images/sprites.svg#it-arrow-up"></use>
     </svg>
 </a>
 </div><!-- #page -->
