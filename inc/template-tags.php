@@ -135,23 +135,24 @@ endif;
 if ( ! function_exists( 'digital_italia_category_links' ) ) :
     function digital_italia_category_links( $post_id = false ) {
 
-        $categories = get_the_terms( $post_id, 'category');
+        $categories = get_the_terms( $post_id, 'category' );
 
         if ( empty( $categories ) ) {
-            /** This filter is documented in wp-includes/category-template.php */
-            return apply_filters( 'the_category', __( 'Uncategorized', 'wp-digital-italia' ));
+            return apply_filters( 'the_category', __( 'Uncategorized', 'wp-digital-italia' ) );
         }
 
         $thelist = '<ul class="post-categories list-unstyled d-flex flex-wrap gap-2 mb-0 pt-1">';
+
         foreach ( $categories as $category ) {
-            $thelist .= "\n\t<li class='list-inline-item me-0'>";
-            $thelist .= '<a class="chip chip-primary chip-simple" href="' . esc_url( get_category_link( $category->term_id ) ) . '" >' . ucfirst($category->name) . '</a></li>';
+            $thelist .= '<li class="list-inline-item me-0">';
+            $thelist .= '<a class="chip chip-primary chip-simple d-flex align-items-center justify-content-center" href="' . esc_url( get_category_link( $category->term_id ) ) . '">' . esc_html( ucfirst( $category->name ) ) . '</a>';
+            $thelist .= '</li>';
         }
+
         $thelist .= '</ul>';
 
         return apply_filters( 'the_category', $thelist );
     }
-
 endif;
 
 if ( ! function_exists( 'digital_italia_tag_links' ) ) :

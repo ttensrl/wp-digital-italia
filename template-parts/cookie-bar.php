@@ -52,7 +52,7 @@
 
 <section class="cookiebar fade" aria-label="<?php echo esc_attr__('Gestione dei cookies', 'wp-digital-italia'); ?>">
     <?php if(!empty($banner_text)): ?>
-        <p><?php echo esc_html__($banner_text, 'wp-digital-italia'); ?></p>
+        <p><?php echo esc_html($banner_text); ?></p>
     <?php endif; ?>
     <div class="cookiebar-buttons">
         <a href="#" id="cookies-settings" class="cookiebar-btn"><?php echo esc_html__('Preferenze', 'wp-digital-italia'); ?><span class="visually-hidden"><?php echo esc_html__('cookies', 'wp-digital-italia'); ?></span></a>

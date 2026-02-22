@@ -156,22 +156,6 @@ function digital_italia_widgets_init(): void
 add_action( 'widgets_init', 'digital_italia_widgets_init' );
 
 /**
- * Enqueue scripts and styles.
- */
-function digital_italia_scripts(): void
-{
-    wp_enqueue_style( 'digital-italia-style', get_stylesheet_uri(), array(), _S_VERSION );
-    wp_style_add_data( 'digital-italia-style', 'rtl', 'replace' );
-
-    wp_enqueue_script( 'digital-italia-navigation', get_template_directory_uri() . '/assets/js/navigation.js', array(), _S_VERSION, true );
-
-    if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
-        wp_enqueue_script( 'comment-reply' );
-    }
-}
-add_action( 'wp_enqueue_scripts', 'digital_italia_scripts' );
-
-/**
  * Implement the Custom Header feature.
  */
 require get_template_directory() . '/inc/custom-header.php';
@@ -224,6 +208,15 @@ add_action( 'wp_enqueue_scripts', function() {
         [],
         _S_VERSION
     );
+
+    wp_enqueue_style( 'digital-italia-style', get_stylesheet_uri(), array(), _S_VERSION );
+    wp_style_add_data( 'digital-italia-style', 'rtl', 'replace' );
+
+    wp_enqueue_script( 'digital-italia-navigation', get_template_directory_uri() . '/assets/js/navigation.js', array(), _S_VERSION, true );
+
+    if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
+        wp_enqueue_script( 'comment-reply' );
+    }
 
     wp_register_script(
         'theme-dist-script',
