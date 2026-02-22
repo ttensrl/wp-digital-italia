@@ -640,3 +640,202 @@ if (!function_exists('dci_uo_offers_service')) {
         return in_array($service_id, array_map('intval', $servizi_offerti));
     }
 }
+
+/**
+ * TEMPLATE DEBUG BAR
+ */
+$GLOBALS['di_template_debug'] = [
+    'template' => '',
+    'included_files' => [],
+];
+
+add_filter('template_include', function($template) {
+    $GLOBALS['di_template_debug']['template'] = $template;
+    return $template;
+}, 999);
+
+add_action('wp_footer', function() {
+    if (is_admin() || !current_user_can('manage_options')) {
+        return;
+    }
+
+    $template = $GLOBALS['di_template_debug']['template'] ?? '';
+    $template_name = $template ? basename($template) : 'N/A';
+    $template_rel = $template ? str_replace(ABSPATH, '', $template) : 'N/A';
+
+    $included = get_included_files();
+    $theme_path = get_template_directory();
+    $theme_files = array_filter($included, function($file) use ($theme_path) {
+        return strpos($file, $theme_path) !== false;
+    });
+
+    $template_hierarchy = [];
+    if (is_front_page()) $template_hierarchy[] = 'front-page.php';
+    if (is_home()) $template_hierarchy[] = 'home.php';
+    if (is_singular()) {
+        $template_hierarchy[] = 'single-' . get_post_type() . '.php';
+        $template_hierarchy[] = 'single.php';
+    }
+    if (is_page()) {
+        $template_hierarchy[] = 'page-' . get_post_field('post_name') . '.php';
+        $template_hierarchy[] = 'page.php';
+    }
+    if (is_archive()) {
+        $template_hierarchy[] = 'archive-' . get_post_type() . '.php';
+        $template_hierarchy[] = 'archive.php';
+    }
+    if (is_search()) $template_hierarchy[] = 'search.php';
+    if (is_404()) $template_hierarchy[] = '404.php';
+    if (is_category()) $template_hierarchy[] = 'category.php';
+    if (is_tag()) $template_hierarchy[] = 'tag.php';
+    if (is_tax()) $template_hierarchy[] = 'taxonomy.php';
+
+    $query_info = [
+        'Post Type' => get_post_type() ?: 'N/A',
+        'Post ID' => get_the_ID() ?: 'N/A',
+        'Is Front Page' => is_front_page() ? 'Yes' : 'No',
+        'Is Home' => is_home() ? 'Yes' : 'No',
+        'Is Singular' => is_singular() ? 'Yes' : 'No',
+        'Is Archive' => is_archive() ? 'Yes' : 'No',
+        'Is Search' => is_search() ? 'Yes' : 'No',
+        'Is 404' => is_404() ? 'Yes' : 'No',
+    ];
+    ?>
+    <style>
+        #di-debug-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #1e1e1e;
+            color: #fff;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-size: 12px;
+            z-index: 999999;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
+        }
+        #di-debug-bar-header {
+            background: #0073aa;
+            padding: 8px 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        #di-debug-bar-header:hover {
+            background: #005a87;
+        }
+        #di-debug-bar-content {
+            display: none;
+            padding: 15px;
+            max-height: 300px;
+            overflow-y: auto;
+            background: #23282d;
+        }
+        #di-debug-bar.open #di-debug-bar-content {
+            display: block;
+        }
+        .di-debug-section {
+            margin-bottom: 15px;
+        }
+        .di-debug-section h4 {
+            margin: 0 0 8px 0;
+            color: #00b9eb;
+            font-size: 13px;
+            text-transform: uppercase;
+        }
+        .di-debug-template {
+            background: #0073aa;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-family: monospace;
+            word-break: break-all;
+        }
+        .di-debug-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 8px;
+        }
+        .di-debug-info-item {
+            background: #32373c;
+            padding: 6px 10px;
+            border-radius: 3px;
+        }
+        .di-debug-info-item strong {
+            color: #00b9eb;
+        }
+        .di-debug-files {
+            font-family: monospace;
+            font-size: 11px;
+            max-height: 150px;
+            overflow-y: auto;
+            background: #32373c;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .di-debug-files li {
+            padding: 2px 0;
+            border-bottom: 1px solid #444;
+        }
+        .di-debug-files li:last-child {
+            border-bottom: none;
+        }
+        .di-toggle-icon {
+            transition: transform 0.2s;
+        }
+        #di-debug-bar.open .di-toggle-icon {
+            transform: rotate(180deg);
+        }
+    </style>
+    <div id="di-debug-bar">
+        <div id="di-debug-bar-header">
+            <span class="di-toggle-icon">▲</span>
+            <strong>Template:</strong> <span style="color: #00ff00;"><?php echo esc_html($template_name); ?></span>
+            <span style="margin-left: auto; opacity: 0.7;">Click to expand</span>
+        </div>
+        <div id="di-debug-bar-content">
+            <div class="di-debug-section">
+                <h4>Template File</h4>
+                <div class="di-debug-template"><?php echo esc_html($template_rel); ?></div>
+            </div>
+            <div class="di-debug-section">
+                <h4>Query Info</h4>
+                <div class="di-debug-info">
+                    <?php foreach ($query_info as $label => $value): ?>
+                        <div class="di-debug-info-item">
+                            <strong><?php echo esc_html($label); ?>:</strong> <?php echo esc_html($value); ?>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+            <div class="di-debug-section">
+                <h4>Template Hierarchy</h4>
+                <div class="di-debug-info">
+                    <?php foreach (array_unique($template_hierarchy) as $h): ?>
+                        <div class="di-debug-info-item"><?php echo esc_html($h); ?></div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+            <div class="di-debug-section">
+                <h4>Theme Files Loaded (<?php echo count($theme_files); ?>)</h4>
+                <ul class="di-debug-files">
+                    <?php 
+                    $theme_rel_files = array_map(function($f) {
+                        return str_replace(get_template_directory() . '/', '', $f);
+                    }, $theme_files);
+                    sort($theme_rel_files);
+                    foreach ($theme_rel_files as $file): 
+                    ?>
+                        <li><?php echo esc_html($file); ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.getElementById('di-debug-bar-header').addEventListener('click', function() {
+            document.getElementById('di-debug-bar').classList.toggle('open');
+        });
+    </script>
+    <?php
+}, 999);
