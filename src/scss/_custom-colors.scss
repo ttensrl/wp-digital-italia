@@ -1,0 +1,39 @@
+// =============================================================================
+// CUSTOM COLORS - Personalizza i colori del tema
+// =============================================================================
+// Modifica questi valori per personalizzare la palette colori del sito
+// Bootstrap Italia usa HSB (Hue, Saturation, Brightness)
+
+// -----------------------------------------------------------------------------
+// COLORE PRIMARIO (HSB)
+// -----------------------------------------------------------------------------
+// Cambia questi valori per modificare tutto il tema
+// H = Hue (0-360): 0=rosso, 45=giallo, 120=verde, 210=blu, 270=viola
+// S = Saturation (0-100): 0=grigio, 100=colore puro
+// B = Brightness (0-100): 0=nero, 100=massima luminosità
+
+$primary-h: 210 !default;   // Blu (default)
+$primary-s: 100 !default;
+$primary-b: 100 !default;
+
+// NOTA: Non sovrascrivere $primary qui - Bootstrap Italia lo genera automaticamente
+
+// -----------------------------------------------------------------------------
+// ALTRI COLORI SEMANTICI
+// -----------------------------------------------------------------------------
+
+$secondary-h: 210 !default;
+$secondary-s: 17 !default;
+$secondary-l: 44 !default;
+
+$success-h: 160 !default;
+$success-s: 100 !default;
+$success-l: 25 !default;
+
+$warning-h: 36 !default;
+$warning-s: 100 !default;
+$warning-l: 30 !default;
+
+$danger-h: 350 !default;
+$danger-s: 60 !default;
+$danger-l: 50 !default;
