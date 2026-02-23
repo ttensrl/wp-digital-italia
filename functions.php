@@ -484,6 +484,22 @@ add_action( 'customize_register', function( $wp_customize ) {
         'section' => 'cookies_settings_section',
         'type'    => 'checkbox',
     ) );
+
+    // Impostazioni Posts
+    $wp_customize->add_section( 'posts_settings_section', array(
+        'title'    => 'Impostazioni Posts',
+        'priority' => 33,
+    ) );
+
+    $wp_customize->add_setting( 'posts_default_image', array(
+        'sanitize_callback' => 'esc_url_raw',
+    ) );
+
+    $wp_customize->add_control( new WP_Customize_Upload_Control( $wp_customize, 'posts_default_image', array(
+        'label'    => 'Immagine predefinita dei posts',
+        'section'  => 'posts_settings_section',
+        'settings' => 'posts_default_image',
+    ) ) );
 });
 
 add_filter( 'image_size_names_choose', function ($sizes){
