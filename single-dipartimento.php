@@ -39,55 +39,55 @@ get_header();
 
                             <?php if (has_post_thumbnail()) : ?>
                             <figure class="figure px-0 img-full">
-                                <?php digital_italia_post_thumbnail('figure-img img-fluid'); ?>
+                                <?php the_post_thumbnail('full', array('class' => 'figure-img img-fluid')); ?>
                             </figure>
                             <div class="card-body pb-3">
-                                <?php else : ?>
-                                <div class="card-body border-top border-light pb-3">
-                                    <?php endif; ?>
+                            <?php else : ?>
+                            <div class="card-body border-top border-light pb-3">
+                            <?php endif; ?>
 
-                                    <div class="row mb-4">
-                                        <div class="col-md-6">
-                                            <?php if ($email) : ?>
-                                                <div class="mb-3">
-                                                    <small><?php _e('Email', 'wp-digital-italia'); ?></small>
-                                                    <p class="fw-semibold mb-0">
-                                                        <a href="mailto:<?php echo esc_attr($email); ?>"><?php echo esc_html($email); ?></a>
-                                                    </p>
-                                                </div>
-                                            <?php endif; ?>
+                                <div class="row mb-4">
+                                    <div class="col-md-6">
+                                        <?php if ($email) : ?>
+                                            <div class="mb-3">
+                                                <small><?php _e('Email', 'wp-digital-italia'); ?></small>
+                                                <p class="fw-semibold mb-0">
+                                                    <a href="mailto:<?php echo esc_attr($email); ?>"><?php echo esc_html($email); ?></a>
+                                                </p>
+                                            </div>
+                                        <?php endif; ?>
 
-                                            <?php if ($telefono) : ?>
-                                                <div class="mb-3">
-                                                    <small><?php _e('Telefono', 'wp-digital-italia'); ?></small>
-                                                    <p class="fw-semibold mb-0">
-                                                        <a href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $telefono)); ?>"><?php echo esc_html($telefono); ?></a>
-                                                    </p>
-                                                </div>
-                                            <?php endif; ?>
+                                        <?php if ($telefono) : ?>
+                                            <div class="mb-3">
+                                                <small><?php _e('Telefono', 'wp-digital-italia'); ?></small>
+                                                <p class="fw-semibold mb-0">
+                                                    <a href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $telefono)); ?>"><?php echo esc_html($telefono); ?></a>
+                                                </p>
+                                            </div>
+                                        <?php endif; ?>
 
-                                            <?php if ($indirizzo) : ?>
-                                                <div class="mb-3">
-                                                    <small><?php _e('Indirizzo', 'wp-digital-italia'); ?></small>
-                                                    <p class="fw-semibold mb-0"><?php echo nl2br(esc_html($indirizzo)); ?></p>
-                                                </div>
-                                            <?php endif; ?>
-                                        </div>
-                                        <?php if ($has_map) : ?>
-                                        <div class="col-md-6">
-                                            <div id="dipartimento-map" style="height: 250px; width: 100%; border-radius: 8px;"></div>
-                                        </div>
+                                        <?php if ($indirizzo) : ?>
+                                            <div class="mb-3">
+                                                <small><?php _e('Indirizzo', 'wp-digital-italia'); ?></small>
+                                                <p class="fw-semibold mb-0"><?php echo nl2br(esc_html($indirizzo)); ?></p>
+                                            </div>
                                         <?php endif; ?>
                                     </div>
-
-                                    <?php
-                                    the_content();
-                                    wp_link_pages(array(
-                                            'before' => '<div class="page-links">' . esc_html__('Pages:', 'wp-digital-italia'),
-                                            'after' => '</div>',
-                                    ));
-                                    ?>
+                                    <?php if ($has_map) : ?>
+                                    <div class="col-md-6">
+                                        <div id="dipartimento-map" style="height: 250px; width: 100%; border-radius: 8px;"></div>
+                                    </div>
+                                    <?php endif; ?>
                                 </div>
+
+                                <?php
+                                the_content();
+                                wp_link_pages(array(
+                                        'before' => '<div class="page-links">' . esc_html__('Pages:', 'wp-digital-italia'),
+                                        'after' => '</div>',
+                                ));
+                                ?>
+                            </div>
                         </article>
 
                         <?php if (!empty($organigramma) && is_array($organigramma)) : ?>
@@ -155,6 +155,61 @@ get_header();
                                 </div>
                             </div>
                         </section>
+                    <?php endif; ?>
+
+                    <?php
+                    $child_departments = get_posts(array(
+                        'post_type'      => 'dipartimento',
+                        'posts_per_page' => -1,
+                        'post_parent'    => $post_id,
+                        'orderby'        => 'title',
+                        'order'          => 'ASC',
+                    ));
+
+                    if (!empty($child_departments)) : ?>
+                    <section class="child-departments mt-5">
+                        <h2 class="mb-4"><?php _e('Dipartimenti', 'wp-digital-italia'); ?></h2>
+                        <div class="row">
+                            <?php foreach ($child_departments as $child) :
+                                $child_id = $child->ID;
+                                $child_email = get_post_meta($child_id, '_dci_dipartimento_email', true);
+                                $child_telefono = get_post_meta($child_id, '_dci_dipartimento_telefono', true);
+                                $placeholder = get_template_directory_uri() . '/assets/images/news-img-placeholder.webp';
+                                $image_url = has_post_thumbnail($child_id) ? get_the_post_thumbnail_url($child_id, 'large') : $placeholder;
+                                ?>
+                                <div class="col-md-4 mb-4">
+                                    <div class="card h-100">
+                                        <div class="card-img-top" style="height: 200px; overflow: hidden;">
+                                            <a href="<?php echo esc_url(get_permalink($child_id)); ?>">
+                                                <img src="<?php echo esc_url($image_url); ?>" class="img-fluid w-100 h-100" style="object-fit: cover;" alt="<?php echo esc_attr($child->post_title); ?>">
+                                            </a>
+                                        </div>
+                                        <div class="card-body">
+                                            <h3 class="card-title h5">
+                                                <a class="text-decoration-none" href="<?php echo esc_url(get_permalink($child_id)); ?>">
+                                                    <?php echo esc_html($child->post_title); ?>
+                                                </a>
+                                            </h3>
+                                            <?php if ($child_email || $child_telefono) : ?>
+                                                <p class="small text-muted">
+                                                    <?php if ($child_email) : ?>
+                                                        <a href="mailto:<?php echo esc_attr($child_email); ?>"><?php echo esc_html($child_email); ?></a>
+                                                        <?php if ($child_telefono) : ?><br><?php endif; ?>
+                                                    <?php endif; ?>
+                                                    <?php if ($child_telefono) : ?>
+                                                        <a href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $child_telefono)); ?>"><?php echo esc_html($child_telefono); ?></a>
+                                                    <?php endif; ?>
+                                                </p>
+                                            <?php endif; ?>
+                                            <?php if (has_excerpt($child_id)) : ?>
+                                                <p class="card-text"><?php echo wp_trim_words(get_the_excerpt($child_id), 20, '...'); ?></p>
+                                            <?php endif; ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    </section>
                     <?php endif; ?>
 
                     <?php
