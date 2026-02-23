@@ -5,7 +5,6 @@
 
 // 1. Import SCSS custom (instead of precompiled CSS)
 import '../scss/main.scss'
-
 // 2. Leaflet (per mappe)
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
