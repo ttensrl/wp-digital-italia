@@ -4,7 +4,8 @@
  * Definisce post type Dipartimento
  */
 add_action( 'init', 'dci_register_post_type_dipartimento' );
-function dci_register_post_type_dipartimento() {
+function dci_register_post_type_dipartimento(): void
+{
 
     $labels = array(
         'name'                  => _x( 'Dipartimenti', 'Post Type General Name', 'wp-digital-italia' ),
@@ -22,7 +23,7 @@ function dci_register_post_type_dipartimento() {
     $args = array(
         'label'            => __( 'Dipartimento', 'wp-digital-italia' ),
         'labels'           => $labels,
-        'supports'         => array( 'title', 'editor', 'thumbnail' ),
+        'supports'         => array( 'title', 'editor', 'thumbnail', 'page-attributes' ),
         'hierarchical'     => true,
         'public'           => true,
         'menu_position'    => 5,
@@ -41,7 +42,7 @@ function dci_register_post_type_dipartimento() {
  * Crea i metabox del post type Dipartimento
  */
 add_action( 'cmb2_init', 'dci_add_dipartimento_metaboxes' );
-function dci_add_dipartimento_metaboxes()
+function dci_add_dipartimento_metaboxes(): void
 {
     $prefix = '_dci_dipartimento_';
 
@@ -133,7 +134,8 @@ function dci_add_dipartimento_metaboxes()
 }
 
 add_action( 'admin_enqueue_scripts', 'dci_dipartimento_admin_scripts' );
-function dci_dipartimento_admin_scripts( $hook ) {
+function dci_dipartimento_admin_scripts( $hook ): void
+{
     global $post_type;
 
     if ( ( $hook === 'post-new.php' || $hook === 'post.php' ) && $post_type === 'dipartimento' ) {

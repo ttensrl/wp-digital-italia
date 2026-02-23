@@ -10,13 +10,13 @@ require 'plugins/CMB2-taxonomy-hierarchy-child.php';
 
 function asset_path_faiconselect(): string
 {
-    return get_template_directory_uri() . '/companion-plugin/inc/cmb2/plugins/cmb2-field-type-font-awesome';
+    return get_template_directory_uri() . '/wp-digital-italia-extension/inc/cmb2/plugins/cmb2-field-type-font-awesome';
 }
 add_filter( 'sa_cmb2_field_faiconselect_asset_path', 'asset_path_faiconselect' );
 require 'plugins/cmb2-field-type-font-awesome/iconselect.php';
 
 add_filter( 'pw_cmb2_field_select2_asset_path', function ($var){
-    return get_template_directory_uri() . '/companion-plugin/inc/cmb2/plugins/cmb-field-select2-master';
+    return get_template_directory_uri() . '/wp-digital-italia-extension/inc/cmb2/plugins/cmb-field-select2-master';
 });
 require 'plugins/cmb-field-select2-master/cmb-field-select2.php';
 

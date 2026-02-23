@@ -4,10 +4,10 @@ require_once(get_template_directory() . '/classes/bootstrap_5_wp_simple_menu_wal
 require_once(get_template_directory() . '/classes/bootstrap_5_wp_inline_menu_walker.php');
 require_once(get_template_directory() . '/inc/block-functions.php');
 require_once(get_template_directory() . '/inc/elementor-support.php');
-require_once(get_template_directory() . '/companion-plugin/inc/cmb2/cmb2.php');
 require_once(get_template_directory() . '/inc/utils.php');
 require_once(get_template_directory() . '/inc/breadcrumbs.php');
-
+// EXTENSION
+require_once(get_template_directory() . '/wp-digital-italia-extension/wp-digital-italia-extension.php');
 /**
  * digital-italia functions and definitions
  *
@@ -519,14 +519,6 @@ if (!defined('SWB_PLUGIN_URL')) {
 }
 
 /**
- * Include custom post types
- */
-require_once(get_template_directory() . '/inc/admin/tipologie/tipologia_servizio.php');
-require_once(get_template_directory() . '/inc/admin/tipologie/tipologia_appuntamento.php');
-require_once(get_template_directory() . '/inc/admin/tipologie/tipologia_persona.php');
-require_once(get_template_directory() . '/inc/admin/tipologie/tipologia_dipartimento.php');
-
-/**
  * Include booking system
  */
 require_once(get_template_directory() . '/inc/includes/class-swb-slot-manager.php');
@@ -539,7 +531,8 @@ require_once(get_template_directory() . '/inc/includes/class-swb-api.php');
 /**
  * Initialize booking system
  */
-function digital_italia_booking_init() {
+function digital_italia_booking_init(): void
+{
     $slot_manager = new SWB_Slot_Manager();
     $slot_manager->init();
 

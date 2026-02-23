@@ -235,3 +235,4 @@ $belong_administration_logo = get_theme_mod( 'belong_administration_logo' );
         </div>
     </div>
     <!-- /Nuovo Header -->
+    <?php get_template_part( 'template-parts/common/breadcrumb' ); ?>
