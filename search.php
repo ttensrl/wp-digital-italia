@@ -10,7 +10,7 @@
 get_header();
 ?>
     <?php if ( have_posts() ) : ?>
-	<main id="primary" class="container-fluid py-5">
+	<main id="primary" class="container-fluid py-2 py-md-5">
         <div class="row">
             <div class="col">
                 <section class="px-3">
