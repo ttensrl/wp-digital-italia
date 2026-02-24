@@ -15,50 +15,51 @@
 get_header();
 ?>
 
-	<main id="primary" class="container-fluid py-5">
-        <div class="row">
-            <div class="col">
-                <section class="px-3">
-                    <?php if ( have_posts() ) : ?>
+	<main id="main-content">
 
-                        <header class="page-header mb-4">
-                            <?php
-                            if ( is_home() && ! is_front_page() ) :
-                                single_post_title( '<h1 class="page-title">', '</h1>' );
-                            else :
-                                ?>
-                                <h1 class="page-title">Articoli</h1>
-                                <?php
-                            endif;
-                            ?>
-                        </header><!-- .page-header -->
+		<header class="page-header bg-white mb-4 py-4">
+			<div class="container-fluid">
+				<?php
+				if ( is_home() && ! is_front_page() ) :
+					single_post_title( '<h1 class="mb-2">', '</h1>' );
+				else :
+					?>
+					<h1 class="mb-2">Articoli</h1>
+					<?php
+				endif;
+				?>
+			</div>
+		</header>
 
-                        <?php
-                        while ( have_posts() ) :
-                            the_post();
+		<div class="container-fluid py-5">
+			<div class="row g-4">
+				<div class="col">
+					<?php if ( have_posts() ) : ?>
 
-                            get_template_part( 'template-parts/content', 'search' );
+						<?php
+						while ( have_posts() ) :
+							the_post();
 
-                        endwhile;
+							get_template_part( 'template-parts/content', 'search' );
 
-                        dci_bootstrap_pagination();
+						endwhile;
 
-                    else :
+						dci_bootstrap_pagination();
 
-                        get_template_part( 'template-parts/content', 'none' );
+					else :
 
-                    endif;
-                    ?>
-                </section>
-            </div>
-            <!-- SIDEBAR -->
-            <div class="col-lg-4 col-xxl-auto">
-                <?php get_sidebar(); ?>
-            </div>
-        </div>
-        <!-- /ROW -->
+						get_template_part( 'template-parts/content', 'none' );
 
-	</main><!-- #main -->
+					endif;
+					?>
+				</div>
+                <div class="col-lg-4 col-xxl-auto">
+                    <?php get_sidebar(); ?>
+                </div>
+			</div>
+		</div>
+
+	</main>
 
 <?php
 get_footer();
