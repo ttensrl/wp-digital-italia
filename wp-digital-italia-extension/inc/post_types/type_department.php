@@ -140,6 +140,22 @@ function dci_add_dipartimento_metaboxes(): void
         'type'       => 'select',
         'options_cb' => 'dci_get_persone_options',
     ) );
+
+    $cmb_servizi = new_cmb2_box(array(
+        'id' => $prefix . 'box_servizi',
+        'title' => __('Servizi', 'wp-digital-italia'),
+        'object_types' => array('dipartimento'),
+        'context' => 'normal',
+        'priority' => 'high',
+    ));
+
+    $cmb_servizi->add_field( array(
+        'id'         => $prefix . 'servizi',
+        'name'       => __( 'Servizi erogati', 'wp-digital-italia' ),
+        'desc'       => __( 'Seleziona i servizi collegati a questo dipartimento', 'wp-digital-italia' ),
+        'type'       => 'multicheck',
+        'options_cb' => 'dci_get_servizi_options',
+    ) );
 }
 
 add_action( 'admin_enqueue_scripts', 'dci_dipartimento_admin_scripts' );
@@ -179,4 +195,20 @@ function dci_get_responsabile( $post_id = null ) {
         $post_id = get_the_ID();
     }
     return dci_get_meta( 'responsabile', '_dci_dipartimento_', $post_id );
+}
+
+function dci_get_servizi_options() {
+    $servizi = get_posts( array(
+        'post_type'      => 'servizio',
+        'posts_per_page' => -1,
+        'orderby'        => 'title',
+        'order'          => 'ASC',
+    ) );
+
+    $options = array();
+    foreach ( $servizi as $servizio ) {
+        $options[ $servizio->ID ] = $servizio->post_title;
+    }
+
+    return $options;
 }

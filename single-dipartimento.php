@@ -27,6 +27,19 @@ while (have_posts()) :
             'order'          => 'ASC',
     ]);
 
+    $servizi_ids = get_post_meta($post_id, '_dci_dipartimento_servizi', true);
+    $servizi = array();
+    if (!empty($servizi_ids) && is_array($servizi_ids)) {
+        foreach ($servizi_ids as $servizio_id) {
+            $servizio = get_post($servizio_id);
+            if ($servizio) {
+                $servizi[] = $servizio;
+            }
+        }
+    }
+
+    $placeholder = get_template_directory_uri() . '/assets/images/news-img-placeholder.webp';
+
     /* Costruiamo l'elenco delle sezioni visibili per il nav laterale */
     $nav_sections = [];
     $nav_sections[] = ['id' => 'descrizione', 'label' => __('Descrizione', 'wp-digital-italia')];
@@ -41,6 +54,9 @@ while (have_posts()) :
     }
     if (!empty($child_departments)) {
         $nav_sections[] = ['id' => 'dipartimenti', 'label' => __('Dipartimenti', 'wp-digital-italia')];
+    }
+    if (!empty($servizi)) {
+        $nav_sections[] = ['id' => 'servizi-erogati', 'label' => __('Servizi erogati', 'wp-digital-italia')];
     }
     ?>
 
@@ -286,7 +302,6 @@ while (have_posts()) :
                             </h2>
                             <div class="row g-4">
                                 <?php
-                                $placeholder = get_template_directory_uri() . '/assets/images/news-img-placeholder.webp';
                                 foreach ($child_departments as $child) :
                                     $child_id      = $child->ID;
                                     $child_email   = get_post_meta($child_id, '_dci_dipartimento_email', true);
@@ -344,6 +359,27 @@ while (have_posts()) :
                                     </div>
                                 <?php endforeach; ?>
                             </div>
+                        </section>
+                    <?php endif; ?>
+
+                    <!-- SERVIZI EROGATI -->
+                    <?php if (!empty($servizi)) : ?>
+                        <section id="servizi-erogati" class="mb-5 pb-4 border-bottom" aria-labelledby="servizi-erogati-title">
+                            <h2 id="servizi-erogati-title" class="h4 mb-4">
+                                <?php _e('Servizi erogati', 'wp-digital-italia'); ?>
+                            </h2>
+                            <ul class="list-unstyled">
+                                <?php foreach ($servizi as $servizio) : ?>
+                                    <li class="mb-2">
+                                        <a href="<?php echo esc_url(get_permalink($servizio->ID)); ?>" class="d-flex align-items-center text-decoration-none">
+                                            <svg class="icon icon-primary me-2" aria-hidden="true">
+                                                <use href="<?php echo esc_url(get_template_directory_uri()); ?>/dist/images/sprites.svg#it-arrow-right"></use>
+                                            </svg>
+                                            <?php echo esc_html($servizio->post_title); ?>
+                                        </a>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
                         </section>
                     <?php endif; ?>
 
