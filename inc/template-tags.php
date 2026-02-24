@@ -215,7 +215,8 @@ if ( ! function_exists( 'digital_italia_post_thumbnail' ) ) :
 	 * Wraps the post thumbnail in an anchor element on index views, or a div
 	 * element when on single views.
 	 */
-	function digital_italia_post_thumbnail($class = 'post-image') {
+	function digital_italia_post_thumbnail($size = 'post-thumbnail', $class = 'post-image'): void
+    {
 		if ( post_password_required() || is_attachment() || ! has_post_thumbnail() ) {
 			return;
 		}
@@ -224,7 +225,7 @@ if ( ! function_exists( 'digital_italia_post_thumbnail' ) ) :
 			?>
 
 			<div class="post-thumbnail">
-				<?php the_post_thumbnail('',['class' => $class] ); ?>
+				<?php the_post_thumbnail($size, ['class' => $class] ); ?>
 			</div><!-- .post-thumbnail -->
 
 		<?php else : ?>
@@ -232,13 +233,14 @@ if ( ! function_exists( 'digital_italia_post_thumbnail' ) ) :
 			<a class="post-thumbnail" href="<?php the_permalink(); ?>" aria-hidden="true" tabindex="-1">
 				<?php
 					the_post_thumbnail(
-						'post-thumbnail',
+						$size,
 						array(
 							'alt' => the_title_attribute(
 								array(
 									'echo' => false,
 								)
 							),
+                            'class' => $class
 						)
 					);
 				?>
