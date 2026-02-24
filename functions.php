@@ -512,6 +512,21 @@ add_filter( 'image_size_names_choose', function ($sizes){
 // Hook to override the block render callback
 add_action( 'init', 'digital_italia_render_blocks');
 
+add_filter( 'get_the_archive_title', function( $title ){
+    if( is_category() ) {
+        $title = single_cat_title( '', false );
+    } elseif ( is_tag() ) {
+        $title = single_tag_title( '', false );
+    } elseif ( is_author() ) {
+        $title = '<span class="vcard">' . get_the_author() . '</span>';
+    } elseif ( is_post_type_archive() ) {
+        $title = post_type_archive_title( '', false );
+    } elseif ( is_tax() ) {
+        $title = single_term_title( '', false );
+    }
+    return $title;
+});
+
 /**
  * Define booking system constants BEFORE loading classes
  */
@@ -637,7 +652,8 @@ if (!function_exists('dci_filter_uo_with_services')) {
 }
 
 if (!function_exists('dci_uo_offers_service')) {
-    function dci_uo_offers_service($uo_id, $service_id) {
+    function dci_uo_offers_service($uo_id, $service_id): bool
+    {
         $servizi_offerti_raw = get_post_meta($uo_id, '_dci_unita_organizzativa_elenco_servizi_offerti', true);
         $servizi_offerti = is_string($servizi_offerti_raw)
             ? maybe_unserialize($servizi_offerti_raw)
