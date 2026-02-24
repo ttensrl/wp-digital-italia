@@ -36,6 +36,7 @@ import {
 
 // 4. Custom modules
 import './cookies-settings'
+import  './utility'
 
 // 5. Export to window for global access
 window.bootstrapItalia = {

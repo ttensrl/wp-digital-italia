@@ -33,6 +33,7 @@ function dci_register_post_type_dipartimento(): void
         'show_in_rest'       => true,
         'rest_base'          => 'dipartimenti',
         'rest_controller_class' => 'WP_REST_Posts_Controller',
+        'show_in_nav_menus'   => true,
     );
 
     register_post_type( 'dipartimento', $args );
@@ -131,6 +132,14 @@ function dci_add_dipartimento_metaboxes(): void
         'id'         => 'ruolo',
         'type'       => 'text',
     ) );
+
+    $cmb_organigramma->add_field( array(
+        'name'       => __( 'Responsabile', 'wp-digital-italia' ),
+        'desc'       => __( 'Persona responsabile del dipartimento', 'wp-digital-italia' ),
+        'id'         => $prefix . 'responsabile',
+        'type'       => 'select',
+        'options_cb' => 'dci_get_persone_options',
+    ) );
 }
 
 add_action( 'admin_enqueue_scripts', 'dci_dipartimento_admin_scripts' );
@@ -163,4 +172,11 @@ function dci_get_persone_options() {
     }
 
     return $options;
+}
+
+function dci_get_responsabile( $post_id = null ) {
+    if ( ! $post_id ) {
+        $post_id = get_the_ID();
+    }
+    return dci_get_meta( 'responsabile', '_dci_dipartimento_', $post_id );
 }

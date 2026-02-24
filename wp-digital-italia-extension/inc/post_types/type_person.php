@@ -32,6 +32,7 @@ function dci_register_post_type_persona() {
         'show_in_rest'       => true,
         'rest_base'          => 'persone',
         'rest_controller_class' => 'WP_REST_Posts_Controller',
+        'show_in_nav_menus'   => true,
     );
 
     register_post_type( 'persona', $args );
@@ -93,4 +94,63 @@ function dci_add_persona_metaboxes()
         'name'  => __( 'Ruolo', 'wp-digital-italia' ),
         'type' => 'text',
     ) );
+
+    $cmb_incarichi = new_cmb2_box(array(
+        'id' => $prefix . 'box_incarichi',
+        'title' => __('Incarichi', 'wp-digital-italia'),
+        'object_types' => array('persona'),
+        'context' => 'normal',
+        'priority' => 'high',
+    ));
+
+    $group_incarichi_id = $cmb_incarichi->add_field( array(
+        'id'          => $prefix . 'incarichi',
+        'type'        => 'group',
+        'description' => __( 'Storico degli incarichi ricoperti dalla persona', 'wp-digital-italia' ),
+        'options'     => array(
+            'group_title'       => __( 'Incarico {#}', 'wp-digital-italia' ),
+            'add_button'        => __( 'Aggiungi Incarico', 'wp-digital-italia' ),
+            'remove_button'     => __( 'Rimuovi Incarico', 'wp-digital-italia' ),
+            'sortable'          => true,
+        ),
+    ) );
+
+    $cmb_incarichi->add_group_field( $group_incarichi_id, array(
+        'name'       => __( 'Incarico', 'wp-digital-italia' ),
+        'id'         => 'incarico',
+        'type'       => 'text',
+    ) );
+
+    $cmb_incarichi->add_group_field( $group_incarichi_id, array(
+        'name'       => __( 'Data inizio', 'wp-digital-italia' ),
+        'id'         => 'data_inizio',
+        'type'       => 'text_date',
+    ) );
+
+    $cmb_incarichi->add_group_field( $group_incarichi_id, array(
+        'name'       => __( 'Data fine', 'wp-digital-italia' ),
+        'desc'       => __( 'Lascia vuoto per incarico corrente', 'wp-digital-italia' ),
+        'id'         => 'data_fine',
+        'type'       => 'text_date',
+    ) );
+}
+
+function dci_get_incarico_corrente( $post_id = null ) {
+    if ( ! $post_id ) {
+        $post_id = get_the_ID();
+    }
+
+    $incarichi = dci_get_meta( 'incarichi', '_dci_persona_', $post_id );
+
+    if ( ! $incarichi || ! is_array( $incarichi ) ) {
+        return null;
+    }
+
+    foreach ( $incarichi as $incarico ) {
+        if ( empty( $incarico['data_fine'] ) ) {
+            return $incarico;
+        }
+    }
+
+    return null;
 }

@@ -253,7 +253,7 @@ add_action( 'wp_enqueue_scripts', function() {
     /**
      * DISPATCHER
      */
-    wp_enqueue_script( 'cookies-dispatcher', get_template_directory_uri() . '/assets/js/cookies-dispatcher.js', ['cookies-settings'], _S_VERSION, true);
+    wp_enqueue_script( 'cookies-dispatcher', get_template_directory_uri() . '/assets/js/cookies-dispatcher.js', [], _S_VERSION, true);
 
     // Enqueue script per il pulsante prenota servizio
     wp_register_script( 'servizio-booking', get_template_directory_uri() . '/assets/js/booking.js', ['jquery', 'theme-dist-script'], _S_VERSION, true );
