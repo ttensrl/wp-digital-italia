@@ -58,6 +58,7 @@ function digital_italia_setup(): void
     add_theme_support( 'post-thumbnails' );
 
     add_image_size('loop-thumb', 640, 420, true);
+    add_image_size('img-cover', 1280, 548, true);
 
     // This theme uses wp_nav_menu() in one location.
     register_nav_menus(

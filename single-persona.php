@@ -54,9 +54,9 @@ get_header();
                     </header>
 
                     <?php if (has_post_thumbnail()) : ?>
-                        <figure class="figure px-0 img-full">
-                            <?php digital_italia_post_thumbnail('figure-img img-fluid'); ?>
-                        </figure>
+                    <figure class="mb-4 ratio ratio-21x9 overflow-hidden">
+                        <?php the_post_thumbnail('img-cover', ['class' => 'img-fluid w-100 h-100 img-cover img-cover']); ?>
+                    </figure>
                         <div class="card-body pb-3">
                     <?php else : ?>
                         <div class="card-body border-top border-light pb-3">

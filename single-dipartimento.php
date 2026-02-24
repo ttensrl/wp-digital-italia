@@ -106,7 +106,7 @@ while (have_posts()) :
                     <!-- Immagine in evidenza -->
                     <?php if (has_post_thumbnail()) : ?>
                         <figure class="mb-4 ratio ratio-21x9 overflow-hidden">
-                            <?php the_post_thumbnail('large', ['class' => 'img-fluid w-100 h-100 img-cover img-cover']); ?>
+                            <?php the_post_thumbnail('img-cover', ['class' => 'img-fluid w-100 h-100 img-cover img-cover']); ?>
                         </figure>
                     <?php endif; ?>
 
