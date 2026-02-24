@@ -21,11 +21,15 @@ Underscores is distributed under the terms of the GNU GPL v2 or later.
 Normalizing styles have been helped along thanks to the fine work of
 Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
 */
+html { scroll-behavior: smooth; }
 
 body {
     font-weight: 400!important;
     background-color: #f7f9fa!important;
 }
+
+
+
 .mb-n5 {
     margin-bottom: -48px;
 }
@@ -474,6 +478,9 @@ aside.widget-area {
     padding-left: 0;
 }
 /* liste link */
+#page-index .nav-link:hover,
+#page-index .nav-link.active { color: var(--bs-primary); font-weight: 600; }
+
 .sidebar-wrapper .sidebar-linklist-wrapper .link-list-wrapper ul,
 ol.wp-block-latest-comments {
     margin-bottom: 1rem;
@@ -568,6 +575,9 @@ footer {
 a {
     text-decoration: none;
 }
+
+[id] { scroll-margin-top: 90px; }
+
 main a, main img{
     max-width: 100%;
 }

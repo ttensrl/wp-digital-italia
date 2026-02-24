@@ -20,6 +20,7 @@ get_header();
                     $email = get_post_meta($post_id, '_dci_persona_email', true);
                     $telefono = get_post_meta($post_id, '_dci_persona_telefono', true);
                     $ruolo = get_post_meta($post_id, '_dci_persona_ruolo', true);
+                    $incarico_corrente = dci_get_incarico_corrente($post_id);
                 ?>
 
                 <article id="post-<?php the_ID(); ?>" <?php post_class('card card-big bg-white shadow-sm'); ?>>
@@ -36,6 +37,17 @@ get_header();
 
                                 if ($ruolo) : ?>
                                     <p class="text-muted fs-5 mt-2"><?php echo esc_html($ruolo); ?></p>
+                                <?php endif; ?>
+
+                                <?php if ($incarico_corrente && !empty($incarico_corrente['incarico'])) : ?>
+                                    <p class="text-primary fs-5 mt-2 fw-bold">
+                                        <?php 
+                                        echo esc_html($incarico_corrente['incarico']);
+                                        if (!empty($incarico_corrente['data_inizio'])) {
+                                            echo ' <span class="text-muted fw-normal">(' . __('dal', 'wp-digital-italia') . ' ' . esc_html($incarico_corrente['data_inizio']) . ')</span>';
+                                        }
+                                        ?>
+                                    </p>
                                 <?php endif; ?>
                             </div>
                         </div>

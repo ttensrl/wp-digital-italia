@@ -36,11 +36,12 @@ class WPDI_Breadcrumbs {
      * @param array $args
      * @return string
      */
-    public function generate( $args = array() ) {
+    public function generate(array $args = array() ): string
+    {
         $args = wp_parse_args( $args, $this->defaults );
 
         // Early return for front page when not showing
-        if ( ( is_front_page() || is_home() ) && ! $args['show_on_front'] ) {
+        if ( is_front_page() && ! $args['show_on_front'] ) {
             return '';
         }
 
@@ -53,7 +54,13 @@ class WPDI_Breadcrumbs {
 
         $position = 2;
 
-        if ( is_singular() ) {
+        if ( is_home() ) {
+            // Blog page
+            $page_for_posts = get_option( 'page_for_posts' );
+            $blog_title = $page_for_posts ? get_the_title( $page_for_posts ) : __( 'Blog', 'wp-digital-italia' );
+            $blog_url = get_permalink( $page_for_posts );
+            $items[] = $this->make_item( $blog_title, $blog_url, $position++, $args, true );
+        } elseif ( is_singular() ) {
             global $post;
             if ( is_singular( 'post' ) ) {
                 $cats = get_the_category( $post->ID );
