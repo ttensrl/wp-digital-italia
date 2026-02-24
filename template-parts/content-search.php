@@ -11,17 +11,15 @@
 
 <div class="card-wrapper flex-grow-1">
     <article id="post-<?php the_ID(); ?>" <?php post_class('card card-bg border-bottom-card mt-4 mx-0'); ?>>
-        <!--
         <?php if ( has_post_thumbnail() ) : ?>
         <div class="img-responsive-wrapper">
             <div class="img-responsive ratio ratio-21x9 pb-0 h-auto">
                 <figure class="img-wrapper">
-                    <?php digital_italia_post_thumbnail(); ?>
+                    <?php digital_italia_post_thumbnail('large', ['class' => 'w-100 h-100', 'style' => 'object-fit: cover;']); ?>
                 </figure>
             </div>
         </div>
         <?php endif; ?>
-        -->
         <div class="card-body pb-3 d-flex flex-column flex-hd-row">
 
             <header>

@@ -143,3 +143,9 @@
 // CUSTOM STYLES
 // =============================================================================
 // Aggiungi qui i tuoi stili personalizzati
+
+.btn-primary, .btn.btn-primary:disabled {
+  --bs-btn-color: #fff !important;
+  --bs-btn-hover-color: #fff !important;
+  --bs-btn-active-color: #fff !important;
+}
