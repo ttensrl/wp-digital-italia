@@ -6,7 +6,7 @@
 get_header();
 ?>
 
-<main id="primary" class="container-fluid py-5">
+<main id="primary" class="container-fluid py-2 py-md-5">
     <div class="row">
         <div class="col-lg">
             <div class="px-3">

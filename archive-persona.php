@@ -8,7 +8,7 @@
 get_header();
 ?>
 
-    <main id="primary" class="container-fluid py-5">
+    <main id="primary" class="container-fluid py-2 py-md-5">
         <header class="page-header bg-white mb-4 py-4">
             <div class="container-fluid">
                 <?php

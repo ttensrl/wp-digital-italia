@@ -49,6 +49,13 @@ body {
     width: auto;
 }
 
+@media (max-width: 575.8px) {
+    .custom-logo-link img.custom-logo {
+        max-width: 90%;
+        height: auto;
+    }
+}
+
 /* RICERCA MODALE */
 .search-modal .modal-title {
     font-size: 1.125rem;
@@ -585,4 +592,11 @@ main a, main img{
 .img-cover {
     object-fit: cover;
     object-position: center top;
+}
+
+@media (max-width: 575.8px) {
+    .card.card-big .card-body
+    {
+        padding: 18px;
+    }
 }
