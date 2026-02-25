@@ -95,6 +95,15 @@ class WPDI_Breadcrumbs {
                         if ( $archive_link ) {
                             $items[] = $this->make_item( $post_type->labels->name, $archive_link, $position++, $args );
                         }
+
+                        if ( 'bando' === $post->post_type ) {
+                            $data_publish = get_post_meta( $post->ID, '_dci_bando_data_publish', true );
+                            $year = ! empty( $data_publish )
+                                ? date( 'Y', strtotime( $data_publish ) )
+                                : get_the_date( 'Y', $post );
+                            $year_url = home_url( '/bandi/' . $year . '/' );
+                            $items[] = $this->make_item( $year, $year_url, $position++, $args );
+                        }
                     }
                     $items[] = $this->make_item( get_the_title( $post ), get_permalink( $post ), $position++, $args, true );
                 }
