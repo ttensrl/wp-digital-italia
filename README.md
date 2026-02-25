@@ -1,5 +1,9 @@
 # Digital Italia WordPress Theme
 
+## Demo
+
+Visualizza il tema in azione: [https://wp-digital-italia.programmato.it/](https://wp-digital-italia.programmato.it/)
+
 ## Descrizione
 
 Il tema WordPress "Digital Italia" è basato sul framework Bootstrap Italia e progettato per creare siti web conformi agli standard del design italiano per la web. Ideale per siti governativi, istituzionali e della Pubblica Amministrazione, con particolare attenzione alla conformità alle linee guida AgID.
@@ -12,6 +16,7 @@ Il tema WordPress "Digital Italia" è basato sul framework Bootstrap Italia e pr
 - **Font Titillium Web e Roboto Mono**: Font ufficiali inclusi per la tipografia
 - **Layout responsivo**: Adattamento automatico per desktop, tablet e mobile
 - **Supporto RTL**: Compatibilità con lingue da destra a sinistra
+- **Vite**: Build system moderno per JavaScript e CSS
 
 ### Sistema di Prenotazione Appuntamenti
 
@@ -28,6 +33,14 @@ Sistema completo per la gestione delle prenotazioni online:
 
 - **Servizio**: Post type per la gestione dei servizi offerti dall'ente
 - **Appuntamento**: Post type per le prenotazioni, con metabox per dati richiedente, date e servizio associato
+- **Persona**: Post type per le persone che compongono l'organizzazione, con supporto per foto e metabox per dati anagrafici
+- **Dipartimento**: Post type gerarchico per i dipartimenti dell'organizzazione, con logo e metabox informativi
+- **Bando**: Post type per bandi di gara e concorsi, con URL personalizzato `/bandi/{anno}/{slug}/`
+
+### Tassonomie
+
+- **Tipologia Persona**: Tassonomia per categorizzare le persone (es. Dirigente, Funzionario, etc.)
+- **Argomento Bando**: Tassonomia per categorizzare i bandi
 
 ### Menu e Navigazione
 
@@ -78,6 +91,18 @@ Override del blocco "Ultimi Post" con styling Bootstrap Italia (card, grid/list 
 - **page-booking.php**: Template per la prenotazione appuntamenti
 - **page-home.php**: Template homepage
 - **page-full.php**: Template a larghezza piena
+
+### Template Single
+
+- **single-servizio.php**: Template per singolo servizio
+- **single-persona.php**: Template per singola persona
+- **single-dipartimento.php**: Template per singolo dipartimento
+- **single-bando.php**: Template per singolo bando
+
+### Template Archive
+
+- **archive-persona.php**: Archivio persone
+- **archive-bando.php**: Archivio bandi
 
 ## Requisiti
 
@@ -199,6 +224,7 @@ wp-digital-italia/
 ├── assets/                    # CSS, immagini
 ├── page-templates/            # Template di pagina
 ├── template-parts/            # Parti di template
+├── wp-digital-italia-extension/ # Estensioni CPT
 └── *.php                      # File template principali
 ```
 
